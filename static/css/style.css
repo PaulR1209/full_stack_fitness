@@ -2,16 +2,16 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
-  margin: 0;
-  padding: 0;
 }
+
+/* Navbar */
 
 .navbar {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
-  font-size: 2rem;
+  font-size: clamp(1.25rem, 2vw + 0.5rem, 2rem);
   font-weight: 600;
 }
 
@@ -29,4 +29,44 @@ body {
 .nav-link.active {
   text-decoration: underline;
   text-underline-offset: 0.5rem;
+}
+
+/* Footer */
+
+footer {
+  background-color: #F8F9FA;
+  padding: 1rem 0;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footer-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: black;
+}
+
+.footer-icon i {
+  color: #F8F9FA;
+  transition: transform 0.3s ease;
+}
+
+.footer-icon i:hover {
+  color: #F8F9FA;
+  transform: scale(1.1);
+}
+
+.footer-copyright {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 2rem;
 }
