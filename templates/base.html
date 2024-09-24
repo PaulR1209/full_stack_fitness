@@ -25,7 +25,13 @@
 </head>
 
 <body>
-    <h1 class="display-4 success">Hello</h1>
+    <header class="container-fluid fixed-top"></header>
+
+    {% if messages %}
+    <div class="message-container"></div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
 </body>
 
 </html>
