@@ -3,6 +3,7 @@
 body {
   font-family: 'Montserrat', sans-serif;
   background: url('/static/images/background.png') no-repeat center center/cover;
+  color: #6C757D;
 }
 
 /* Navbar */
@@ -14,12 +15,16 @@ body {
 .navbar-brand {
   font-size: clamp(1.25rem, 2vw + 0.5rem, 2rem);
   font-weight: 600;
+  color: #6C757D;
+}
+
+.navbar-brand:hover {
+  color: #6C757D;
 }
 
 .nav-link {
   font-size: 1.2rem;
   transition: transform 0.3s ease;
-  color: black;
 }
 
 .nav-link:hover {
@@ -53,7 +58,7 @@ footer {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: black;
+  background-color: #6C757D;
 }
 
 .footer-icon i {
