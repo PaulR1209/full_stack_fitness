@@ -122,6 +122,20 @@ footer {
   color: white;
   text-align: center;
   z-index: 1;
+  opacity: 0;
+  transform: scale(0.8);
+  animation: zoomIn 1.5s ease forwards;
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .hero-content h1 {
@@ -145,4 +159,49 @@ footer {
 
 .cta-button:hover {
   background-color: #ff3c2f;
+}
+
+.home-page-sections {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.about-teaser {
+  background-color: #f8f8f8;
+  min-height: 50vh;
+  padding: 50px 20px;
+}
+
+.membership-overview {
+  min-height: 60vh;
+  padding: 60px 20px;
+  background-color: #ffffff;
+}
+
+.reviews-teaser {
+  padding: 50px 20px;
+  min-height: 40vh;
+  background-color: #f2f2f2;
+}
+
+.cta-banner {
+  min-height: 30vh;
+  padding: 40px 20px;
+  background-color: #ff6f61;
+  color: white;
+}
+
+.cta-banner a {
+  background-color: white;
+  color: #ff6f61;
+  border: 2px solid white;
+}
+
+.cta-banner a:hover {
+  background-color: #f2f2f2;
+  color: #ff6f61;
+  border: 2px solid #f2f2f2;
 }
