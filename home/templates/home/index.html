@@ -15,9 +15,10 @@
     <div class="row">
         <div class="col-md-8 mx-auto">
             <h2>About Full Stack Fitness</h2>
-            <p>At Full Stack Fitness, we believe in providing personalized fitness solutions that cater to all skill
-                levels. From expert trainers to top-notch equipment, we're here to support your journey to a healthier
-                you.</p>
+            <p>Welcome to Full Stack Fitness, where we code a lifestyle, not just workouts! Whether you’re debugging
+                your fitness routine or compiling new goals, our tailored memberships cater to every level. Join us to
+                execute your best self and optimize your health journey! Curious to learn more? Click below for more
+                details!</p>
             <a href="{% url 'about' %}" class="cta-button">Learn More</a>
         </div>
     </div>
@@ -64,24 +65,44 @@
     </div>
 </div>
 
-
-
-<section class="home-page-sections reviews-teaser">
-    <h2>What Our Members Say</h2>
-    <div class="reviews">
-        <blockquote>
-            <p>"Full Stack Fitness has transformed my fitness journey. The trainers are fantastic, and the community is
-                so supportive!"</p>
-            <footer>- Sarah J.</footer>
-        </blockquote>
-        <blockquote>
-            <p>"I love the flexibility of their membership plans. The Gold tier offers incredible value with
-                personalized workouts."</p>
-            <footer>- Michael P.</footer>
-        </blockquote>
+<div class="container-fluid reviews-section">
+    <div class="row">
+        <div class="col text-center">
+            <h2>What Our Members Are Saying</h2>
+        </div>
     </div>
-    <a href="" class="cta-button">Read More Reviews</a>
-</section>
+    <div class="row justify-content-center">
+        <!-- Review 1 -->
+        <div class="col-12 col-md-4 review-card text-center">
+            <div class="stars">
+                ★★★★☆ <!-- Display 4 out of 5 stars -->
+            </div>
+            <p>"Full Stack Fitness has transformed my routine! The community is amazing!"</p>
+            <p>- Jane Doe</p>
+        </div>
+        <!-- Review 2 -->
+        <div class="col-12 col-md-4 review-card text-center">
+            <div class="stars">
+                ★★★★★ <!-- Display 5 out of 5 stars -->
+            </div>
+            <p>"I love the tailored programs! Every session feels like an upgrade!"</p>
+            <p>- John Smith</p>
+        </div>
+        <!-- Review 3 -->
+        <div class="col-12 col-md-4 review-card text-center">
+            <div class="stars">
+                ★★★☆☆ <!-- Display 3 out of 5 stars -->
+            </div>
+            <p>"Great facilities, but I wish there were more classes!"</p>
+            <p>- Alex Johnson</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <a href="/reviews" class="cta-button">Read All Reviews</a>
+        </div>
+    </div>
+</div>
 
 
 <section class="home-page-sections cta-banner">

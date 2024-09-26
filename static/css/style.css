@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-body, html {
+body,
+html {
   font-family: 'Montserrat', sans-serif;
   color: #6C757D;
   overflow-x: hidden;
@@ -132,6 +133,7 @@ footer {
     opacity: 0;
     transform: scale(0.8);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -244,12 +246,28 @@ footer {
   background-color: #e65b52;
 }
 
+/* Reviews Section */
 
-.reviews-teaser {
-  padding: 50px 20px;
-  min-height: 40vh;
-  background-color: #f2f2f2;
+.reviews-section {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
 }
+
+.review-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stars {
+  color: #f39c12;
+  font-size: 24px;
+}
+
+/* Call to Action section */
 
 .cta-banner {
   min-height: 30vh;
