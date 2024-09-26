@@ -94,10 +94,11 @@ footer {
   margin: 1rem 0;
 }
 
+/* Home Page */
+
 /* Hero image */
 
 .hero-image {
-  background-image: url('/static/images/hero-image.png');
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -106,6 +107,14 @@ footer {
   align-items: center;
   position: relative;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-home {
+  background-image: url('/static/images/hero-image.png');
+}
+
+.hero-about {
+  background-image: url('/static/images/hero-about.png');
 }
 
 .hero-image::before {
@@ -118,6 +127,8 @@ footer {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 0;
 }
+
+/* Hero Content */
 
 .hero-content {
   color: white;
@@ -148,6 +159,8 @@ footer {
   font-size: 1.5em;
   margin: 20px 0;
 }
+
+/* Button */
 
 .cta-button {
   background-color: #ff6f61;
@@ -181,7 +194,7 @@ footer {
   padding: 50px 20px;
 }
 
-/* Membership cards */
+/* Membership Section */
 
 .membership-section {
   text-align: center;
@@ -229,23 +242,6 @@ footer {
   border: 3px solid #ffd700;
 }
 
-.join-now {
-  margin-top: 40px;
-}
-
-.cta-button {
-  background-color: #ff6f61;
-  color: white;
-  padding: 15px 30px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.cta-button:hover {
-  background-color: #e65b52;
-}
-
 /* Reviews Section */
 
 .reviews-section {
@@ -286,4 +282,50 @@ footer {
   background-color: #f2f2f2;
   color: #ff6f61;
   border: 2px solid #f2f2f2;
+}
+
+/* About Us Page */
+
+/* Facilities Section */
+.facilities-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.facility {
+  flex: 1 1 30%;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.facility img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+.facility h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.facility p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Location & Hours */
+#location .location-info {
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+#location .location-info p {
+  margin: 10px 0;
 }
