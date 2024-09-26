@@ -11,33 +11,60 @@
     </div>
 </div>
 
-<section class="home-page-sections about-teaser">
-    <h2>About Full Stack Fitness</h2>
-    <p>At Full Stack Fitness, we believe in providing personalized fitness solutions that cater to all skill levels.
-        From expert trainers to top-notch equipment, we're here to support your journey to a healthier you.</p>
-    <a href="{% url 'about' %}" class="cta-button">Learn More</a>
-</section>
-
-<section class="home-page-sections membership-overview">
-    <h2>Choose Your Membership</h2>
-    <div class="membership-tiers">
-        <div class="tier">
-            <h3>Bronze</h3>
-            <p>Basic access to gym facilities and online workouts.</p>
-            <a href="" class="cta-button">Join Now</a>
-        </div>
-        <div class="tier">
-            <h3>Silver</h3>
-            <p>Everything in Bronze plus group fitness classes.</p>
-            <a href="" class="cta-button">Join Now</a>
-        </div>
-        <div class="tier">
-            <h3>Gold</h3>
-            <p>All access, including personal training sessions and premium content.</p>
-            <a href="" class="cta-button">Join Now</a>
+<div class="container-fluid home-page-sections about-teaser">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h2>About Full Stack Fitness</h2>
+            <p>At Full Stack Fitness, we believe in providing personalized fitness solutions that cater to all skill
+                levels. From expert trainers to top-notch equipment, we're here to support your journey to a healthier
+                you.</p>
+            <a href="{% url 'about' %}" class="cta-button">Learn More</a>
         </div>
     </div>
-</section>
+</div>
+
+<div class="container-fluid membership-section">
+    <div class="row">
+        <div class="col text-center">
+            <h2>Our Memberships</h2>
+        </div>
+    </div>
+
+    <div class="row justify-content-center membership-cards-container">
+        <!-- Bronze Membership Card -->
+        <div class="col-12 col-md-3 membership-card bronze text-center">
+            <img src="/static/images/bronze.png" alt="Bronze Membership Icon">
+            <h3>Bronze Membership</h3>
+            <p>Basic access to the gym and standard facilities.</p>
+            <p>£25/month</p>
+        </div>
+
+        <!-- Silver Membership Card -->
+        <div class="col-12 col-md-3 membership-card silver text-center">
+            <img src="/static/images/silver.png" alt="Silver Membership Icon">
+            <h3>Silver Membership</h3>
+            <p>Access to all facilities plus group classes.</p>
+            <p>£35/month</p>
+        </div>
+
+        <!-- Gold Membership Card -->
+        <div class="col-12 col-md-3 membership-card gold text-center">
+            <img src="/static/images/gold.png" alt="Gold Membership Icon">
+            <h3>Gold Membership</h3>
+            <p>Full access including personal training sessions.</p>
+            <p>£50/month</p>
+        </div>
+    </div>
+
+    <!-- Join Now Button -->
+    <div class="row">
+        <div class="col text-center">
+            <a href="/membership" class="cta-button">Join Now</a>
+        </div>
+    </div>
+</div>
+
+
 
 <section class="home-page-sections reviews-teaser">
     <h2>What Our Members Say</h2>
