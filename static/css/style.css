@@ -114,7 +114,7 @@ footer {
 }
 
 .hero-about {
-  background-image: url('/static/images/hero-about.png');
+  background-image: url('/static/images/about-hero.png');
 }
 
 .hero-image::before {
@@ -287,38 +287,38 @@ footer {
 /* About Us Page */
 
 /* Facilities Section */
-.facilities-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
 
-.facility {
-  flex: 1 1 30%;
+.facilities-section {
+  padding: 50px 0;
   background-color: #f8f8f8;
-  padding: 20px;
-  border-radius: 8px;
   text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.facility img {
-  width: 100px;
-  height: 100px;
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+}
+
+.facility-card {
+  margin-bottom: 30px;
+}
+
+.facility-card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title {
+  font-size: 1.8rem;
   margin-bottom: 15px;
 }
 
-.facility h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #333;
+.card-text {
+  font-size: 1.1rem;
+  color: #6c757d;
 }
 
-.facility p {
-  font-size: 1rem;
-  color: #666;
-}
+
 
 /* Location & Hours */
 #location .location-info {
