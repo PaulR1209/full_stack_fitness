@@ -318,14 +318,31 @@ footer {
   color: #6c757d;
 }
 
-
-
 /* Location & Hours */
-#location .location-info {
+
+.location-hours-section {
+  padding: 40px 20px;
   text-align: center;
-  font-size: 1.1rem;
+  background-color: white;
 }
 
-#location .location-info p {
+.location-hours-section h2 {
+  margin-bottom: 20px;
+}
+
+.location-details {
+  font-size: 1.1em;
+}
+
+.location-details p {
   margin: 10px 0;
+}
+
+.location-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.location-details li {
+  margin: 5px 0;
 }
