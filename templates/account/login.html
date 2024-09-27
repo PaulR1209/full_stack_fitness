@@ -6,32 +6,33 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-<div class="row">
-<div class="col-11 col-md-6 col-lg-4 container sign-in-container">
+<div class="container-fluid sign-in-container">
   <div class="row">
-    <div class="col-md-8 mt-3 offset-md-2">
-      <h3 class="menu-title">{% trans "Sign In" %}</h3>
+    <div class="auth-container col-12">
+      <div class="row">
+        <div class="col-md-8 mt-3 offset-md-2">
+          <h3 class="menu-title">{% trans "Sign In" %}</h3>
 
-      <p class="text-center">{% blocktrans %}Please<a
-          class="link" href="{{ signup_url }}"> sign up</a>
-        here if you haven't already.{% endblocktrans %}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-8 mt-3 offset-md-2">
-      <!-- Login form -->
-      <form class="login" method="POST" action="{% url 'account_login' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <div class="d-flex justify-content-center mb-3">
-          <button class="btn btn-secondary" type="submit">{% trans "Sign In" %}</button>
+          <p class="text-center">{% blocktrans %}Please<a class="link" href="{{ signup_url }}"> sign up</a>
+            here if you haven't already.{% endblocktrans %}</p>
         </div>
-      </form>
+      </div>
+      <div class="row">
+        <div class="col-md-8 mt-3 offset-md-2">
+          <!-- Login form -->
+          <form class="login" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <div class="d-flex justify-content-center mb-3">
+              <button class="btn btn-danger" type="submit">{% trans "Sign In" %}</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </div>
 {% endblock %}

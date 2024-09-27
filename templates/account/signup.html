@@ -5,32 +5,34 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<div class="row">
-  <div class="col-11 col-md-8 col-lg-6 container">
-    <div class="row">
-      <div>
-        <h3 class="menu-title">{% trans "Sign Up" %}</h3>
+<div class="container-fluid sign-in-container">
+  <div class="row">
+    <div class="auth-container col-12 col-md-8 mx-auto">
+      <div class="row">
+        <div>
+          <h3 class="menu-title">{% trans "Sign Up" %}</h3>
 
-        <p class="text-center">{% blocktrans %}
-          Do you already have an account? Then please
-          <a class="link" href="{{ login_url }}">sign in</a>
-          instead.
-          {% endblocktrans %}
-        </p>
-      </div>
-    </div>
-    <div class="row">
-      <!-- Signup form -->
-      <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <div class="d-flex justify-content-center mb-3">
-          <button class="btn btn-secondary" type="submit">{% trans "Sign Up" %}</button>
+          <p class="text-center">{% blocktrans %}
+            Do you already have an account? Then please
+            <a class="link" href="{{ login_url }}">sign in</a>
+            instead.
+            {% endblocktrans %}
+          </p>
         </div>
-      </form>
+      </div>
+      <div class="row">
+        <!-- Signup form -->
+        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <div class="d-flex justify-content-center mb-3">
+            <button class="btn btn-danger" type="submit">{% trans "Sign Up" %}</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
