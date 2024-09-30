@@ -9,7 +9,6 @@
             <form method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <p>{% form.User %}</p>
                 <button class="btn btn-primary" type="submit">Save</button>
                 <a class="btn btn-danger" href="{% url 'reviews' %}">Cancel</a>
             </form>
