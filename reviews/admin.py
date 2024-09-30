@@ -4,7 +4,7 @@ from .models import Review
 
 class ReviewAdmin(SummernoteModelAdmin):
     summernote_fields = ('content',)
-    list_display = ('title', 'user', 'rating', 'created_at')
-    search_fields = ('title', 'content')
+    list_display = ('user', 'rating', 'created_at')
+    search_fields = ('content',)
     
 admin.site.register(Review, ReviewAdmin)

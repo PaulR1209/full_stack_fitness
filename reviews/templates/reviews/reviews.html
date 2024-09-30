@@ -9,26 +9,30 @@
             <a class="btn btn-danger mb-4" href="{% url 'review_create' %}">Add Review</a>
             <div class="row">
                 {% for review in reviews %}
-                <div class="col-md-6 col-lg-4 mb-4 mx-auto">
+                <div class="col-md-8 col-lg-5 mb-4 mx-auto">
                     <div class="card review-card">
                         <div class="card-body">
-                            <h5 class="card-title">{{ review.title }}</h5>
                             <p>
                                 {% for _ in review.filled_stars %}
-                                    <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
                                 {% endfor %}
                                 {% for _ in review.empty_stars %}
-                                    <i class="far fa-star text-muted"></i>
+                                <i class="far fa-star text-muted"></i>
                                 {% endfor %}
                             </p>
                             <p class="card-text">{{ review.content }}</p>
-                            <a href="{% url 'review_edit' review.pk %}" class="btn btn-primary">Edit</a>
-                            <form method="POST" action="{% url 'review_delete' review.pk %}" style="display:inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                            <hr>
+                            <div class="d-flex flex-column flex-md-row justify-content-between">
+                                <p class="card-text">{{ review.user }}</p>
+                                <p class="card-text">{{ review.created_at|date:"F Y" }}</p>
+                            </div>
                         </div>
                     </div>
+                    <a href="{% url 'review_edit' review.pk %}" class="btn btn-primary">Edit</a>
+                    <form method="POST" action="{% url 'review_delete' review.pk %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
