@@ -5,15 +5,22 @@
 <div class="container-fluid review-container text-center">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="section-title">Reviews</h2>
-            <a class="cta-button" href="{% url 'review_create' %}">Add Review</a>
+            <h1>Reviews</h1>
+            <a class="btn btn-danger mb-4" href="{% url 'review_create' %}">Add Review</a>
             <div class="row">
                 {% for review in reviews %}
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card">
+                <div class="col-md-6 col-lg-4 mb-4 mx-auto">
+                    <div class="card review-card">
                         <div class="card-body">
                             <h5 class="card-title">{{ review.title }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ review.rating }} stars</h6>
+                            <p>
+                                {% for _ in review.filled_stars %}
+                                    <i class="fas fa-star text-warning"></i>
+                                {% endfor %}
+                                {% for _ in review.empty_stars %}
+                                    <i class="far fa-star text-muted"></i>
+                                {% endfor %}
+                            </p>
                             <p class="card-text">{{ review.content }}</p>
                             <a href="{% url 'review_edit' review.pk %}" class="btn btn-primary">Edit</a>
                             <form method="POST" action="{% url 'review_delete' review.pk %}" style="display:inline;">

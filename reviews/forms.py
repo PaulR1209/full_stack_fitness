@@ -9,9 +9,7 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ["rating", "title", "content"]
-
-    def __init__(self, *args, **kwargs):
-        super(ReviewForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = "POST"
-        self.helper.add_input(Submit("submit", "Submit Review"))
+        labels = {
+            "title": "Title",
+            "content": "Write your review here"
+        }

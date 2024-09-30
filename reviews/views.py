@@ -6,6 +6,9 @@ from .forms import ReviewForm
 
 def review_list(request):
     reviews = Review.objects.all()
+    for review in reviews:
+        review.filled_stars = range(review.rating)
+        review.empty_stars = range(5 - review.rating)
     return render(request, "reviews/reviews.html", {"reviews": reviews})
 
 
