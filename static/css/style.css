@@ -82,7 +82,7 @@ footer {
 
 .sign-in-container {
   min-height: 100vh;
-  background: url('/static/images/background.png') no-repeat center center/cover;
+  background: url('https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/background_eawgdk.webp') no-repeat center center/cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -114,15 +114,15 @@ footer {
 }
 
 .hero-home {
-  background-image: url('/static/images/hero-image.png');
+  background-image: url('https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/hero-image_srnm9u.webp');
 }
 
 .hero-about {
-  background-image: url('/static/images/about-hero.png');
+  background-image: url('https://res.cloudinary.com/dbkejesw4/image/upload/v1727693682/about-hero_bndmwc.webp');
 }
 
 .hero-auth {
-  background-image: url('/static/images/background.png');
+  background-image: url('https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/background_eawgdk.webp');
 }
 
 .hero-image::before {
