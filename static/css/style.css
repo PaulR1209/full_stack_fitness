@@ -354,3 +354,10 @@ footer {
 .location-details li {
   margin: 5px 0;
 }
+
+/* Reviews Page */
+
+.review-container,
+.form-container {
+  margin-top: 6rem;
+}

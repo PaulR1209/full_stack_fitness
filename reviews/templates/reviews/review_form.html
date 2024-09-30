@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid form-container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="section-title">{% if form.instance.pk %}Edit Review{% else %}New Review{% endif %}</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save</button>
+            </form>
+            <a href="{% url 'reviews' %}">Cancel</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
