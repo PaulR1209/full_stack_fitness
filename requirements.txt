@@ -1,7 +1,9 @@
 asgiref==3.8.1
 cloudinary==1.41.0
+crispy-bootstrap5==2024.2
 Django==5.1.1
 django-allauth==65.0.1
 django-cloudinary-storage==0.3.0
+django-crispy-forms==2.3
 django-summernote==0.8.20.0
 sqlparse==0.5.1
