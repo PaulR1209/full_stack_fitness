@@ -3,22 +3,12 @@
 
 {% block content %}
 <div class="container-fluid review-container text-center">
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li class="alert {% if message.tags == 'success' %}
-                   alert-success{% elif message.tags == 'error' %}
-                   alert-error{% endif %}">
-            {{ message }}
-        </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
     <div class="row">
         <div class="col-md-12">
-            <h1>Reviews</h1>
-            <a class="btn btn-danger mb-4" href="{% url 'review_create' %}">Add Review</a>
+            <h1 class="title">Reviews</h1>
+            <p class="content">See what our customers think of us, and feel free to leave your own review.</p>
+            <p class="content">Please note that you must be signed in to leave a review.</p>
+            <a class="cta-button mb-4" href="{% url 'review_create' %}">Add Review</a>
             <div class="row">
                 {% for review in reviews %}
                 <div class="col-md-8 col-lg-5 mb-4 mx-auto">

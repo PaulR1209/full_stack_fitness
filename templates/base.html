@@ -80,6 +80,20 @@
         </nav>
     </header>
 
+    <div class="container-fluid">
+            {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="alert {% if message.tags == 'success' %}
+                   alert-success{% elif message.tags == 'error' %}
+                   alert-error{% endif %}">
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    </div>
+
     {% block content %}{% endblock %}
 
     <footer class="mt-auto">
