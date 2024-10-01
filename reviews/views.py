@@ -7,11 +7,22 @@ from django.contrib import messages
 
 def review_list(request):
     selected_rating = request.GET.get("rating")
+    sorted_by = request.GET.get("sort", "newest")
 
     reviews = Review.objects.all()
 
     if selected_rating:
         reviews = reviews.filter(rating=selected_rating)
+
+    if sorted_by == "newest":
+        reviews = reviews.order_by("-created_at")
+    elif sorted_by == "oldest":
+        reviews = reviews.order_by("created_at")
+
+    if sorted_by == "lowest":
+        reviews = reviews.order_by("rating")
+    elif sorted_by == "highest":
+        reviews = reviews.order_by("-rating")
 
     for review in reviews:
         review.filled_stars = range(review.rating)
