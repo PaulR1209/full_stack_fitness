@@ -6,6 +6,7 @@ from django.contrib import messages
 
 
 def review_list(request):
+    
     selected_rating = request.GET.get("rating")
     sorted_by = request.GET.get("sort", "newest")
 

@@ -14,37 +14,35 @@
             <!-- Filter Form -->
             <div class="container mb-4">
                 <div class="row">
-                    <div class="col">
-                        <form method="GET" action="{% url 'reviews' %}">
-                            <div class="col-12">
-                                <label class="mb-1" for="rating">Filter by Rating:</label>
-                                <select name="rating" id="rating">
-                                    <option value="">All Ratings</option>
-                                    <option value="1">1 Star</option>
-                                    <option value="2">2 Stars</option>
-                                    <option value="3">3 Stars</option>
-                                    <option value="4">4 Stars</option>
-                                    <option value="5">5 Stars</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="mb-3" for="sort">Sort By:</label>
-                                <select name="sort" id="sort">
-                                    <option value="newest">Newest</option>
-                                    <option value="oldest">Oldest</option>
-                                    <option value="highest">Highest Rating</option>
-                                    <option value="lowest">Lowest Rating</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <input type="submit" value="Filter" class="btn btn-primary">
-                            </div>
-                        </form>
-                    </div>
+                    <form method="GET" action="{% url 'reviews' %}">
+                        <div class="col-12">
+                            <label class="mb-1" for="rating">Filter by Rating:</label>
+                            <select name="rating" id="rating">
+                                <option value="">All Ratings</option>
+                                <option value="1">1 Star</option>
+                                <option value="2">2 Stars</option>
+                                <option value="3">3 Stars</option>
+                                <option value="4">4 Stars</option>
+                                <option value="5">5 Stars</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="mb-3" for="sort">Sort By:</label>
+                            <select name="sort" id="sort">
+                                <option value="newest">Newest</option>
+                                <option value="oldest">Oldest</option>
+                                <option value="highest">Highest Rating</option>
+                                <option value="lowest">Lowest Rating</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <input type="submit" value="Filter" class="btn btn-primary">
+                        </div>
+                    </form>
                 </div>
             </div>
 
-
+            <!-- Reviews -->
             <div class="row">
                 {% for review in reviews %}
                 <div class="col-md-8 col-lg-5 mb-4 mx-auto">
