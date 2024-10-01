@@ -80,13 +80,16 @@ footer {
 
 /* Authentication Forms */
 
-.sign-in-container {
+.form-container {
   min-height: 100vh;
-  background: url('https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/background_eawgdk.webp') no-repeat center center/cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.sign-in-container {
+  background: url('https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/background_eawgdk.webp') no-repeat center center/cover;
 }
 
 .auth-container {

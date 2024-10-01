@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container-fluid form-container">
     <div class="row">
-        <div class="col-12 col-md-6 col-lg-4 text-center mx-auto mb-5">
+        <div class="col text-center mx-auto mb-5">
             <h2 class="section-title">{% if form.instance.pk %}Edit Review{% else %}New Review{% endif %}</h2>
             <form method="POST">
                 {% csrf_token %}

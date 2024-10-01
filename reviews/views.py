@@ -17,7 +17,7 @@ def review_create(request):
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
-            review.user = request.user
+            review.User = request.user
             review.save()
             return redirect("reviews")
     else:
