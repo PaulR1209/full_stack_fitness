@@ -3,6 +3,18 @@
 
 {% block content %}
 <div class="container-fluid review-container text-center">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="alert {% if message.tags == 'success' %}
+                   alert-success{% elif message.tags == 'error' %}
+                   alert-error{% endif %}">
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <div class="row">
         <div class="col-md-12">
             <h1>Reviews</h1>
@@ -20,19 +32,17 @@
                                 <i class="far fa-star text-muted"></i>
                                 {% endfor %}
                             </p>
-                            <p class="card-text">{{ review.content }}</p>
-                            <hr>
-                            <div class="d-flex flex-column flex-md-row justify-content-between">
-                                <p class="card-text">{{ review.user }}</p>
-                                <p class="card-text">{{ review.created_at|date:"F Y" }}</p>
-                            </div>
+                            <p class="card-text">"{{ review.content }}"</p>
+                            <p class="card-text">- {{ review.user }}</p>
                         </div>
                     </div>
+                    {% if user.is_authenticated and review.user == user %}
                     <a href="{% url 'review_edit' review.pk %}" class="btn btn-primary">Edit</a>
                     <form method="POST" action="{% url 'review_delete' review.pk %}" style="display:inline;">
                         {% csrf_token %}
                         <a href="{% url 'review_delete' review.pk %}" type="submit" class="btn btn-danger">Delete</a>
                     </form>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
