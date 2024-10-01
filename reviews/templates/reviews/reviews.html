@@ -8,7 +8,25 @@
             <h1 class="title">Reviews</h1>
             <p class="content">See what our customers think of us, and feel free to leave your own review.</p>
             <p class="content">Please note that you must be signed in to leave a review.</p>
+
             <a class="cta-button mb-4" href="{% url 'review_create' %}">Add Review</a>
+
+            <!-- Filter Form -->
+            <div class="filter-container mb-4">
+                <form method="GET" action="{% url 'reviews' %}">
+                    <label for="rating">Filter by Rating:</label>
+                    <select name="rating" id="rating" onchange="this.form.submit()">
+                        <option value="">All Ratings</option>
+                        <option value="1">1 Star</option>
+                        <option value="2">2 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="5">5 Stars</option>
+                    </select>
+                    <input type="submit" value="Filter" class="btn btn-primary">
+                </form>
+            </div>
+
             <div class="row">
                 {% for review in reviews %}
                 <div class="col-md-8 col-lg-5 mb-4 mx-auto">

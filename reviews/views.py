@@ -6,11 +6,26 @@ from django.contrib import messages
 
 
 def review_list(request):
+    selected_rating = request.GET.get("rating")
+
     reviews = Review.objects.all()
+
+    if selected_rating:
+        reviews = reviews.filter(rating=selected_rating)
+
     for review in reviews:
         review.filled_stars = range(review.rating)
         review.empty_stars = range(5 - review.rating)
-    return render(request, "reviews/reviews.html", {"reviews": reviews})
+
+    return render(
+        request,
+        "reviews/reviews.html",
+        {
+            "reviews": reviews,
+            "selected_rating": selected_rating,
+            "rating_range": range(1, 6),
+        },
+    )
 
 
 @login_required
