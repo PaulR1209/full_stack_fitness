@@ -16,32 +16,10 @@ html {
   margin: auto;
 }
 
-/* General message styling */
 ul.messages {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-ul.messages li {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-/* Success messages */
-.alert-success {
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
-    color: #155724;
-}
-
-/* Error messages */
-.alert-error {
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    color: #721c24;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 /* Navbar */
@@ -83,12 +61,6 @@ footer {
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.footer-icon-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .footer-icon {
   width: 3.5rem;
   height: 3.5rem;
@@ -120,7 +92,6 @@ footer {
 .form-container {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -133,7 +104,7 @@ footer {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-.menu-title {
+.form-title {
   text-align: center;
   margin: 1rem 0;
 }
@@ -145,20 +116,12 @@ footer {
 .hero-image {
   background-size: cover;
   background-position: center;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .hero-home {
   background-image: url('https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/hero-image_srnm9u.webp');
-}
-
-.hero-about {
-  background-image: url('https://res.cloudinary.com/dbkejesw4/image/upload/v1727693682/about-hero_bndmwc.webp');
 }
 
 .hero-auth {
@@ -179,24 +142,10 @@ footer {
 /* Hero Content */
 
 .hero-content {
-  color: white;
-  text-align: center;
+  position: relative;
   z-index: 1;
-  opacity: 0;
-  transform: scale(0.8);
-  animation: zoomIn 1.5s ease forwards;
-}
-
-@keyframes zoomIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  text-align: center;
+  color: white;
 }
 
 .hero-content h1 {
@@ -224,34 +173,24 @@ footer {
   background-color: #ff3c2f;
 }
 
-/* Home Page Sections */
+/* Home Page */
 
-.home-page-sections {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+/* About Teaser */
+
+.about-teaser,
+.reviews-section {
+  background-color: #f8f8f8;
 }
 
-/* About Section */
-
-.about-teaser {
-  background-color: #f8f8f8;
-  min-height: 50vh;
+.about-teaser,
+.membership-section {
   padding: 50px 20px;
+  min-height: 50vh;
 }
 
 /* Membership Section */
 
-.membership-section {
-  text-align: center;
-  padding: 60px 20px;
-}
-
 .membership-cards-container {
-  display: flex;
-  justify-content: center;
   margin-bottom: 20px;
   gap: 20px;
 }
@@ -262,7 +201,6 @@ footer {
   padding: 20px;
   margin: 10px 0;
   width: 250px;
-  transition: transform 0.3s ease;
 }
 
 .membership-card img {
@@ -334,17 +272,27 @@ footer {
 
 /* About Us Page */
 
+/* Hero Section */
+
+.page-container {
+  min-height: 60vh;
+}
+
+.page-container h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.page-container p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
 /* Facilities Section */
 
 .facilities-section {
   padding: 50px 0;
   background-color: #f8f8f8;
-  text-align: center;
-}
-
-.section-title {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
 }
 
 .facility-card {
@@ -370,8 +318,6 @@ footer {
 
 .location-hours-section {
   padding: 40px 20px;
-  text-align: center;
-  background-color: white;
 }
 
 .location-hours-section h2 {
@@ -393,19 +339,4 @@ footer {
 
 .location-details li {
   margin: 5px 0;
-}
-
-/* Reviews Page */
-
-.review-container {
-  margin-top: 6rem;
-}
-
-.title {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.content {
-  font-size: 1.5rem;
 }

@@ -4,10 +4,10 @@
 {% block content %}
 
 <!-- Hero Section -->
-<div class="container-fluid review-container text-center">
+<div class="container page-container d-flex justify-content-center align-items-center text-center">
     <div class="row">
-        <div class="col-md-12">
-            <h1 class="title">Reviews</h1>
+        <div class="col">
+            <h1 class="mt-5">Reviews</h1>
             <p class="content">See what our customers think of us, and feel free to leave your own review.</p>
             <p class="content">Please note that you must be signed in to leave a review.</p>
 
@@ -54,7 +54,7 @@
 </div>
 
 <!-- Reviews -->
-<div class="container">
+<div class="container-fluid reviews-section">
     <div class="row">
         {% for review in reviews %}
         <div class="col-md-8 col-lg-5 mb-4 text-center mx-auto">

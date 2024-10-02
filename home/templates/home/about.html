@@ -4,23 +4,25 @@
 {% block content %}
 
 <!-- Hero Section -->
-
-<div class="row hero-image hero-about">
-    <div class="col-md-8 hero-content">
-        <h1>About Us</h1>
-        <p>Discover what makes Full Stack Fitness your go-to gym. Scroll down to explore our state-of-the-art
-            facilities, convenient location, and flexible operating times designed to fit your schedule. We're here to
-            support your fitness journey every step of the way.</p>
-        <a href="{% url 'membership' %}" class="cta-button">Join Now</a>
+<div class="container page-container d-flex justify-content-center align-items-center text-center">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="mt-5">About Us</h1>
+            <p>Discover what makes Full Stack Fitness your go-to gym. Scroll down to explore our state-of-the-art
+                facilities, convenient location, and flexible operating times designed to fit your schedule. We're here
+                to
+                support your fitness journey every step of the way.</p>
+            <a href="{% url 'membership' %}" class="cta-button">Join Now</a>
+        </div>
     </div>
 </div>
 
 <!-- Facilities Section -->
 
-<section class="container-fluid facilities-section">
+<section class="container-fluid facilities-section text-center">
     <div class="row">
         <div class="col-12">
-            <h2 class="section-title">Our Facilities</h2>
+            <h2 class="mb-4">Our Facilities</h2>
         </div>
     </div>
 
@@ -77,7 +79,7 @@
 
 <!-- Location and Opening Times -->
 
-<div class="location-hours-section">
+<div class="location-hours-section text-center">
     <h2>Location & Opening Times</h2>
     <div class="location-details">
         <p><strong>Location:</strong> 39 High Street, Warwick, CV34 3AX</p>
