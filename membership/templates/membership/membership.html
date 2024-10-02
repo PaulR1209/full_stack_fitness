@@ -2,30 +2,30 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid membership-section"></div>
-<div class="row">
-    <div class="col-md-8 mx-auto text-center">
-        <h2>Our Memberships</h2>
-        {% if not user.is_authenticated %}
-        <div class="row">
-            <div class="col-md-8 mx-auto text-center">
-                <p>Already a member? <a href="{% url 'account_login' %}?next={% url 'membership' %}">Sign in</a> to access your account and purchase
-                    a membership.</p>
-                <p>New here? <a href="{% url 'account_signup' %}?next={% url 'membership' %}">Sign up</a> today and start your fitness journey!</p>
-            </div>
+<div class="container-fluid membership-section mt-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+            <h2>Our Memberships</h2>
+            <!-- Not Logged in text -->
+            {% if not user.is_authenticated %}
+            <p>Already a member? <a href="{% url 'account_login' %}?next={% url 'membership' %}">Sign in</a> to
+                access your account and purchase
+                a membership.</p>
+            <p>New here? <a href="{% url 'account_signup' %}?next={% url 'membership' %}">Sign up</a> today and
+                start your fitness journey!</p>
+            {% else %}
+            <!-- Logged in text -->
+            <p>You're just one step away from unlocking your membership! Select your preferred tier and click
+                'Add
+                To Basket' to begin your fitness adventure!</p>
         </div>
-        {% else %}
-        <div class="row">
-            <div class="col-md-8 mx-auto text-center">
-                <p>You're just one step away from unlocking your membership! Select your preferred tier and click 'Add
-                    To Basket' to begin your fitness adventure!</p>
-
-            </div>
-            {% endif %}
-        </div>
+        {% endif %}
     </div>
+</div>
 
-    <div class="row justify-content-center membership-cards-container">
+<!-- Membership Cards -->
+<div class="container">
+    <div class="row mx-auto justify-content-center membership-cards-container">
         <!-- Bronze Membership Card -->
         <div class="col-12 col-md-3 membership-card bronze text-center">
             <img src="https://res.cloudinary.com/dbkejesw4/image/upload/v1727693673/bronze_wmny2f.webp"
@@ -34,11 +34,7 @@
             <p>Basic access to the gym and standard facilities.</p>
             <p><strong>£25/month</strong></p>
             {% if user.is_authenticated %}
-            <div class="row">
-                <div class="col text-center">
-                    <a href="" class="btn btn-danger">Add To Basket</a>
-                </div>
-            </div>
+            <a href="" class="btn btn-danger">Add To Basket</a>
             {% endif %}
         </div>
 
@@ -50,11 +46,7 @@
             <p>Access to all facilities plus group classes.</p>
             <p><strong>£35/month</strong></p>
             {% if user.is_authenticated %}
-            <div class="row">
-                <div class="col text-center">
-                    <a href="" class="btn btn-danger">Add To Basket</a>
-                </div>
-            </div>
+            <a href="" class="btn btn-danger">Add To Basket</a>
             {% endif %}
         </div>
 
@@ -66,13 +58,10 @@
             <p>Full access including personal training sessions.</p>
             <p><strong>£50/month</strong></p>
             {% if user.is_authenticated %}
-            <div class="row">
-                <div class="col text-center">
-                    <a href="" class="btn btn-danger">Add To Basket</a>
-                </div>
-            </div>
+            <a href="" class="btn btn-danger">Add To Basket</a>
             {% endif %}
         </div>
     </div>
+</div>
 
-    {% endblock %}
+{% endblock %}
