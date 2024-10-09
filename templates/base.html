@@ -78,20 +78,27 @@
                 </div>
             </div>
         </nav>
+        <div class="floating-cart">
+            <a href="{% url 'bag' %}">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count">1</span>
+            </a>
+        </div>
+
     </header>
 
     <div class="container-fluid">
-            {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li class="alert {% if message.tags == 'success' %}
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="alert {% if message.tags == 'success' %}
                    alert-success{% elif message.tags == 'error' %}
                    alert-error{% endif %}">
-            {{ message }}
-        </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </div>
 
     {% block content %}{% endblock %}

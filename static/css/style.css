@@ -53,6 +53,48 @@ ul.messages {
   text-underline-offset: 0.5rem;
 }
 
+/* Floating Cart Icon */
+
+.floating-cart {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.floating-cart a {
+  text-decoration: none;
+  color: #000;
+  font-size: 24px;
+}
+
+.floating-cart:hover {
+  background-color: #e9ecef;
+  cursor: pointer;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #dc3545;
+  color: #fff;
+  padding: 4px 6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
 /* Footer */
 
 footer {
