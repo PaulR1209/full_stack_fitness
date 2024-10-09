@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib import messages
 
 if os.path.exists("env.py"):
     import env
@@ -54,7 +55,7 @@ INSTALLED_APPS = [
     "cloudinary",
     "cloudinary_storage",
     "crispy_forms",
-    'crispy_bootstrap5',
+    "crispy_bootstrap5",
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
@@ -100,6 +101,14 @@ TEMPLATES = [
         },
     },
 ]
+
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
