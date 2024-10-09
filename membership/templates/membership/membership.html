@@ -29,7 +29,11 @@
             <p>Basic access to the gym and standard facilities.</p>
             <p>£25/month</p>
             {% if user.is_authenticated %}
-            <a href="" class="btn btn-danger">Add To Basket</a>
+            <form action="{% url 'add_to_cart' membership_bronze.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="membership_type" value="bronze">
+                <button type="submit" class="btn btn-danger">Add To Basket</button>
+            </form>
             {% endif %}
         </div>
 
@@ -41,7 +45,11 @@
             <p>Access to all facilities plus group classes.</p>
             <p>£35/month</p>
             {% if user.is_authenticated %}
-            <a href="" class="btn btn-danger">Add To Basket</a>
+            <form action="{% url 'add_to_cart' membership_silver.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="membership_type" value="silver">
+                <button type="submit" class="btn btn-danger">Add To Basket</button>
+            </form>
             {% endif %}
         </div>
 
@@ -53,7 +61,11 @@
             <p>Full access including personal training sessions.</p>
             <p>£50/month</p>
             {% if user.is_authenticated %}
-            <a href="" class="btn btn-danger">Add To Basket</a>
+            <form action="{% url 'add_to_cart' membership_gold.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="membership_type" value="gold">
+                <button type="submit" class="btn btn-danger">Add To Basket</button>
+            </form>
             {% endif %}
         </div>
     </div>
