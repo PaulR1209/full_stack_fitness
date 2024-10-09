@@ -5,9 +5,9 @@ from .models import Membership
 
 
 def membership(request):
-    membership_bronze = Membership.objects.get(membership_type="Bronze")
-    membership_silver = Membership.objects.get(membership_type="Silver")
-    membership_gold = Membership.objects.get(membership_type="Gold")
+    membership_bronze = Membership.objects.filter(membership_type="Bronze").first()
+    membership_silver = Membership.objects.filter(membership_type="Silver").first()
+    membership_gold = Membership.objects.filter(membership_type="Gold").first()
 
     return render(
         request,

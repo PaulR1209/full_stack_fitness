@@ -78,12 +78,14 @@
                 </div>
             </div>
         </nav>
+        {% if user.is_authenticated %}
         <div class="floating-cart">
             <a href="{% url 'bag' %}">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span class="cart-count">1</span>
             </a>
         </div>
+        {% endif %}
 
     </header>
 

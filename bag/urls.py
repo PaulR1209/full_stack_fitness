@@ -1,7 +1,7 @@
-from django.contrib import admin
 from django.urls import path
-from bag import views
+from .views import add_to_cart, cart_view
 
 urlpatterns = [
-    path('', views.bag, name='bag'),
+    path("", cart_view, name="bag"),
+    path("add_to_cart/<int:membership_id>/", add_to_cart, name="add_to_cart")
 ]
