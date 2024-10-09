@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "home",
     "reviews",
     "membership",
+    "bag",
     "cloudinary",
     "cloudinary_storage",
     "crispy_forms",
