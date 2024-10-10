@@ -2,18 +2,36 @@
 {% load static %}
 
 {% block content %}
-<div class="container form-container">
-    <div class="row">
-        <div class="col">
+<div class="container-fluid cart-container">
+    <div class="row text-center">
+        <div>
             <h1>Your Cart</h1>
             {% if membership %}
-            <h2>{{ membership.membership_type }} Membership</h2>
-            <p>Price: £{{ membership.price }}</p>
-            <a href="" class="btn btn-success">Proceed to Checkout</a>
-            <a href="{% url 'remove_from_cart' %}" class="btn btn-danger">Remove from Cart</a>
+            <div class="row d-flex justify-content-center membership-cards-container">
+                <div class="membership-card {{ membership.membership_type|lower }}">
+                    <img src="{% if membership.membership_type == 'Gold' %}https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/gold_wyqkru.webp{% elif membership.membership_type == 'Silver' %}https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/silver_v25pk2.webp{% else %}https://res.cloudinary.com/dbkejesw4/image/upload/v1727693673/bronze_wmny2f.webp{% endif %}"
+                        alt="{{ membership.membership_type }} Membership Icon" loading="lazy">
+                    <h3>{{ membership.membership_type }} Membership</h3>
+                    <p>£{{ membership.price }}/month</p>
+                    <p>{{ membership.description }}</p>
+
+                    <!-- Remove Button -->
+                    <form action="{% url 'remove_from_cart' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="order-summary text-right">
+                <h5>Total: £{{ membership.price }}</h5>
+                <a href="" class="btn btn-primary">Proceed to Checkout</a>
+            </div>
             {% else %}
-            <p>Your cart is empty. Please add a membership to continue.</p>
-            <a href="" class="btn btn-primary">Browse Memberships</a>
+            <div class="text-center">
+                <p>Your cart is empty.</p>
+                <a href="{% url 'membership' %}" class="btn btn-danger">Memberships</a>
+            </div>
             {% endif %}
         </div>
     </div>

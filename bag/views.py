@@ -12,9 +12,12 @@ def add_to_cart(request, membership_id):
         messages.success(
             request, f"Added {membership.membership_type} membership to your basket!"
         )
+
+        return redirect("bag")
     else:
         messages.error(
-            request, "You can only have one membership in the cart at a time."
+            request,
+            "You can only purchse one membership at a time. Please remove the current membership from your cart before adding another.",
         )
 
     return redirect("membership")

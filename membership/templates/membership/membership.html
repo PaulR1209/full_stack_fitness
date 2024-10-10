@@ -32,7 +32,7 @@
             <form action="{% url 'add_to_cart' membership_bronze.id %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="bronze">
-                <button type="submit" class="btn btn-danger">Add To Basket</button>
+                <button type="submit" class="btn btn-danger">Add To Cart</button>
             </form>
             {% endif %}
         </div>
@@ -48,7 +48,7 @@
             <form action="{% url 'add_to_cart' membership_silver.id %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="silver">
-                <button type="submit" class="btn btn-danger">Add To Basket</button>
+                <button type="submit" class="btn btn-danger">Add To Cart</button>
             </form>
             {% endif %}
         </div>
@@ -64,7 +64,7 @@
             <form action="{% url 'add_to_cart' membership_gold.id %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="gold">
-                <button type="submit" class="btn btn-danger">Add To Basket</button>
+                <button type="submit" class="btn btn-danger">Add To Cart</button>
             </form>
             {% endif %}
         </div>
