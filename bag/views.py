@@ -28,3 +28,10 @@ def cart_view(request):
         membership = get_object_or_404(Membership, id=membership_id)
 
     return render(request, "bag/bag.html", {"membership": membership})
+
+
+def remove_from_cart(request):
+    request.session["cart_id"] = None
+    request.session["cart_count"] = 0
+    messages.success(request, "Membership removed from cart.")
+    return redirect("membership")
