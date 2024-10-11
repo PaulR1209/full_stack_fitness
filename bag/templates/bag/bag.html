@@ -25,7 +25,7 @@
 
             <div class="order-summary text-right">
                 <h5>Total: £{{ membership.price }}</h5>
-                <a href="" class="btn btn-primary">Proceed to Checkout</a>
+                <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
             </div>
             {% else %}
             <div class="text-center">
