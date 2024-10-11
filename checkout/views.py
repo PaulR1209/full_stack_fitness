@@ -17,3 +17,4 @@ def checkout(request):
     else:
         form = OrderForm()
     return render(request, "checkout/checkout.html", {"form": form})
+    

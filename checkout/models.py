@@ -79,3 +79,5 @@ class PaymentHistory(models.Model):
 
     def __str__(self):
         return f"Payment for {self.order.membership.membership_type} - {self.payment_status}"
+
+

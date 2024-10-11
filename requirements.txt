@@ -9,4 +9,5 @@ django-crispy-forms==2.3
 django-model-utils==5.0.0
 django-summernote==0.8.20.0
 sqlparse==0.5.1
+stripe==11.1.0
 swapper==1.4.0
