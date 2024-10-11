@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "reviews",
     "membership",
     "bag",
+    "checkout",
     "cloudinary",
     "cloudinary_storage",
     "crispy_forms",
