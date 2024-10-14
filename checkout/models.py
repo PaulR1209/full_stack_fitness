@@ -10,6 +10,7 @@ from dateutil.relativedelta import relativedelta
 class Order(models.Model):
     order_number = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=100, default="")
     email = models.EmailField(null=True)
     phone_number = models.CharField(max_length=15 , null=True)
     membership = models.ForeignKey(Membership, on_delete=models.CASCADE)
