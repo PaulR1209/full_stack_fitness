@@ -23,8 +23,6 @@ def checkout(request):
                     currency="gbp",
                     payment_method_types=["card"],
                 )
-
-                client_secret = payment_intent['client_secret']
             
                 order = form.save(commit=False)
                 order.user = request.user
@@ -34,7 +32,8 @@ def checkout(request):
                 return redirect("membership")
         
             except Exception as e:
-                return render(request, "checkout/checkout.html", {"form": form, "error": str(e)})
+                messages.error(request, "An error occurred while processing your payment: " + str(e))
+                return render(request, "checkout/checkout.html", {"form": form})
     else:
         form = OrderForm()
 

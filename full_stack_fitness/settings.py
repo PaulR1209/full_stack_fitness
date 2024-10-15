@@ -69,7 +69,7 @@ CLOUDINARY_STORAGE = {
 }
 
 STRIPE_KEYS = {
-    "SECRET_KEY": os.getenv("STRIPE_SECRETE_KEY"),
+    "SECRET_KEY": os.getenv("STRIPE_SECRET_KEY"),
     "PUBLISHABLE_KEY": os.getenv("STRIPE_PUBLISHABLE_KEY"),
 }
 
