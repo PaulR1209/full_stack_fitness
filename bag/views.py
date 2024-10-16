@@ -26,11 +26,25 @@ def add_to_cart(request, membership_id):
 def cart_view(request):
     membership_id = request.session.get("cart_id")
     membership = None
+    grand_total = 0
+    item_count = 0
 
     if membership_id:
         membership = get_object_or_404(Membership, id=membership_id)
+        grand_total = (
+            membership.price
+        )
+        item_count = 1
 
-    return render(request, "bag/bag.html", {"membership": membership})
+    return render(
+        request,
+        "bag/bag.html",
+        {
+            "membership": membership,
+            "grand_total": grand_total,
+            "item_count": item_count,
+        },
+    )
 
 
 def remove_from_cart(request):
