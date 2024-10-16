@@ -1,6 +1,6 @@
 // Stripe payment form
 document.addEventListener("DOMContentLoaded", function () {
-  var client_secret = $("#client-secret").val(); // Get client secret
+  var client_secret = $("#client-secret").val();
   var stripe = Stripe("pk_test_51Q8npkRo4WFpkduh4hmuGeoGfNevE4C63fyQU0NWkhtO8Zy0JHh78Imm05l1FtpUnaFNachbQiiI4yER1aT1ufL300OBML21aU");
   var elements = stripe.elements();
 
@@ -14,14 +14,12 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   };
 
-  // Create the card element and ensure postal code is shown
   var card = elements.create("card", {
     style: style,
-    hidePostalCode: false, // Make sure this is false to show postal code
+    hidePostalCode: false,
   });
   card.mount("#card-element");
 
-  // Error handling for the card input
   card.addEventListener("change", function (event) {
     var displayError = document.getElementById("card-errors");
     if (event.error) {
@@ -37,32 +35,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Handle form submit
   var form = document.getElementById("payment-form");
 
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
 
-    var postalCode = document.getElementById("postal-code").value.trim(); // Get postal code
+    var postalCode = document.getElementById("postal-code").value.trim();
 
     card.update({ disabled: true });
     $("#submit-button").attr("disabled", true);
     
-    // Confirm the payment
     stripe
       .confirmCardPayment(client_secret, {
         payment_method: {
           card: card,
           billing_details: {
             address: {
-              postal_code: postalCode, // Include the postal code from the input
+              postal_code: postalCode,
             },
           },
         },
       })
       .then(function (result) {
         if (result.error) {
-          // Show error message
           var errorDiv = document.getElementById("card-errors");
           var html = `
             <span class="icon" role="alert">
@@ -74,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
           $("#submit-button").attr("disabled", false);
         } else {
           if (result.paymentIntent.status === "succeeded") {
-            form.submit(); // Submit the form if payment succeeded
+            form.submit();
           }
         }
       });
