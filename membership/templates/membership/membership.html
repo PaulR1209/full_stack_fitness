@@ -2,6 +2,24 @@
 {% load static %}
 
 {% block content %}
+
+{% if user_order %}
+
+<div class="container-fluid membership-section">
+    <div class="row page-container d-flex justify-content-center align-items-center text-center">
+        <div class="col-lg-8 mx-auto">
+            <h1>Membership</h1>
+            <p>Thank you for your purchase. Your membership is now active.</p>
+            <p>Membership Type: {{ user_order.membership.membership_type }}</p>
+            <p>Started On: {{ user_order.created_at }}</p>
+            <p>Last Renewed: {{ user_order.last_renewed }}</p>
+            <p>Next Renewal: {{ user_order.next_renewal }}</p>
+            <p>Payment Status: {{ user_order.is_paid }}</p>
+        </div>
+    </div>
+</div>
+
+{% else %}
 <div class="container-fluid membership-section">
     <div class="row page-container d-flex justify-content-center align-items-center text-center">
         <div class="col-lg-8 mx-auto">
@@ -86,5 +104,6 @@
     </div>
     {% endif %}
 </div>
+{% endif %}
 
 {% endblock %}
