@@ -1,4 +1,3 @@
-# views.py
 from django.shortcuts import render, redirect
 from django.views import View
 from django.conf import settings
@@ -12,7 +11,7 @@ class CheckoutView(View):
     def post(self, request, *args, **kwargs):
         membership_type = request.POST.get("membership_type")
 
-        # Define the membership products and prices
+        # Define membership products and prices
         products = {
             "bronze": 2500,  # Price in pence (£25)
             "silver": 3500,  # Price in pence (£35)
@@ -23,40 +22,35 @@ class CheckoutView(View):
         if membership_type not in products:
             return redirect("membership")  # Redirect back if invalid
 
-        try:
-            # Create a new Stripe Checkout Session
-            session = stripe.checkout.Session.create(
-                payment_method_types=["card"],
-                line_items=[
-                    {
-                        "price_data": {
-                            "currency": "gbp",
-                            "product_data": {
-                                "name": f"{membership_type.capitalize()} Membership",
-                            },
-                            "unit_amount": products[membership_type],
+        # Create a new Stripe Checkout Session
+        session = stripe.checkout.Session.create(
+            payment_method_types=["card"],
+            line_items=[
+                {
+                    "price_data": {
+                        "currency": "gbp",
+                        "product_data": {
+                            "name": f"{membership_type.capitalize()} Membership",
                         },
-                        "quantity": 1,
-                    }
-                ],
-                mode="payment",
-                success_url=request.build_absolute_uri(
-                    "/success/"
-                ),  # Adjust URL as needed
-                cancel_url=request.build_absolute_uri("/membership/"),
-            )
-            # Redirect to Stripe Checkout
-            return redirect(session.url, code=303)
-        except Exception as e:
-            # Handle errors appropriately
-            print(f"Error creating Stripe session: {e}")
-            return redirect("membership")
+                        "unit_amount": products[membership_type],
+                    },
+                    "quantity": 1,
+                }
+            ],
+            mode="payment",
+            success_url=request.build_absolute_uri("/success/"),  # Adjust URL as needed
+            cancel_url=request.build_absolute_uri("/membership/"),
+        )
+
+        # Redirect to Stripe Checkout
+        return redirect(session.url, code=303)
 
 
 class SuccessView(View):
     def get(self, request):
-        return render(request, 'checkout/success.html')  # Create a success.html template
+        return render(request, "checkout/success.html")
+
 
 class CancelView(View):
     def get(self, request):
-        return render(request, 'checkout/cancel.html')  # Create a cancel.html template
+        return render(request, "checkout/cancel.html")
