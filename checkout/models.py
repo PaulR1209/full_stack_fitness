@@ -12,25 +12,21 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100, default="")
     email = models.EmailField(null=True)
-    phone_number = models.CharField(max_length=15 , null=True)
+    phone_number = models.CharField(max_length=15, null=True)
     membership = models.ForeignKey(Membership, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    last_renewed = models.DateTimeField(auto_now=True)
-    next_renewal = models.DateTimeField()
+    last_renewed = models.DateTimeField(null=True)
+    next_renewal = models.DateTimeField(null=True)
     is_paid = models.BooleanField(default=False)
     cancellation_date = models.DateTimeField(null=True, blank=True)
     is_cancelled = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        # If the order is being created for the first time, set the next_renewal date to 1 month from the created_at date
-        if not self.pk:
-            self.next_renewal = self.created_at + relativedelta(months=1)
         super().save(*args, **kwargs)
 
     def calculate_next_renewal(self):
-        # Calculate the next renewal date by adding 1 month to the last_renewed date
-        self.next_renewal = self.last_renewed + relativedelta(months=1)
-        self.save()
+        if self.last_renewed:
+            self.next_renewal = self.last_renewed + relativedelta(months=1)
 
     def __str__(self):
         return f"Order {self.order_number} - {self.membership.membership_type}"
@@ -52,7 +48,6 @@ class RecurringPayment(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        # If the payment is being created for the first time, set the next_payment_date to the calculated next renewal date
         if not self.pk:
             self.next_payment_date = self.order.calculate_next_renewal()
         super().save(*args, **kwargs)
@@ -80,5 +75,3 @@ class PaymentHistory(models.Model):
 
     def __str__(self):
         return f"Payment for {self.order.membership.membership_type} - {self.payment_status}"
-
-

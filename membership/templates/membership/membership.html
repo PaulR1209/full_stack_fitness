@@ -50,7 +50,7 @@
             {% if user.is_authenticated %}
             <form action="{% url 'checkout' %}" method="POST">
                 {% csrf_token %}
-                <input type="hidden" name="membership_type" value="bronze">
+                <input type="hidden" name="membership_type" value="Bronze">
                 <button type="submit" class="btn btn-danger">Buy Now</button>
             </form>
             {% else %}
@@ -68,7 +68,7 @@
             {% if user.is_authenticated %}
             <form action="{% url 'checkout' %}" method="POST">
                 {% csrf_token %}
-                <input type="hidden" name="membership_type" value="silver">
+                <input type="hidden" name="membership_type" value="Silver">
                 <button type="submit" class="btn btn-danger">Buy Now</button>
             </form>
             {% else %}
@@ -86,7 +86,7 @@
             {% if user.is_authenticated %}
             <form action="{% url 'checkout' %}" method="POST">
                 {% csrf_token %}
-                <input type="hidden" name="membership_type" value="gold">
+                <input type="hidden" name="membership_type" value="Gold">
                 <button type="submit" class="btn btn-danger">Buy Now</button>
             </form>
             {% else %}
