@@ -11,9 +11,10 @@
                 achieve your best results.</p>
             {% else %}
             <p>Choose the membership that suits your fitness goals and budget. We offer a range of options to help you
-                achieve your best results. <a href="{% url 'account_login' %}?next={% url 'membership' %}">Sign in</a>
-                if you are an existing
-                customer. If you are new here, please create an account <a
+                achieve your best results.
+                <a href="{% url 'account_login' %}?next={% url 'membership' %}">Sign in</a> if you are an existing
+                customer.
+                If you are new here, please create an account <a
                     href="{% url 'account_signup' %}?next={% url 'membership' %}">here</a>.
             </p>
             {% endif %}
@@ -29,11 +30,13 @@
             <p>Basic access to the gym and standard facilities.</p>
             <p>£25/month</p>
             {% if user.is_authenticated %}
-            <form action="{% url 'add_to_cart' membership_bronze.id %}" method="POST">
+            <form action="{% url 'checkout' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="bronze">
-                <button type="submit" class="btn btn-danger">Add To Cart</button>
+                <button type="submit" class="btn btn-danger">Buy Now</button>
             </form>
+            {% else %}
+            <p class="text-danger">Please log in to purchase this membership.</p>
             {% endif %}
         </div>
 
@@ -45,11 +48,13 @@
             <p>Access to all facilities plus group classes.</p>
             <p>£35/month</p>
             {% if user.is_authenticated %}
-            <form action="{% url 'add_to_cart' membership_silver.id %}" method="POST">
+            <form action="{% url 'checkout' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="silver">
-                <button type="submit" class="btn btn-danger">Add To Cart</button>
+                <button type="submit" class="btn btn-danger">Buy Now</button>
             </form>
+            {% else %}
+            <p class="text-danger">Please log in to purchase this membership.</p>
             {% endif %}
         </div>
 
@@ -61,17 +66,19 @@
             <p>Full access including personal training sessions.</p>
             <p>£50/month</p>
             {% if user.is_authenticated %}
-            <form action="{% url 'add_to_cart' membership_gold.id %}" method="POST">
+            <form action="{% url 'checkout' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="gold">
-                <button type="submit" class="btn btn-danger">Add To Cart</button>
+                <button type="submit" class="btn btn-danger">Buy Now</button>
             </form>
+            {% else %}
+            <p class="text-danger">Please log in to purchase this membership.</p>
             {% endif %}
         </div>
     </div>
 
     <!-- Join Now Button -->
-     {% if not user.is_authenticated %}
+    {% if not user.is_authenticated %}
     <div class="row">
         <div class="col text-center">
             <a href="{% url 'membership' %}" class="cta-button">Join Now</a>
