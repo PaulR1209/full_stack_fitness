@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.views import View
 from django.conf import settings
 import stripe
@@ -38,8 +38,8 @@ class CheckoutView(View):
                 }
             ],
             mode="payment",
-            success_url=request.build_absolute_uri("/success/"),  # Adjust URL as needed
-            cancel_url=request.build_absolute_uri("/membership/"),
+            success_url=request.build_absolute_uri(reverse("success")),  # Adjust URL as needed
+            cancel_url=request.build_absolute_uri(reverse("membership")),
         )
 
         # Redirect to Stripe Checkout
