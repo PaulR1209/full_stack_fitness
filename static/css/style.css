@@ -228,6 +228,38 @@ footer {
   border: 3px solid #ffd700;
 }
 
+/* Membership page when membership is active */
+
+.active-membership {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.membership-card-large {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.membership-card.bronze-border,
+.membership-card-large.bronze-border {
+  border-color: #cd7f32;
+}
+
+.membership-card.silver-border,
+.membership-card-large.silver-border {
+  border-color: #c0c0c0;
+}
+
+.membership-card.gold-border,
+.membership-card-large.gold-border {
+  border-color: #ffd700;
+}
+
 /* Reviews Section */
 
 .reviews-section {
