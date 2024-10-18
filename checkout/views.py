@@ -92,13 +92,17 @@ class CancelMembershipView(View):
 
         if order:
             try:
-                stripe.Subscription.delete(order.subscription_id)
+                stripe.Subscription.modify(
+                    order.subscription_id,
+                    cancel_at_period_end=True,
+                )
                 order.is_cancelled = True
-                order.cancellation_date = timezone.now()
+                order.cancellation_date = order.next_renewal
                 order.save()
 
                 messages.success(
-                    request, "Your subscription has been successfully canceled."
+                    request,
+                    f"Your subscription has been canceled successfully. It will be active until {order.cancellation_date.strftime('%B %d, %Y')}.",
                 )
             except stripe.error.StripeError as e:
                 messages.error(request, f"Error canceling subscription: {str(e)}")

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container cart-container col-md-8 col-lg-4">
-    <h2>Confirm Cancellation</h2>
-    <p>Are you sure you want to cancel your subscription?</p>
+<div class="container cancel-container">
+    <h2 class="mb-3">Confirm Cancellation</h2>
+    <p class="mb-4">Are you sure you want to cancel your subscription?</p>
     <form method="post" action="{% url 'confirm_cancel' %}">
         {% csrf_token %}
         <button class="btn btn-primary" type="submit">Yes</button>

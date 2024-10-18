@@ -6,7 +6,7 @@ from checkout.models import Order
 def membership(request):
     user_order = None
     if request.user.is_authenticated:
-        user_order = Order.objects.filter(user=request.user, is_cancelled=False).first()
+        user_order = Order.objects.filter(user=request.user).first()
 
     membership_bronze = Membership.objects.filter(membership_type="Bronze").first()
     membership_silver = Membership.objects.filter(membership_type="Silver").first()
