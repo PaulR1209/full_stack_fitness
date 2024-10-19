@@ -13,8 +13,13 @@
 
             {% if user_order.is_cancelled %}
             <p>Expiry Date: {{ user_order.cancellation_date|date:"d/m/Y" }}</p>
-            <a href="" class="btn btn-success">Reactivate</a>
-            <a href="{% url 'membership' %}" class="btn btn-danger">Back</a>
+            <div class="d-flex justify-content-center">
+                <form action="{% url 'reactivate' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success m-3">Reactivate</button>
+                </form>
+                <a href="{% url 'membership' %}" class="btn btn-danger m-3">Back</a>
+            </div>
             {% else %}
             <p>Next Renewal: {{ user_order.next_renewal|date:"d/m/Y" }}</p>
             <a href="" class="btn btn-primary">Upgrade</a>

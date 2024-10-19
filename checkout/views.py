@@ -111,3 +111,36 @@ class CancelMembershipView(View):
 
         messages.warning(request, "No active subscription found.")
         return redirect("membership")
+
+
+class ReactivateMembershipView(View):
+    def post(self, request):
+        if not request.user.is_authenticated:
+            return redirect("membership")
+
+        order = Order.objects.filter(
+            user=request.user, is_cancelled=True, cancellation_date__gte=timezone.now()
+        ).first()
+
+        if order:
+            try:
+                # Reactivate the Stripe subscription
+                stripe.Subscription.modify(
+                    order.subscription_id,
+                    cancel_at_period_end=False,  # This will reactivate the subscription
+                )
+                # Reset the cancellation flags
+                order.is_cancelled = False
+                order.cancellation_date = None
+                order.save()
+
+                messages.success(
+                    request, "Your membership has been successfully reactivated."
+                )
+            except stripe.error.StripeError as e:
+                messages.error(request, f"Error reactivating membership: {str(e)}")
+
+            return redirect("manage")
+
+        messages.warning(request, "No canceled membership found to reactivate.")
+        return redirect("membership")
