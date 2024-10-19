@@ -185,7 +185,6 @@ footer {
 .about-teaser,
 .membership-section {
   padding: 50px 20px;
-  min-height: 50vh;
 }
 
 /* Membership Section */
@@ -236,6 +235,11 @@ footer {
   border-radius: 8px;
   padding: 2rem;
   margin: 0 auto;
+}
+
+.membership-card-large img {
+  width: 100px;
+  margin-bottom: 15px;
 }
 
 .membership-card.bronze-border,

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid form-container text-center">
+    <div class="card membership-card-large {{ user_order.membership.membership_type|lower }}-border">
+        <div class="card-header mb-3">
+            <h2>Manage Your Membership</h2>
+        </div>
+        <div class="card-body">
+            <p>Current Membership: {{ user_order.membership.membership_type }}</p>
+            <p>Start Date: {{ user_order.created_at|date:"d/m/Y" }}</p>
+
+            {% if user_order.is_cancelled %}
+            <p>Expiry Date: {{ user_order.cancellation_date|date:"d/m/Y" }}</p>
+            <a href="" class="btn btn-success">Reactivate</a>
+            <a href="{% url 'membership' %}" class="btn btn-danger">Back</a>
+            {% else %}
+            <p>Next Renewal: {{ user_order.next_renewal|date:"d/m/Y" }}</p>
+            <a href="" class="btn btn-primary">Upgrade</a>
+            <a href="{% url 'cancel' %}" class="btn btn-danger">Cancel</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
