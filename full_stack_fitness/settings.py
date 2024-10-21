@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from django.contrib import messages
+import dj_database_url
 
 if os.path.exists("env.py"):
     import env
@@ -137,8 +138,11 @@ WSGI_APPLICATION = "full_stack_fitness.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        dj_database_url.config(
+            default=os.environ.get(
+                "postgres://uth7e2mp581:GFHpxe6ZfiQo@ep-gentle-mountain-a23bxz6h-pooler.eu-central-1.aws.neon.tech/diner_poser_patch_145976"
+            )
+        )
     }
 }
 

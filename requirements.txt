@@ -1,6 +1,7 @@
 asgiref==3.8.1
 cloudinary==1.41.0
 crispy-bootstrap5==2024.2
+dj-database-url==2.2.0
 Django==5.1.1
 django-allauth==65.0.1
 django-braces==1.15.0
@@ -10,8 +11,8 @@ django-model-utils==5.0.0
 django-summernote==0.8.20.0
 gunicorn==23.0.0
 python-dotenv==1.0.1
-python-dateutil==2.9.0.post0
 sqlparse==0.5.1
 stripe==11.1.0
 swapper==1.4.0
 whitenoise==6.7.0
+python-dateutil==2.9.0.post0
