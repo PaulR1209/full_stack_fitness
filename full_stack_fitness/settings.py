@@ -137,13 +137,7 @@ WSGI_APPLICATION = "full_stack_fitness.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        dj_database_url.config(
-            default=os.environ.get(
-                "postgres://uth7e2mp581:GFHpxe6ZfiQo@ep-gentle-mountain-a23bxz6h-pooler.eu-central-1.aws.neon.tech/diner_poser_patch_145976"
-            )
-        )
-    }
+    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
 }
 
 
