@@ -1,0 +1,399 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body,
+html {
+  font-family: 'Montserrat', sans-serif;
+  color: #6C757D;
+  overflow-x: hidden;
+}
+
+/* Messages */
+
+.messages {
+  position: fixed;
+  top: 80px;
+  z-index: 1050;
+  margin: auto;
+}
+
+ul.messages {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Navbar */
+
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: clamp(1.25rem, 2vw + 0.5rem, 2rem);
+  font-weight: 600;
+  color: #6C757D;
+}
+
+.navbar-brand:hover {
+  color: #6C757D;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover {
+  transform: scale(1.1);
+  color: black;
+}
+
+.nav-link.active {
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+}
+
+/* Footer */
+
+footer {
+  background-color: #F8F9FA;
+  padding: 1rem 0;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footer-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #6C757D;
+}
+
+.footer-icon i {
+  color: #F8F9FA;
+  transition: transform 0.3s ease;
+}
+
+.footer-icon i:hover {
+  color: #F8F9FA;
+  transform: scale(1.1);
+}
+
+.footer-copyright {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 2rem;
+}
+
+/* Authentication Forms */
+
+.form-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-in-container {
+  background: url('https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/background_eawgdk.webp') no-repeat center center/cover;
+}
+
+.auth-container {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.form-title {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* Home Page */
+
+/* Hero image */
+
+.hero-image {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-home {
+  background-image: url('https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/hero-image_srnm9u.webp');
+}
+
+.hero-auth {
+  background-image: url('https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/background_eawgdk.webp');
+}
+
+.hero-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+/* Hero Content */
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
+
+/* Button */
+
+.cta-button {
+  background-color: #ff6f61;
+  color: white;
+  padding: 15px 30px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  display: inline-block;
+}
+
+.cta-button:hover {
+  background-color: #ff3c2f;
+}
+
+/* Home Page */
+
+/* About Teaser */
+
+.about-teaser,
+.reviews-section {
+  background-color: #f8f8f8;
+}
+
+.about-teaser,
+.membership-section {
+  padding: 50px 20px;
+}
+
+/* Membership Section */
+
+.membership-cards-container {
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.membership-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px 0;
+  width: 250px;
+}
+
+.membership-card img {
+  width: 50px;
+  margin-bottom: 15px;
+}
+
+.membership-card h3 {
+  margin-bottom: 10px;
+}
+
+.membership-card p {
+  margin: 5px 0;
+}
+
+.bronze {
+  border: 3px solid #cd7f32;
+}
+
+.silver {
+  border: 3px solid #c0c0c0;
+}
+
+.gold {
+  border: 3px solid #ffd700;
+}
+
+/* Membership page when membership is active */
+
+.membership-card-large {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.membership-card-large img {
+  width: 100px;
+  margin-bottom: 15px;
+}
+
+.membership-card.bronze-border,
+.membership-card-large.bronze-border {
+  border-color: #cd7f32;
+}
+
+.membership-card.silver-border,
+.membership-card-large.silver-border {
+  border-color: #c0c0c0;
+}
+
+.membership-card.gold-border,
+.membership-card-large.gold-border {
+  border-color: #ffd700;
+}
+
+/* Confirm Cancellation */
+
+.cancel-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Reviews Section */
+
+.reviews-section {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+}
+
+.review-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stars {
+  color: #f39c12;
+  font-size: 24px;
+}
+
+/* Call to Action section */
+
+.cta-banner {
+  min-height: 30vh;
+  padding: 40px 20px;
+  background-color: #ff6f61;
+  color: white;
+}
+
+.cta-banner a {
+  background-color: white;
+  color: #ff6f61;
+  border: 2px solid white;
+}
+
+.cta-banner a:hover {
+  background-color: #f2f2f2;
+  color: #ff6f61;
+  border: 2px solid #f2f2f2;
+}
+
+/* About Us Page */
+
+/* Hero Section */
+
+.page-container {
+  min-height: 60vh;
+}
+
+.page-container h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.page-container p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* Facilities Section */
+
+.facilities-section {
+  padding: 50px 0;
+  background-color: #f8f8f8;
+}
+
+.facility-card {
+  margin-bottom: 30px;
+}
+
+.facility-card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.card-text {
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+/* Location & Hours */
+
+.location-hours-section {
+  padding: 40px 20px;
+}
+
+.location-hours-section h2 {
+  margin-bottom: 20px;
+}
+
+.location-details {
+  font-size: 1.1em;
+}
+
+.location-details p {
+  margin: 10px 0;
+}
+
+.location-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.location-details li {
+  margin: 5px 0;
+}
+
+/* Cart */
+
+.cart-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* Stripe Elements */
+
+#card-element {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 1rem;
+}
