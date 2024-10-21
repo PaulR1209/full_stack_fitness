@@ -35,6 +35,7 @@ def review_list(request):
         {
             "reviews": reviews,
             "selected_rating": selected_rating,
+            "sorted_by": sorted_by,
             "rating_range": range(1, 6),
         },
     )

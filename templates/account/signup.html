@@ -22,7 +22,7 @@
       </div>
       <div class="row">
         <!-- Signup form -->
-        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}?next={% url 'membership' %}">
+        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}?next={{ request.path }}">
           {% csrf_token %}
           {{ form.as_p }}
           {% if redirect_field_value %}
