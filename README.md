@@ -1,1 +1,1 @@
-[Live Link](https://full-stack-fitness-a73d59e5c070.herokuapp.com/membership/manage/)
+[Live Link](https://full-stack-fitness-a73d59e5c070.herokuapp.com/)
