@@ -68,6 +68,7 @@ class SuccessView(View):
                             is_paid=True,
                             last_renewed=timezone.now(),
                             subscription_id=subscription_id,
+                            stripe_price_id=membership.stripe_price_id,
                         )
                         order.next_renewal = order.last_renewed + relativedelta(
                             months=1
@@ -153,4 +154,72 @@ class ReactivateMembershipView(View):
             return redirect("manage")
 
         messages.warning(request, "No canceled membership found to reactivate.")
+        return redirect("membership")
+
+
+class ChangeMembershipView(View):
+    def post(self, request):
+        if not request.user.is_authenticated:
+            return redirect("membership")
+
+        user_order = Order.objects.filter(user=request.user, is_cancelled=False).first()
+        new_membership_type = request.POST.get("membership_type")
+        new_membership = Membership.objects.get(membership_type=new_membership_type)
+
+        if user_order and user_order.subscription_id:
+            stripe_subscription = stripe.Subscription.retrieve(
+                user_order.subscription_id
+            )
+
+            current_membership_price = user_order.membership.price
+            new_membership_price = new_membership.price
+
+            if new_membership_price > current_membership_price:
+                # Upgrade
+                stripe.Subscription.modify(
+                    stripe_subscription.id,
+                    items=[
+                        {
+                            "id": stripe_subscription["items"]["data"][0].id,
+                            "price": new_membership.stripe_price_id,
+                        }
+                    ],
+                    proration_behavior="create_prorations",
+                )
+                user_order.membership = new_membership
+                user_order.save()
+                messages.success(
+                    request, f"You have upgraded to {new_membership_type} immediately."
+                )
+
+            else:
+                # Downgrade
+                stripe.Subscription.modify(
+                    stripe_subscription.id,
+                    items=[
+                        {
+                            "id": stripe_subscription["items"]["data"][0].id,
+                            "price": new_membership.stripe_price_id,
+                        }
+                    ],
+                    proration_behavior="none",
+                    billing_cycle_anchor="unchanged",
+                )
+                user_order.pending_membership = (
+                    new_membership  # Set the new membership as pending
+                )
+                user_order.cancellation_date = (
+                    user_order.next_renewal
+                )  # Set the cancellation date to next renewal
+                user_order.save()
+                next_renewal_date = user_order.next_renewal.strftime("%B %d, %Y")
+
+                messages.success(
+                    request,
+                    f"You have successfully downgraded your membership to {new_membership_type}. Your membership will change on {next_renewal_date}.",
+                )
+
+            return redirect("membership")
+
+        messages.warning(request, "No active subscription found.")
         return redirect("membership")

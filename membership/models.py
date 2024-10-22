@@ -13,6 +13,7 @@ class Membership(models.Model):
     membership_type = models.CharField(max_length=100, choices=MEMBERSHIP_TYPES)
     price = models.IntegerField()
     description = models.TextField()
+    stripe_price_id = models.CharField(max_length=50)
 
     def __str__(self):
         return self.membership_type

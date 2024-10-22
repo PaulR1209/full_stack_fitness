@@ -46,7 +46,7 @@ def manage(request):
     return render(request, "membership/manage.html", context)
 
 
-def change_membership(request):
+def change(request):
     user_order = None
 
     if request.user.is_authenticated:
@@ -65,4 +65,4 @@ def change_membership(request):
         "membership_gold": membership_gold,
     }
 
-    return render(request, "membership/change_membership.html", context)
+    return render(request, "membership/change.html", context)

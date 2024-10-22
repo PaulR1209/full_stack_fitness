@@ -13,6 +13,13 @@ class Order(models.Model):
     full_name = models.CharField(max_length=100, default="")
     email = models.EmailField(null=True, blank=True)
     membership = models.ForeignKey(Membership, on_delete=models.CASCADE)
+    pending_membership = models.ForeignKey(
+        Membership,
+        on_delete=models.CASCADE,
+        related_name="pending_membership",
+        null=True,
+        blank=True,
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     last_renewed = models.DateTimeField(null=True, blank=True)
     next_renewal = models.DateTimeField(null=True, blank=True)
@@ -20,6 +27,7 @@ class Order(models.Model):
     cancellation_date = models.DateTimeField(null=True, blank=True)
     is_cancelled = models.BooleanField(default=False)
     subscription_id = models.CharField(max_length=100, null=True, blank=True)
+    stripe_price_id = models.CharField(max_length=100, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

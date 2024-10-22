@@ -22,7 +22,7 @@
             </div>
             {% else %}
             <p>Next Renewal: {{ user_order.next_renewal|date:"d/m/Y" }}</p>
-            <a href="{% url 'change_membership' %}" class="btn btn-primary">Change Membership</a>
+            <a href="{% url 'change' %}" class="btn btn-primary">Change Membership</a>
             <a href="{% url 'cancel' %}" class="btn btn-danger">Cancel Membership</a>
             {% endif %}
         </div>

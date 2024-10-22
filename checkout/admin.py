@@ -22,6 +22,7 @@ class OrderAdmin(admin.ModelAdmin):
         "is_cancelled",
         "subscription_id",
         "order_number",
+        "stripe_price_id",
     )
     ordering = ("-created_at",)
     search_fields = ("full_name", "email", "order_number")

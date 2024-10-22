@@ -27,7 +27,7 @@
             <h3>Bronze Membership</h3>
             <p>Basic access to the gym and standard facilities.</p>
             <p>£25/month</p>
-            <form action="{% url 'checkout' %}" method="POST">
+            <form action="{% url 'change_membership' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="Bronze">
                 <button type="submit" class="btn btn-danger">Change</button>
@@ -43,7 +43,7 @@
             <h3>Silver Membership</h3>
             <p>Access to all facilities plus group classes.</p>
             <p>£35/month</p>
-            <form action="{% url 'checkout' %}" method="POST">
+            <form action="{% url 'change_membership' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="Silver">
                 <button type="submit" class="btn btn-danger">Change</button>
@@ -59,7 +59,7 @@
             <h3>Gold Membership</h3>
             <p>Full access including personal training sessions.</p>
             <p>£50/month</p>
-            <form action="{% url 'checkout' %}" method="POST">
+            <form action="{% url 'change_membership' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="Gold">
                 <button type="submit" class="btn btn-danger">Change</button>
