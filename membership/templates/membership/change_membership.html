@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid membership-section">
+    <div class="row mt-5 d-flex justify-content-center align-items-center text-center">
+        <div class="col-lg-8 mt-5 mx-auto">
+            <h1 class="mb-3">Change Membership</h1>
+            {% if user_order %}
+            <div class="current-membership">
+                <p>Your Current Membership: {{ user_order.membership.membership_type }}</p>
+                <p>Renewal Date: {{ user_order.next_renewal|date:"d/m/Y" }}</p>
+            </div>
+            {% else %}
+            <p>You currently do not have an active membership.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-5 d-flex justify-content-center membership-cards-container">
+        <!-- Bronze Membership Card -->
+        {% if user_order.membership.membership_type != 'Bronze' %}
+        <div class="col-12 col-md-3 membership-card bronze text-center">
+            <img src="https://res.cloudinary.com/dbkejesw4/image/upload/v1727693673/bronze_wmny2f.webp"
+                alt="Bronze Membership Icon" loading="lazy">
+            <h3>Bronze Membership</h3>
+            <p>Basic access to the gym and standard facilities.</p>
+            <p>£25/month</p>
+            <form action="{% url 'checkout' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="membership_type" value="Bronze">
+                <button type="submit" class="btn btn-danger">Change</button>
+            </form>
+        </div>
+        {% endif %}
+
+        <!-- Silver Membership Card -->
+        {% if user_order.membership.membership_type != 'Silver' %}
+        <div class="col-12 col-md-3 membership-card silver text-center">
+            <img src="https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/silver_v25pk2.webp"
+                alt="Silver Membership Icon" loading="lazy">
+            <h3>Silver Membership</h3>
+            <p>Access to all facilities plus group classes.</p>
+            <p>£35/month</p>
+            <form action="{% url 'checkout' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="membership_type" value="Silver">
+                <button type="submit" class="btn btn-danger">Change</button>
+            </form>
+        </div>
+        {% endif %}
+
+        <!-- Gold Membership Card -->
+        {% if user_order.membership.membership_type != 'Gold' %}
+        <div class="col-12 col-md-3 membership-card gold text-center">
+            <img src="https://res.cloudinary.com/dbkejesw4/image/upload/v1727693672/gold_wyqkru.webp"
+                alt="Gold Membership Icon" loading="lazy">
+            <h3>Gold Membership</h3>
+            <p>Full access including personal training sessions.</p>
+            <p>£50/month</p>
+            <form action="{% url 'checkout' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="membership_type" value="Gold">
+                <button type="submit" class="btn btn-danger">Change</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    {% endblock %}
