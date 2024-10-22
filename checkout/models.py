@@ -12,7 +12,6 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100, default="")
     email = models.EmailField(null=True, blank=True)
-    phone_number = models.CharField(max_length=15, null=True, blank=True)
     membership = models.ForeignKey(Membership, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     last_renewed = models.DateTimeField(null=True, blank=True)
@@ -55,24 +54,3 @@ class RecurringPayment(models.Model):
 
     def __str__(self):
         return f"Payment for {self.order.membership.membership_type} - Due on {self.next_payment_date}"
-
-
-class PaymentHistory(models.Model):
-    PAYMENT_STATUS = [
-        ("pending", "Pending"),
-        ("paid", "Paid"),
-        ("failed", "Failed"),
-    ]
-    order = models.ForeignKey(
-        Order, on_delete=models.CASCADE, related_name="payment_history"
-    )
-    amount = models.DecimalField(max_digits=6, decimal_places=2)
-    payment_date = models.DateTimeField(auto_now_add=True)
-    payment_status = models.CharField(
-        max_length=10, choices=PAYMENT_STATUS, default="pending"
-    )
-    payment_method = models.CharField(max_length=50)
-    transaction_id = models.CharField(max_length=100, null=True, blank=True)
-
-    def __str__(self):
-        return f"Payment for {self.order.membership.membership_type} - {self.payment_status}"

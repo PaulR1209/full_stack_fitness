@@ -48,29 +48,41 @@ class SuccessView(View):
         if session_id:
             session = stripe.checkout.Session.retrieve(session_id)
             subscription_id = session.subscription
+            customer_id = session.customer
 
             if request.user.is_authenticated:
                 membership = Membership.objects.filter(
                     membership_type__iexact=membership_type
                 ).first()
-                if membership:
-                    order = Order.objects.create(
-                        user=request.user,
-                        membership=membership,
-                        full_name=request.user.get_full_name(),
-                        email=request.user.email,
-                        is_paid=True,
-                        last_renewed=timezone.now(),
-                        subscription_id=subscription_id,
-                    )
-                    order.next_renewal = order.last_renewed + relativedelta(months=1)
-                    order.save()
 
-                    return render(
-                        request,
-                        "checkout/success.html",
-                        {"membership_type": membership_type},
-                    )
+                if membership:
+                    try:
+                        customer = stripe.Customer.retrieve(customer_id)
+                        full_name = customer.name
+
+                        order = Order.objects.create(
+                            user=request.user,
+                            membership=membership,
+                            full_name=full_name,
+                            email=request.user.email,
+                            is_paid=True,
+                            last_renewed=timezone.now(),
+                            subscription_id=subscription_id,
+                        )
+                        order.next_renewal = order.last_renewed + relativedelta(
+                            months=1
+                        )
+                        order.save()
+
+                        return render(
+                            request,
+                            "checkout/success.html",
+                            {"membership_type": membership_type},
+                        )
+
+                    except stripe.error.StripeError as e:
+                        messages.error(request, f"Error retrieving customer: {str(e)}")
+                        return redirect("membership")
 
         return redirect("membership")
 
@@ -124,12 +136,10 @@ class ReactivateMembershipView(View):
 
         if order:
             try:
-                # Reactivate the Stripe subscription
                 stripe.Subscription.modify(
                     order.subscription_id,
-                    cancel_at_period_end=False,  # This will reactivate the subscription
+                    cancel_at_period_end=False,
                 )
-                # Reset the cancellation flags
                 order.is_cancelled = False
                 order.cancellation_date = None
                 order.save()
