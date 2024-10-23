@@ -173,9 +173,12 @@ class ChangeMembershipView(View):
 
             current_membership_price = user_order.membership.price
             new_membership_price = new_membership.price
+            remaining_days = (user_order.next_renewal - timezone.now()).days
+            upgrade_price = (new_membership_price - current_membership_price) * (
+                remaining_days / 30
+            )
 
             if new_membership_price > current_membership_price:
-                # Upgrade
                 stripe.Subscription.modify(
                     stripe_subscription.id,
                     items=[
@@ -189,11 +192,15 @@ class ChangeMembershipView(View):
                 user_order.membership = new_membership
                 user_order.save()
                 messages.success(
-                    request, f"You have upgraded to {new_membership_type} immediately."
+                    request,
+                    f"You have successfully upgraded to the {new_membership_type} Membership.",
+                )
+                messages.info(
+                    request,
+                    f"An additional charge of £{upgrade_price:.2f} will be added to your next bill.",
                 )
 
             else:
-                # Downgrade
                 stripe.Subscription.modify(
                     stripe_subscription.id,
                     items=[
@@ -205,12 +212,8 @@ class ChangeMembershipView(View):
                     proration_behavior="none",
                     billing_cycle_anchor="unchanged",
                 )
-                user_order.pending_membership = (
-                    new_membership  # Set the new membership as pending
-                )
-                user_order.cancellation_date = (
-                    user_order.next_renewal
-                )  # Set the cancellation date to next renewal
+                user_order.pending_membership = new_membership
+                user_order.cancellation_date = user_order.next_renewal
                 user_order.save()
                 next_renewal_date = user_order.next_renewal.strftime("%B %d, %Y")
 

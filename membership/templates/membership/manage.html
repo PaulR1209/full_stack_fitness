@@ -22,7 +22,15 @@
             </div>
             {% else %}
             <p>Next Renewal: {{ user_order.next_renewal|date:"d/m/Y" }}</p>
-            <a href="{% url 'change' %}" class="btn btn-primary">Change Membership</a>
+
+            {% if user_order.pending_membership %}
+                <p class="text-info">
+                    Your membership is changing to {{ user_order.pending_membership.membership_type }} upon next renewal.
+                </p>
+            {% else %}
+                <a href="{% url 'change' %}" class="btn btn-primary">Change Membership</a>
+            {% endif %}
+
             <a href="{% url 'cancel' %}" class="btn btn-danger">Cancel Membership</a>
             {% endif %}
         </div>
