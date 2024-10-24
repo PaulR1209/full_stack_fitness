@@ -101,6 +101,47 @@ class SuccessView(View):
         return redirect("membership")
 
 
+class MembershipStatusView(View):
+    """View to check the membership renewal status."""
+
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("membership")
+
+        # Retrieve the user's active order
+        order = Order.objects.filter(user=request.user, is_cancelled=False).first()
+
+        if order:
+            now = timezone.now()
+            if order.next_renewal < now:
+                # Check Stripe for payment success
+                try:
+                    subscription = stripe.Subscription.retrieve(order.subscription_id)
+                    if subscription.status == "active":
+                        order.is_paid = True
+                    else:
+                        order.is_paid = False
+
+                    order.save()
+
+                    if not order.is_paid:
+                        messages.warning(
+                            request,
+                            "Your renewal payment has failed. Please update your payment.",
+                        )
+                        return render(
+                            request,
+                            "checkout/membership_status.html",
+                            {
+                                "order": order,
+                            },
+                        )
+                except stripe.error.StripeError as e:
+                    messages.error(request, f"Error checking payment status: {str(e)}")
+
+        return render(request, "checkout/membership_status.html", {"order": order})
+
+
 class CancelConfirmationView(View):
     """View to display the cancellation confirmation page."""
 
@@ -170,7 +211,9 @@ class ReactivateMembershipView(View):
                 # Update order status in the database
                 order.is_cancelled = False
                 order.cancellation_date = None
-                order.next_renewal = order.last_renewed + relativedelta(months=1) # Calculate the next renewal date
+                order.next_renewal = order.last_renewed + relativedelta(
+                    months=1
+                )  # Calculate the next renewal date
                 order.save()
 
                 messages.success(

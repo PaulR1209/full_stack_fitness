@@ -24,14 +24,23 @@
             <p>Next Renewal: {{ user_order.next_renewal|date:"d/m/Y" }}</p>
 
             {% if user_order.pending_membership %}
-                <p class="text-info">
-                    Your membership is changing to {{ user_order.pending_membership.membership_type }} upon next renewal.
-                </p>
+            <p class="text-info">
+                Your membership is changing to {{ user_order.pending_membership.membership_type }} upon next renewal.
+            </p>
             {% else %}
-                <a href="{% url 'change' %}" class="btn btn-primary">Change Membership</a>
+            <a href="{% url 'change' %}" class="btn btn-primary">Change Membership</a>
             {% endif %}
 
+            {% if not user_order.is_paid %}
+            <p class="text-danger mt-3">Your renewal payment has failed. Please pay using the button below.</p>
+            <form action="{% url 'checkout' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="membership_type" value="{{ user_order.membership.membership_type }}">
+                <button type="submit" class="btn btn-warning">Update Payment</button>
+            </form>
+            {% else %}
             <a href="{% url 'cancel' %}" class="btn btn-danger">Cancel Membership</a>
+            {% endif %}
             {% endif %}
         </div>
     </div>
