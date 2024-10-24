@@ -30,7 +30,7 @@
 
     <!-- Membership Management Section -->
     {% if user_order %}
-
+    <!-- Only appears if user has a membership -->
     <div class="container-fluid mt-5 d-flex justify-content-center align-items-center text-center">
         <div class="card membership-card-large {{ user_order.membership.membership_type|lower }}-border">
             <div class="card-body">
@@ -62,6 +62,8 @@
     </div>
 
     {% else %}
+    <!-- Only appears if user does not have a membership -->
+     
     <div class="row mt-5 d-flex justify-content-center membership-cards-container">
         <!-- Bronze Membership Card -->
         <div class="col-12 col-md-3 membership-card bronze text-center">

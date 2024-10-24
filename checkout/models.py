@@ -6,6 +6,7 @@ from dateutil.relativedelta import relativedelta
 
 
 class Order(models.Model):
+    """Model to store order information."""
     order_number = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100, default="")
@@ -27,36 +28,10 @@ class Order(models.Model):
     subscription_id = models.CharField(max_length=100, null=True, blank=True)
     stripe_price_id = models.CharField(max_length=100, null=True, blank=True)
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
     def calculate_next_renewal(self):
+        """Calculate the next renewal date."""
         if self.last_renewed:
             self.next_renewal = self.last_renewed + relativedelta(months=1)
 
     def __str__(self):
         return f"Order {self.order_number} - {self.membership.membership_type}"
-
-
-class RecurringPayment(models.Model):
-    PAYMENT_STATUS = [
-        ("pending", "Pending"),
-        ("paid", "Paid"),
-        ("failed", "Failed"),
-    ]
-    order = models.ForeignKey(
-        Order, on_delete=models.CASCADE, related_name="recurring_payments"
-    )
-    amount = models.DecimalField(max_digits=6, decimal_places=2)
-    next_payment_date = models.DateTimeField()
-    payment_status = models.CharField(
-        max_length=10, choices=PAYMENT_STATUS, default="pending"
-    )
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.next_payment_date = self.order.calculate_next_renewal()
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f"Payment for {self.order.membership.membership_type} - Due on {self.next_payment_date}"

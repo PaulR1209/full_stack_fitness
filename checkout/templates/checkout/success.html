@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container cancel-container">
-    <h2 class="mb-3">Payment Successful!</h2>
-    <p class="mb-4">Thank you for your purchasing the {{ membership_type }} Membership.</p>
-    <a href="{% url 'membership' %}" class="btn btn-primary">Go to Memberships</a>
+<div class="container-fluid form-container sign-in-container">
+    <div class="row">
+        <div class="auth-container d-flex flex-column align-items-center">
+            <h2 class="form-title">Payment Successful!</h2>
+            <p class="mb-4">Thank you for your purchasing the {{ membership_type }} Membership.</p>
+            <a href="{% url 'membership' %}" class="btn btn-primary mb-3">Go to Memberships</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

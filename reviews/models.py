@@ -1,10 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-
 
 class Review(models.Model):
+    """Display the reviews of the users"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(default=5, choices=[(i, i) for i in range(1, 6)])
     content = models.TextField()

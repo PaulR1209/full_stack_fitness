@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container cart-container col-md-8 col-lg-4">
-    <h2>Error!</h2>
-    <p>{{ message }}</p>
-    <a href="{% url 'membership' %}" class="btn btn-primary">Return to Memberships</a>
+<div class="container-fluid form-container sign-in-container">
+    <div class="row">
+        <div class="auth-container d-flex flex-column align-items-center">
+            <h2 class="form-title">Error!</h2>
+            <p class="mb-4">{{ message }}</p>
+            <a href="{% url 'membership' %}" class="btn btn-primary mb-3">Return to Memberships</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
