@@ -70,9 +70,9 @@ class SuccessView(View):
                             subscription_id=subscription_id,
                             stripe_price_id=membership.stripe_price_id,
                         )
-                        order.next_renewal = order.last_renewed + relativedelta(
-                            months=1
-                        )
+
+                        # Calculate next renewal after creating the order
+                        order.calculate_next_renewal()
                         order.save()
 
                         return render(
@@ -92,7 +92,6 @@ class CancelConfirmationView(View):
     def get(self, request):
         if not request.user.is_authenticated:
             return redirect("membership")
-
         return render(request, "checkout/cancel.html")
 
 
@@ -110,7 +109,8 @@ class CancelMembershipView(View):
                     cancel_at_period_end=True,
                 )
                 order.is_cancelled = True
-                order.cancellation_date = order.next_renewal
+                order.cancellation_date = order.next_renewal  # Set cancellation date
+                order.next_renewal = None  # Optionally set next renewal to None
                 order.save()
 
                 messages.success(
@@ -143,6 +143,8 @@ class ReactivateMembershipView(View):
                 )
                 order.is_cancelled = False
                 order.cancellation_date = None
+                order.last_renewed = timezone.now()  # Update last_renewed to now
+                order.calculate_next_renewal()  # Recalculate next renewal
                 order.save()
 
                 messages.success(
@@ -170,7 +172,6 @@ class ChangeMembershipView(View):
             stripe_subscription = stripe.Subscription.retrieve(
                 user_order.subscription_id
             )
-
             current_membership_price = user_order.membership.price
             new_membership_price = new_membership.price
             remaining_days = (user_order.next_renewal - timezone.now()).days
@@ -226,3 +227,26 @@ class ChangeMembershipView(View):
 
         messages.warning(request, "No active subscription found.")
         return redirect("membership")
+
+
+def update_memberships():
+    now = timezone.now()
+
+    # Handle cancellations
+    cancelled_orders = Order.objects.filter(
+        is_cancelled=True, cancellation_date__lte=now
+    )
+    for order in cancelled_orders:
+        order.delete()  # Deletes the canceled order; adjust if you want to preserve it
+
+    # Handle downgrades
+    active_orders = Order.objects.filter(is_cancelled=False, next_renewal__lte=now)
+    for order in active_orders:
+        if (
+            order.pending_membership
+        ):  # Check if there is a pending membership to downgrade to
+            order.membership = order.pending_membership
+            order.pending_membership = None
+            order.last_renewed = now
+            order.calculate_next_renewal()  # Ensure this updates the next_renewal
+            order.save()

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container cart-container col-md-8 col-lg-4">
-    <h2>Payment Successful!</h2>
-    <p>Thank you for your purchasing the {{ membership_type }} Membership.</p>
+<div class="container cancel-container">
+    <h2 class="mb-3">Payment Successful!</h2>
+    <p class="mb-4">Thank you for your purchasing the {{ membership_type }} Membership.</p>
     <a href="{% url 'membership' %}" class="btn btn-primary">Go to Memberships</a>
 </div>
 {% endblock %}

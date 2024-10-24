@@ -4,8 +4,6 @@ from membership.models import Membership
 import uuid
 from dateutil.relativedelta import relativedelta
 
-# Create your models here.
-
 
 class Order(models.Model):
     order_number = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)

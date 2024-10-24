@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from .models import Membership
 from checkout.models import Order
+from checkout.views import update_memberships
 
 
 def membership(request):
+
+    update_memberships()
+
     user_order = None
     if request.user.is_authenticated:
         user_order = Order.objects.filter(user=request.user).first()
@@ -11,6 +15,8 @@ def membership(request):
     membership_bronze = Membership.objects.filter(membership_type="Bronze").first()
     membership_silver = Membership.objects.filter(membership_type="Silver").first()
     membership_gold = Membership.objects.filter(membership_type="Gold").first()
+
+    orders = Order.objects.filter(user=request.user)
 
     return render(
         request,
@@ -20,11 +26,15 @@ def membership(request):
             "membership_silver": membership_silver,
             "membership_gold": membership_gold,
             "user_order": user_order,
+            "orders": orders,
         },
     )
 
 
 def manage(request):
+
+    update_memberships()
+
     user_order = None
 
     if request.user.is_authenticated:
@@ -47,6 +57,9 @@ def manage(request):
 
 
 def change(request):
+
+    update_memberships()
+
     user_order = None
 
     if request.user.is_authenticated:
