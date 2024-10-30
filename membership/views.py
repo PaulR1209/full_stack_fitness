@@ -24,3 +24,14 @@ def manage(request):
     return render(request, 'membership/manage.html' , {
         'user_order': user_order
         })
+
+
+def change(request):
+    user_order = None
+
+    if request.user.is_authenticated:
+        user_order = Order.objects.filter(user=request.user).first()
+
+    return render(request, 'membership/change.html' , {
+        'user_order': user_order
+        })
