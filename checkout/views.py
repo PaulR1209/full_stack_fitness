@@ -95,7 +95,9 @@ class CancelMembership(View):
                 user=request.user, is_cancelled=False
             ).last()
             if user_order and user_order.subscription_id:
-                print(f"Attempting to cancel subscription ID: {user_order.subscription_id}")
+                print(
+                    f"Attempting to cancel subscription ID: {user_order.subscription_id}"
+                )
 
                 stripe.Subscription.modify(
                     user_order.subscription_id, cancel_at_period_end=True
@@ -133,7 +135,9 @@ class ReactivateMembership(View):
                 user=request.user, is_cancelled=True
             ).last()
             if user_order and user_order.subscription_id:
-                print(f"Attempting to reactivate subscription ID: {user_order.subscription_id}")
+                print(
+                    f"Attempting to reactivate subscription ID: {user_order.subscription_id}"
+                )
 
                 stripe.Subscription.modify(
                     user_order.subscription_id, cancel_at_period_end=False
@@ -152,5 +156,98 @@ class ReactivateMembership(View):
         except Exception as e:
             print(f"Error reactivating membership: {e}")
             messages.error(request, f"Error reactivating membership: {str(e)}")
+
+        return redirect("manage")
+
+
+class ChangeMembership(View):
+    def post(self, request, *args, **kwargs):
+        selected_membership = request.POST.get("membership_type")
+
+        try:
+            user_order = Order.objects.filter(
+                user=request.user, is_cancelled=False
+            ).last()
+            if user_order:
+                subscription_id = user_order.subscription_id
+                subscription = stripe.Subscription.retrieve(subscription_id)
+
+                membership_price_map = {
+                    "Bronze": "price_1QApgeRo4WFpkduhqIGQ6dru",
+                    "Silver": "price_1QAphIRo4WFpkduh51iLJTj7",
+                    "Gold": "price_1QAphoRo4WFpkduhm7zZ5nMs",
+                }
+
+                new_price_id = membership_price_map.get(selected_membership)
+
+                new_membership = Membership.objects.get(
+                    stripe_price_id=new_price_id
+                )
+
+                if new_price_id and subscription.items.data[0].price.id != new_price_id:
+                    current_price_id = subscription.items.data[0].price.id
+                    is_upgrade = (
+                        membership_price_map[selected_membership] > current_price_id
+                    )
+                    is_downgrade = (
+                        membership_price_map[selected_membership] < current_price_id
+                    )
+
+                    if is_upgrade:
+                        stripe.Subscription.modify(
+                            subscription_id,
+                            items=[
+                                {
+                                    "id": subscription.items.data[
+                                        0
+                                    ].id,
+                                    "price": new_price_id,
+                                }
+                            ],
+                            billing_cycle_anchor="unchanged",
+                            proration_behavior="create_prorations",
+                        )
+
+                        user_order.membership = new_membership
+                        user_order.save()
+
+                        messages.success(
+                            request,
+                            f"Your membership has been upgraded to {selected_membership}.",
+                        )
+
+                    elif is_downgrade:
+                        stripe.Subscription.modify(
+                            subscription_id,
+                            items=[
+                                {
+                                    "id": subscription.items.data[
+                                        0
+                                    ].id,
+                                    "price": new_price_id,
+                                }
+                            ],
+                            proration_behavior="none",
+                            billing_cycle_anchor="unchanged",
+                            cancel_at_period_end=False,
+                        )
+
+                        user_order.membership = Membership.objects.get(
+                            membership_type=selected_membership
+                        )
+                        user_order.save()
+
+                        messages.success(
+                            request,
+                            f"Your membership will be downgraded to {selected_membership} at the next renewal date.",
+                        )
+
+                else:
+                    messages.info(request, "You are already on this membership plan.")
+            else:
+                messages.error(request, "No active membership found.")
+        except Exception as e:
+            print(f"Error changing membership: {e}")
+            messages.error(request, f"Error changing membership: {str(e)}")
 
         return redirect("manage")
