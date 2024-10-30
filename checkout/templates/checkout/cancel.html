@@ -5,10 +5,10 @@
         <div class="auth-container">
             <h2 class="form-title">Confirm Cancellation</h2>
             <p class="mb-4">Are you sure you want to cancel your subscription?</p>
-            <form class="text-center mb-3" method="post" action="{% url 'confirm_cancel' %}">
+            <form class="text-center mb-3" method="post" action="">
                 {% csrf_token %}
                 <button class="btn btn-primary" type="submit">Yes</button>
-                <a class="btn btn-danger" href="{% url 'membership' %}">No</a>
+                <a class="btn btn-danger" href="">No</a>
             </form>
         </div>
     </div>

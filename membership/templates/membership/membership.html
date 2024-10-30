@@ -73,7 +73,7 @@
             <p>Basic access to the gym and standard facilities.</p>
             <p>£25/month</p>
             {% if user.is_authenticated %}
-            <form action="{% url 'checkout' %}" method="POST">
+            <form action="" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="Bronze">
                 <button type="submit" class="btn btn-danger">Buy Now</button>
@@ -91,7 +91,7 @@
             <p>Access to all facilities plus group classes.</p>
             <p>£35/month</p>
             {% if user.is_authenticated %}
-            <form action="{% url 'checkout' %}" method="POST">
+            <form action="" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="Silver">
                 <button type="submit" class="btn btn-danger">Buy Now</button>
@@ -109,7 +109,7 @@
             <p>Full access including personal training sessions.</p>
             <p>£50/month</p>
             {% if user.is_authenticated %}
-            <form action="{% url 'checkout' %}" method="POST">
+            <form action="" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="Gold">
                 <button type="submit" class="btn btn-danger">Buy Now</button>

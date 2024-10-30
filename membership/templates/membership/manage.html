@@ -33,13 +33,13 @@
 
             {% if not user_order.is_paid %}
             <p class="text-danger mt-3">Your renewal payment has failed. Please pay using the button below.</p>
-            <form action="{% url 'checkout' %}" method="POST">
+            <form action="" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="{{ user_order.membership.membership_type }}">
                 <button type="submit" class="btn btn-warning">Update Payment</button>
             </form>
             {% else %}
-            <a href="{% url 'cancel' %}" class="btn btn-danger">Cancel Membership</a>
+            <a href="" class="btn btn-danger">Cancel Membership</a>
             {% endif %}
             {% endif %}
         </div>
