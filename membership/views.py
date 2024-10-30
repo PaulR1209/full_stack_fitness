@@ -13,3 +13,14 @@ def membership(request):
         'memberships': memberships,
         'user_order': user_order
         })
+
+
+def manage(request):
+    user_order = None
+
+    if request.user.is_authenticated:
+        user_order = Order.objects.filter(user=request.user).first()
+
+    return render(request, 'membership/manage.html' , {
+        'user_order': user_order
+        })

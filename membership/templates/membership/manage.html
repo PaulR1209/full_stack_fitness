@@ -28,7 +28,7 @@
                 Your membership is changing to {{ user_order.pending_membership.membership_type }} upon next renewal.
             </p>
             {% else %}
-            <a href="{% url 'change' %}" class="btn btn-primary">Change Membership</a>
+            <a href="" class="btn btn-primary">Change Membership</a>
             {% endif %}
 
             {% if not user_order.is_paid %}
