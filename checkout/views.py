@@ -173,42 +173,35 @@ class ChangeMembership(View):
                 subscription = stripe.Subscription.retrieve(subscription_id)
 
                 membership_price_map = {
-                    "Bronze": "price_1QApgeRo4WFpkduhqIGQ6dru",
-                    "Silver": "price_1QAphIRo4WFpkduh51iLJTj7",
-                    "Gold": "price_1QAphoRo4WFpkduhm7zZ5nMs",
+                    "Bronze": ("price_1QApgeRo4WFpkduhqIGQ6dru", 2500),
+                    "Silver": ("price_1QAphIRo4WFpkduh51iLJTj7", 3500),
+                    "Gold": ("price_1QAphoRo4WFpkduhm7zZ5nMs", 5000),
                 }
 
-                new_price_id = membership_price_map.get(selected_membership)
+                current_membership = Membership.objects.get(stripe_price_id=user_order.stripe_price_id)
+                current_price_id = user_order.stripe_price_id
+                new_price_id = membership_price_map.get(selected_membership)[0]
 
-                new_membership = Membership.objects.get(
-                    stripe_price_id=new_price_id
-                )
+                current_price_amount = membership_price_map[current_membership.membership_type][1]
+                new_price_amount = membership_price_map[selected_membership][1]
 
-                if new_price_id and subscription.items.data[0].price.id != new_price_id:
-                    current_price_id = subscription.items.data[0].price.id
-                    is_upgrade = (
-                        membership_price_map[selected_membership] > current_price_id
-                    )
-                    is_downgrade = (
-                        membership_price_map[selected_membership] < current_price_id
-                    )
+                if new_price_id and new_price_id != current_price_id:
+                    new_membership = Membership.objects.get(stripe_price_id=new_price_id)
+                    is_upgrade = (new_price_amount > current_price_amount)
+                    is_downgrade = (new_price_amount < current_price_amount)
+
+                    subscription_item_id = subscription['items']['data'][0]['id']
 
                     if is_upgrade:
                         stripe.Subscription.modify(
                             subscription_id,
-                            items=[
-                                {
-                                    "id": subscription.items.data[
-                                        0
-                                    ].id,
-                                    "price": new_price_id,
-                                }
-                            ],
+                            items=[{'id': subscription_item_id, 'price': new_price_id}],
                             billing_cycle_anchor="unchanged",
                             proration_behavior="create_prorations",
                         )
 
                         user_order.membership = new_membership
+                        user_order.pending_membership = None
                         user_order.save()
 
                         messages.success(
@@ -219,22 +212,13 @@ class ChangeMembership(View):
                     elif is_downgrade:
                         stripe.Subscription.modify(
                             subscription_id,
-                            items=[
-                                {
-                                    "id": subscription.items.data[
-                                        0
-                                    ].id,
-                                    "price": new_price_id,
-                                }
-                            ],
+                            items=[{'id': subscription_item_id, 'price': new_price_id}],
                             proration_behavior="none",
                             billing_cycle_anchor="unchanged",
                             cancel_at_period_end=False,
                         )
 
-                        user_order.membership = Membership.objects.get(
-                            membership_type=selected_membership
-                        )
+                        user_order.pending_membership = new_membership
                         user_order.save()
 
                         messages.success(
