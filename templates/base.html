@@ -75,10 +75,10 @@
                             </a>
                             <ul class="dropdown-menu">
                                 {% if user.is_authenticated %}
-                                <li><a class="dropdown-item" href="">My Membership</a></li>
+                                <li><a class="dropdown-item" href="{% url 'membership' %}">My Membership</a></li>
                                 <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
                                 {% else %}
-                                <li><a class="dropdown-item " href="">Memberships</a></li>
+                                <li><a class="dropdown-item " href="{% url 'membership' %}">Memberships</a></li>
                                 <li><a class="dropdown-item" href="{% url 'account_login' %}">Sign In</a></li>
                                 <li><a class="dropdown-item" href="{% url 'account_signup' %}">Sign Up</a></li>
                                 {% endif %}
