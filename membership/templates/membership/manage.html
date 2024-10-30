@@ -14,7 +14,7 @@
             {% if user_order.is_cancelled %}
             <p>Expiry Date: {{ user_order.cancellation_date|date:"d/m/Y" }}</p>
             <div class="d-flex justify-content-center">
-                <form action="{% url 'reactivate' %}" method="POST">
+                <form action="" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-success m-3">Reactivate</button>
                 </form>
@@ -39,10 +39,37 @@
                 <button type="submit" class="btn btn-warning">Update Payment</button>
             </form>
             {% else %}
-            <a href="" class="btn btn-danger">Cancel Membership</a>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelMembershipModal">
+                Cancel Membership
+            </button>
             {% endif %}
             {% endif %}
         </div>
     </div>
 </div>
+
+<!-- Cancel Membership Modal -->
+<div class="modal fade" id="cancelMembershipModal" tabindex="-1" aria-labelledby="cancelMembershipModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelMembershipModalLabel">Confirm Cancellation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to cancel your membership? This will take effect at the end of your billing cycle.
+            </div>
+            <div class="modal-footer">
+                <form method="POST" action="{% url 'cancel_membership' %}" id="cancelMembershipForm">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}

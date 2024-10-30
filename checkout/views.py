@@ -1,8 +1,7 @@
 import stripe
 from django.conf import settings
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views import View
-from django.shortcuts import render
 from django.contrib import messages
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
@@ -54,6 +53,7 @@ class CheckoutSuccess(View):
 
             if line_items.data:
                 price_id = line_items.data[0]["price"]["id"]
+                subscription_id = checkout_session.subscription
                 customer = stripe.Customer.retrieve(checkout_session.customer)
                 membership_instance = Membership.objects.get(stripe_price_id=price_id)
 
@@ -66,7 +66,7 @@ class CheckoutSuccess(View):
                     last_renewed=timezone.now(),
                     next_renewal=timezone.now() + relativedelta(months=1),
                     is_paid=True,
-                    subscription_id=checkout_session.id,
+                    subscription_id=subscription_id,
                     stripe_price_id=price_id,
                 )
 
@@ -83,3 +83,44 @@ class CheckoutSuccess(View):
 class CheckoutError(View):
     def get(self, request, *args, **kwargs):
         return render(request, "checkout/error.html")
+
+
+from django.utils import timezone
+
+
+class CancelMembership(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            user_order = Order.objects.filter(
+                user=request.user, is_cancelled=False
+            ).last()
+            if user_order and user_order.subscription_id:
+                print(f"Attempting to cancel subscription ID: {user_order.subscription_id}")
+
+                stripe.Subscription.modify(
+                    user_order.subscription_id, cancel_at_period_end=True
+                )
+
+                user_order.cancellation_date = user_order.next_renewal
+                user_order.next_renewal = None
+                user_order.is_cancelled = True
+                user_order.save()
+
+                cancellation_date = (
+                    user_order.cancellation_date.strftime("%d %B %Y")
+                    if user_order.cancellation_date
+                    else "unknown"
+                )
+                messages.success(
+                    request,
+                    f"Membership cancelled successfully. Your membership will expire on {cancellation_date}.",
+                )
+            else:
+                messages.error(request, "No active membership found.")
+        except Order.DoesNotExist:
+            messages.error(request, "Order not found.")
+        except Exception as e:
+            print(f"Error cancelling membership: {e}")
+            messages.error(request, f"Error cancelling membership: {str(e)}")
+
+        return redirect("manage")
