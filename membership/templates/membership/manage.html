@@ -14,10 +14,10 @@
             {% if user_order.is_cancelled %}
             <p>Expiry Date: {{ user_order.cancellation_date|date:"d/m/Y" }}</p>
             <div class="d-flex justify-content-center">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-success m-3">Reactivate</button>
-                </form>
+                <button type="button" class="btn btn-success m-3" data-bs-toggle="modal"
+                    data-bs-target="#reactivateMembershipModal">
+                    Reactivate
+                </button>
                 <a href="{% url 'membership' %}" class="btn btn-danger m-3">Back</a>
             </div>
             {% else %}
@@ -64,6 +64,30 @@
                 <form method="POST" action="{% url 'cancel_membership' %}" id="cancelMembershipForm">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">Yes</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reactivate Membership Modal -->
+<div class="modal fade" id="reactivateMembershipModal" tabindex="-1" aria-labelledby="reactivateMembershipModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reactivateMembershipModalLabel">Confirm Reactivation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to reactivate your membership? You will be charged according to your selected
+                membership plan.
+            </div>
+            <div class="modal-footer">
+                <form method="POST" action="{% url 'reactivate_membership' %}" id="reactivateMembershipForm">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Yes</button>
                 </form>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
             </div>
