@@ -41,7 +41,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to change to the Bronze membership?
+                        <p>Are you sure you want to downgrade to the Bronze membership?</p>
+                        <p>You will have access to your current membership until the next renewal date</p>
                     </div>
                     <div class="modal-footer">
                         <form method="POST" action="{% url 'change_membership' %}">
@@ -78,7 +79,16 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to change to the Silver membership?
+                        {% if downgrade %}
+                        <p>Are you sure you want to downgrade to the Silver membership?</p>
+                        <p>You will have access to your current membership until the next renewal date</p>
+                        {% else %}
+                        <p>Are you sure you want to upgrade to the Silver membership?</p>
+                        <p>Your membership will be upgraded
+                            immediately, and the new rate will appear on your next bill.</p>
+                        <p>This bill will include the cost of the upgraded membership, plus an additional charge for the
+                            remaining days in your current billing cycle.</p>
+                        {% endif %}
                     </div>
                     <div class="modal-footer">
                         <form method="POST" action="{% url 'change_membership' %}">
@@ -115,7 +125,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to change to the Gold membership?
+                        <p>Are you sure you want to upgrade to the Gold membership?</p>
+                        <p>Your membership will be upgraded
+                            immediately, and the new rate will appear on your next bill.</p>
+                        <p>This
+                            bill will include the cost of the upgraded membership, plus an additional charge for the
+                            remaining days in your current billing cycle.</p>
                     </div>
                     <div class="modal-footer">
                         <form method="POST" action="{% url 'change_membership' %}">

@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 from .models import Membership, Order
+from decimal import Decimal
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -56,6 +57,7 @@ class CheckoutSuccess(View):
                 subscription_id = checkout_session.subscription
                 customer = stripe.Customer.retrieve(checkout_session.customer)
                 membership_instance = Membership.objects.get(stripe_price_id=price_id)
+                price = Decimal(line_items.data[0]["price"]["unit_amount"] / 100)
 
                 Order.objects.create(
                     user=request.user,
@@ -64,10 +66,10 @@ class CheckoutSuccess(View):
                     membership=membership_instance,
                     created_at=timezone.now(),
                     last_renewed=timezone.now(),
-                    next_renewal=timezone.now() + relativedelta(months=1),
                     is_paid=True,
                     subscription_id=subscription_id,
                     stripe_price_id=price_id,
+                    membership_price=price,
                 )
 
                 return render(request, "checkout/success.html")
@@ -83,9 +85,6 @@ class CheckoutSuccess(View):
 class CheckoutError(View):
     def get(self, request, *args, **kwargs):
         return render(request, "checkout/error.html")
-
-
-from django.utils import timezone
 
 
 class CancelMembership(View):

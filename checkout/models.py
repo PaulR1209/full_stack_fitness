@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from membership.models import Membership
 import uuid
 from dateutil.relativedelta import relativedelta
+from django.utils import timezone
 
 
 class Order(models.Model):
@@ -39,12 +40,24 @@ class Order(models.Model):
         """Override the save method to calculate the next renewal date."""
         self.calculate_next_renewal()
         self.calculate_total_next_payment()
+        self.calculate_proration()
         super().save(*args, **kwargs)
 
     def calculate_next_renewal(self):
         """Calculate the next renewal date."""
-        if self.last_renewed:
-            self.next_renewal = self.last_renewed + relativedelta(months=1)
+        if self.next_renewal and self.next_renewal < timezone.now():
+            self.last_renewed = self.next_renewal
+        self.next_renewal = self.last_renewed + relativedelta(months=1)
+
+    def remaining_days(self):
+        """Calculate the remaining days until the next renewal."""
+        if self.next_renewal:
+            return max((self.next_renewal - timezone.now()).days, 0)
+        return 0
+
+    def calculate_proration(self):
+        """Calculate the proration amount."""
+        self.proration_amount = (self.membership_price / 30) * self.remaining_days()
 
     def calculate_total_next_payment(self):
         """Calculate the total next payment."""
