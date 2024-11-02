@@ -235,3 +235,26 @@ class ChangeMembership(View):
             messages.error(request, f"Error changing membership: {str(e)}")
 
         return redirect("manage")
+
+
+def sync_with_stripe(user):
+    try:
+        user_order = Order.objects.filter(user=user).last()
+        if user_order and user_order.subscription_id:
+            subscription = stripe.Subscription.retrieve(user_order.subscription_id)
+
+            stripe_next_renewal = subscription['current_period_end']
+            stripe_next_renewal_date = timezone.datetime.fromtimestamp(stripe_next_renewal)
+
+            if user_order.next_renewal != stripe_next_renewal_date:
+                user_order.next_renewal = stripe_next_renewal_date
+                user_order.save()
+
+                print(f"Next renewal date updated for {user_order.user.username}.")
+            else:
+                print("No changes detected.")
+        else:
+            print("No active membership found.")
+    except Exception as e:
+        print(f"Error syncing with Stripe: {e}")
+        print("Please check the logs for more information.")
