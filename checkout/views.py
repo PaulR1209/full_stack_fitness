@@ -234,3 +234,26 @@ class ChangeMembership(View):
             messages.error(request, f"Error changing membership: {str(e)}")
 
         return redirect("manage")
+
+
+def check_and_update_payment_status(user, subscription_id):
+    try:
+        subscription = stripe.Subscription.retrieve(subscription_id)
+        print(f"Subscription status: {subscription['status']}")
+
+        is_paid = subscription['status'] == "active"
+        print(f"Is paid: {is_paid}")
+
+        user_order = Order.objects.get(user=user, subscription_id=subscription_id)
+        user_order.is_active = is_paid
+        user_order.is_paid = is_paid
+        user_order.save()
+
+        return 'Payment status updated successfully.'
+    
+    except Order.DoesNotExist:
+        return 'Order not found.'
+    except Exception as e:
+        return f'Error updating payment status: {str(e)}'
+
+        
