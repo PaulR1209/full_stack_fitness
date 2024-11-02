@@ -79,7 +79,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        {% if downgrade %}
+                        {% if user_order.membership.membership_type == 'Gold' %}
                         <p>Are you sure you want to downgrade to the Silver membership?</p>
                         <p>You will have access to your current membership until the next renewal date</p>
                         {% else %}
