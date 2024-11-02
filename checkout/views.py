@@ -239,10 +239,8 @@ class ChangeMembership(View):
 def check_and_update_payment_status(user, subscription_id):
     try:
         subscription = stripe.Subscription.retrieve(subscription_id)
-        print(f"Subscription status: {subscription['status']}")
 
         is_paid = subscription['status'] == "active"
-        print(f"Is paid: {is_paid}")
 
         user_order = Order.objects.get(user=user, subscription_id=subscription_id)
         user_order.is_active = is_paid

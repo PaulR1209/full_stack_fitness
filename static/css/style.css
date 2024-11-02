@@ -257,6 +257,10 @@ footer {
   border-color: #ffd700;
 }
 
+.alert {
+  max-width: 400px;
+}
+
 /* Confirm Cancellation */
 
 .cancel-container {

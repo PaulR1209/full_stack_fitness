@@ -32,7 +32,10 @@
             {% endif %}
 
             {% if not user_order.is_paid %}
-            <p class="text-danger mt-3">Your renewal payment has failed. Please pay using the button below.</p>
+            <div class="alert alert-warning mt-3 mx-auto">
+                <p>Your renewal payment has failed. Please update your payment method below if you wish to keep your
+                    membership active.</p>
+            </div>
             <form action="" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="membership_type" value="{{ user_order.membership.membership_type }}">
