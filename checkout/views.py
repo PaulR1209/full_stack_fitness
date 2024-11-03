@@ -59,6 +59,13 @@ class CheckoutSuccess(View):
                 membership_instance = Membership.objects.get(stripe_price_id=price_id)
                 price = Decimal(line_items.data[0]["price"]["unit_amount"] / 100)
 
+                existing_orders = Order.objects.filter(user=request.user)
+
+                if existing_orders.exists():
+                    for order in existing_orders:
+                        if order.is_expired:
+                            order.delete()
+
                 Order.objects.create(
                     user=request.user,
                     full_name=customer.get("name"),
@@ -76,6 +83,12 @@ class CheckoutSuccess(View):
             else:
                 raise Exception("No line items found.")
 
+        except Membership.DoesNotExist:
+            messages.error(request, "Membership not found.")
+            return redirect("error")
+        except Order.DoesNotExist:
+            messages.error(request, "Order not found.")
+            return redirect("error")
         except Exception as e:
             print(f"Error creating order: {e}")
             messages.error(request, f"Order error: {str(e)}")
@@ -172,52 +185,67 @@ class ChangeMembership(View):
                 subscription = stripe.Subscription.retrieve(subscription_id)
 
                 membership_price_map = {
-                    "Bronze": ("price_1QApgeRo4WFpkduhqIGQ6dru", 2500),
-                    "Silver": ("price_1QAphIRo4WFpkduh51iLJTj7", 3500),
-                    "Gold": ("price_1QAphoRo4WFpkduhm7zZ5nMs", 5000),
+                    "Bronze": ("price_1QApgeRo4WFpkduhqIGQ6dru", 25),
+                    "Silver": ("price_1QAphIRo4WFpkduh51iLJTj7", 35),
+                    "Gold": ("price_1QAphoRo4WFpkduhm7zZ5nMs", 50),
                 }
 
-                current_membership = Membership.objects.get(stripe_price_id=user_order.stripe_price_id)
+                current_membership = Membership.objects.get(
+                    stripe_price_id=user_order.stripe_price_id
+                )
                 current_price_id = user_order.stripe_price_id
                 new_price_id = membership_price_map.get(selected_membership)[0]
 
-                current_price_amount = membership_price_map[current_membership.membership_type][1]
+                current_price_amount = membership_price_map[
+                    current_membership.membership_type
+                ][1]
                 new_price_amount = membership_price_map[selected_membership][1]
 
                 if new_price_id and new_price_id != current_price_id:
-                    new_membership = Membership.objects.get(stripe_price_id=new_price_id)
-                    is_upgrade = (new_price_amount > current_price_amount)
-                    is_downgrade = (new_price_amount < current_price_amount)
+                    new_membership = Membership.objects.get(
+                        stripe_price_id=new_price_id
+                    )
+                    is_upgrade = new_price_amount > current_price_amount
+                    is_downgrade = new_price_amount < current_price_amount
 
-                    subscription_item_id = subscription['items']['data'][0]['id']
+                    subscription_item_id = subscription["items"]["data"][0]["id"]
 
                     if is_upgrade:
                         stripe.Subscription.modify(
                             subscription_id,
-                            items=[{'id': subscription_item_id, 'price': new_price_id}],
+                            items=[{"id": subscription_item_id, "price": new_price_id}],
                             billing_cycle_anchor="unchanged",
                             proration_behavior="create_prorations",
                         )
 
                         user_order.membership = new_membership
                         user_order.pending_membership = None
+                        user_order.stripe_price_id = new_price_id
+                        user_order.membership_price = new_price_amount
+                        user_order.has_changed = True
                         user_order.save()
+
+                        proration_amount = user_order.proration_amount
+                        prorated_amount = round(proration_amount, 2)
 
                         messages.success(
                             request,
-                            f"Your membership has been upgraded to {selected_membership}.",
+                            f"Your membership has been upgraded to {selected_membership}. You will be charged £{prorated_amount} plus the new membership fee at the next renewal date.",
                         )
 
                     elif is_downgrade:
                         stripe.Subscription.modify(
                             subscription_id,
-                            items=[{'id': subscription_item_id, 'price': new_price_id}],
+                            items=[{"id": subscription_item_id, "price": new_price_id}],
                             proration_behavior="none",
                             billing_cycle_anchor="unchanged",
                             cancel_at_period_end=False,
                         )
 
                         user_order.pending_membership = new_membership
+                        user_order.pending_membership_price = new_price_amount
+                        user_order.stripe_price_id = new_price_id
+                        user_order.has_changed = True
                         user_order.save()
 
                         messages.success(
@@ -236,22 +264,41 @@ class ChangeMembership(View):
         return redirect("manage")
 
 
-def check_and_update_payment_status(user, subscription_id):
+def check_and_update_payment_status(request, user, subscription_id):
     try:
         subscription = stripe.Subscription.retrieve(subscription_id)
-
-        is_paid = subscription['status'] == "active"
-
         user_order = Order.objects.get(user=user, subscription_id=subscription_id)
-        user_order.is_active = is_paid
-        user_order.is_paid = is_paid
+        today = timezone.now()
+
+        if subscription["cancel_at_period_end"]:
+            user_order.is_cancelled = True
+            user_order.expiry_date = user_order.next_renewal
+            messages.info(
+                request,
+                "Your membership has been cancelled and will expire at the end of the current billing period.",
+            )
+        elif subscription["status"] == "active":
+            user_order.is_paid = True
+        elif subscription["status"] == "past_due":
+            user_order.is_paid = False
+            messages.warning(
+                request,
+                "Your payment failed. Please repay within 14 days from the start of the billing cycle, by updating your payment method, to avoid cancellation.",
+            )
+        elif subscription["status"] == "canceled":
+            user_order.is_cancelled = True
+            user_order.expiry_date = today
+            user_order.is_expired = True
+            messages.info(
+                request,
+                "Your membership has been cancelled. Please purchase a new membership.",
+            )
+
         user_order.save()
 
-        return 'Payment status updated successfully.'
-    
-    except Order.DoesNotExist:
-        return 'Order not found.'
-    except Exception as e:
-        return f'Error updating payment status: {str(e)}'
+        return "Payment status updated successfully."
 
-        
+    except Order.DoesNotExist:
+        return "Order not found."
+    except Exception as e:
+        return f"Error updating payment status: {str(e)}"

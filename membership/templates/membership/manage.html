@@ -11,8 +11,14 @@
             <p>Current Membership: {{ user_order.membership.membership_type }}</p>
             <p>Start Date: {{ user_order.created_at|date:"d/m/Y" }}</p>
 
-            {% if user_order.is_cancelled %}
-            <p>Expiry Date: {{ user_order.cancellation_date|date:"d/m/Y" }}</p>
+            {% if user_order.is_expired %}
+            <p>Your membership has expired. Please purchase a new membership.</p>
+            <a href="{% url 'membership' %}" class="btn btn-primary">Purchase a new membership</a>
+
+            {% elif user_order.is_cancelled %}
+            <p>Expiry Date: {{ user_order.expiry_date|date:"d/m/Y" }}</p>
+            <p>Your membership has been cancelled but is still active until {{ user_order.expiry_date|date:"d/m/Y" }}.
+            </p>
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-success m-3" data-bs-toggle="modal"
                     data-bs-target="#reactivateMembershipModal">
@@ -20,36 +26,36 @@
                 </button>
                 <a href="{% url 'membership' %}" class="btn btn-danger m-3">Back</a>
             </div>
+
             {% else %}
             <p>Next Renewal: {{ user_order.next_renewal|date:"d/m/Y" }}</p>
 
             {% if user_order.pending_membership %}
             <p class="text-info">
-                Your membership is changing to {{ user_order.pending_membership.membership_type }} upon next renewal.
+                Your membership will change to {{ user_order.pending_membership.membership_type }} upon next renewal.
+            </p>
+            {% else %}
+            {% if user_order.has_changed %}
+            <p class="text-warning">
+                You can only change your membership plan once per billing cycle.
             </p>
             {% else %}
             <a href="{% url 'change' %}" class="btn btn-primary">Change Membership</a>
             {% endif %}
+            {% endif %}
 
-            {% if not user_order.is_paid %}
-            <div class="alert alert-warning mt-3 mx-auto">
-                <p>Your renewal payment has failed. Please update your payment method below if you wish to keep your
-                    membership active.</p>
-            </div>
-            <form action="" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="membership_type" value="{{ user_order.membership.membership_type }}">
-                <button type="submit" class="btn btn-warning">Update Payment</button>
-            </form>
-            {% else %}
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelMembershipModal">
                 Cancel Membership
             </button>
             {% endif %}
-            {% endif %}
+
+            <div class="mt-4">
+                <a href="" class="btn btn-warning">Update Payment</a>
+            </div>
         </div>
     </div>
 </div>
+
 
 <!-- Cancel Membership Modal -->
 <div class="modal fade" id="cancelMembershipModal" tabindex="-1" aria-labelledby="cancelMembershipModalLabel"

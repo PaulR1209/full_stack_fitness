@@ -24,12 +24,15 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     last_renewed = models.DateTimeField(null=True, blank=True)
     next_renewal = models.DateTimeField(null=True, blank=True)
+    expiry_date = models.DateTimeField(null=True, blank=True)
+    is_expired = models.BooleanField(default=False)
     is_paid = models.BooleanField(default=False)
     cancellation_date = models.DateTimeField(null=True, blank=True)
     is_cancelled = models.BooleanField(default=False)
     subscription_id = models.CharField(max_length=100, null=True, blank=True)
     stripe_price_id = models.CharField(max_length=100, null=True, blank=True)
     membership_price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    has_changed = models.BooleanField(default=False)
     pending_membership_price = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True
     )
@@ -47,6 +50,13 @@ class Order(models.Model):
         """Calculate the next renewal date."""
         if self.next_renewal and self.next_renewal < timezone.now():
             self.last_renewed = self.next_renewal
+            if self.pending_membership:
+                self.membership = self.pending_membership
+                self.membership_price = self.pending_membership_price
+                self.pending_membership = None
+                self.pending_membership_price = None
+
+            self.has_changed = False
         self.next_renewal = self.last_renewed + relativedelta(months=1)
 
     def remaining_days(self):

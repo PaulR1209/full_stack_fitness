@@ -6,7 +6,7 @@
 <div class="container-fluid membership-section">
     <div class="row mt-5 d-flex justify-content-center align-items-center text-center">
         <div class="col-lg-8 mt-5 mx-auto">
-            {% if user_order %}
+            {% if user_order and not user_order.is_expired %}
             <h1 class="mb-3">Your Membership</h1>
             {% else %}
             <h1 class="mb-3">Our Memberships</h1>
@@ -29,7 +29,7 @@
     </div>
 
     <!-- Membership Management Section -->
-    {% if user_order %}
+    {% if user_order and not user_order.is_expired %}
     <!-- Only appears if user has a membership -->
     <div class="container-fluid mt-5 d-flex justify-content-center align-items-center text-center">
         <div class="card membership-card-large {{ user_order.membership.membership_type|lower }}-border">
