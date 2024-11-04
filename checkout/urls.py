@@ -17,7 +17,7 @@ urlpatterns = [
         name="checkout",
     ),
     path(
-        "success/",
+        "success/<str:session_id>/",
         CheckoutSuccess.as_view(),
         name="success",
     ),
