@@ -32,7 +32,7 @@ class Checkout(View):
                         "quantity": 1,
                     }
                 ],
-                success_url = f"https://full-stack-fitness-a73d59e5c070.herokuapp.com//checkout/success/{{CHECKOUT_SESSION_ID}}",
+                success_url = f"https://full-stack-fitness-a73d59e5c070.herokuapp.com/checkout/success/{{CHECKOUT_SESSION_ID}}",
                 cancel_url=request.build_absolute_uri("/membership/"),
                 customer_email=request.user.email,
             )
