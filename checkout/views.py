@@ -63,8 +63,7 @@ class Checkout(View):
 
 class CheckoutSuccess(View):
     def get(self, request, *args, **kwargs):
-        session_id = request.GET.get("session_id")
-
+        session_id = self.kwargs["session_id"]
         try:
             checkout_session = stripe.checkout.Session.retrieve(session_id)
 
