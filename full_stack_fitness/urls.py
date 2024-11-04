@@ -25,5 +25,4 @@ urlpatterns = [
     path('reviews/', include('reviews.urls')),
     path('membership/', include('membership.urls')),
     path('checkout/', include('checkout.urls')),
-    path('invoices/', include('invoices.urls')),
 ]
