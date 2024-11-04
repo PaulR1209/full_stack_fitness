@@ -19,7 +19,7 @@ class Checkout(View):
             "Gold": "price_1QAphoRo4WFpkduhm7zZ5nMs",
         }
 
-        selected_membership = request.POST.get("membership_type")
+        selected_membership = "invalid membership type"
         membership_price_id = membership_price_map.get(selected_membership)
 
         try:
@@ -37,10 +37,27 @@ class Checkout(View):
                 customer_email=request.user.email,
             )
             return redirect(checkout_session.url)
+        except ValueError as e:
+            messages.error(request, f"Error: {str(e)}")
+        except stripe.error.CardError:
+            messages.error(
+                request,
+                "Your payment method was declined. Please check your payment details.",
+            )
+        except stripe.error.RateLimitError:
+            messages.error(
+                request, "We're experiencing high traffic. Please try again later."
+            )
+        except stripe.error.InvalidRequestError:
+            messages.error(
+                request,
+                "There was an error with your request. Please check your input.",
+            )
         except Exception as e:
-            print(f"Error creating checkout session: {e}")
-            messages.error(request, f"Checkout error: {str(e)}")
-            return redirect("error")
+            messages.error(request, "An unexpected error occurred. Please try again.")
+            print(f"Unexpected error: {e}")
+
+        return redirect("error")
 
 
 class CheckoutSuccess(View):
@@ -83,21 +100,36 @@ class CheckoutSuccess(View):
             else:
                 raise Exception("No line items found.")
 
+        except stripe.error.StripeError as e:
+            messages.error(
+                request,
+                "There was a problem processing your payment. Please try again.",
+            )
+            print(f"Stripe error: {str(e)}")
+
         except Membership.DoesNotExist:
-            messages.error(request, "Membership not found.")
-            return redirect("error")
+            messages.error(
+                request, "The selected membership type is no longer available."
+            )
+            print("Membership does not exist.")
+
         except Order.DoesNotExist:
-            messages.error(request, "Order not found.")
-            return redirect("error")
+            messages.error(
+                request, "Unable to find your order. Please contact support."
+            )
+            print("Order does not exist.")
+
         except Exception as e:
-            print(f"Error creating order: {e}")
-            messages.error(request, f"Order error: {str(e)}")
-            return redirect("error")
+            messages.error(request, f"An unexpected error occurred: {str(e)}")
+            print(f"Unexpected error: {e}")
+
+        return redirect("error")
 
 
 class CheckoutError(View):
     def get(self, request, *args, **kwargs):
-        return render(request, "checkout/error.html")
+        error_message = messages.get_messages(request)
+        return render(request, "checkout/error.html", {"error_message": error_message})
 
 
 class CancelMembership(View):

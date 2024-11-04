@@ -4,8 +4,12 @@
     <div class="row">
         <div class="auth-container d-flex flex-column align-items-center">
             <h2 class="form-title">Error!</h2>
-            <p class="mb-4">{{ message }}</p>
-            <a href="{% url 'membership' %}" class="btn btn-primary mb-3">Return to Memberships</a>
+            <ul class="list-unstyled">
+                {% for message in error_message %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            <button id="backButton" class="btn btn-primary mb-3">Back</button>
         </div>
     </div>
 </div>
