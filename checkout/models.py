@@ -31,6 +31,7 @@ class Order(models.Model):
     is_cancelled = models.BooleanField(default=False)
     subscription_id = models.CharField(max_length=100, null=True, blank=True)
     stripe_price_id = models.CharField(max_length=100, null=True, blank=True)
+    session_id = models.CharField(max_length=100, null=True, blank=True)
     membership_price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     has_changed = models.BooleanField(default=False)
     pending_membership_price = models.DecimalField(

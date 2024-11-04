@@ -19,7 +19,7 @@ class Checkout(View):
             "Gold": "price_1QAphoRo4WFpkduhm7zZ5nMs",
         }
 
-        selected_membership = "invalid membership type"
+        selected_membership = request.POST.get("membership_type")
         membership_price_id = membership_price_map.get(selected_membership)
 
         try:
@@ -76,6 +76,15 @@ class CheckoutSuccess(View):
                 membership_instance = Membership.objects.get(stripe_price_id=price_id)
                 price = Decimal(line_items.data[0]["price"]["unit_amount"] / 100)
 
+                session_email = checkout_session.customer_details.email
+                if session_email != request.user.email:
+                    messages.error(request, "This session does not belong to your account.")
+                    return redirect("membership")
+
+                if Order.objects.filter(user=request.user, subscription_id=subscription_id).exists():
+                    messages.warning(request, "You have already purchased this membership.")
+                    return redirect("membership")
+
                 existing_orders = Order.objects.filter(user=request.user)
 
                 if existing_orders.exists():
@@ -93,6 +102,7 @@ class CheckoutSuccess(View):
                     is_paid=True,
                     subscription_id=subscription_id,
                     stripe_price_id=price_id,
+                    session_id=session_id,
                     membership_price=price,
                 )
 
