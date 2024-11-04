@@ -32,10 +32,11 @@ class Checkout(View):
                         "quantity": 1,
                     }
                 ],
-                success_url=f"http://localhost:8000/checkout/success/?session_id={{CHECKOUT_SESSION_ID}}",
-                cancel_url="http://localhost:8000/membership/",
+                success_url = f"https://full-stack-fitness-a73d59e5c070.herokuapp.com//checkout/success/?session_id={{CHECKOUT_SESSION_ID}}",
+                cancel_url=request.build_absolute_uri("/membership/"),
                 customer_email=request.user.email,
             )
+
             return redirect(checkout_session.url)
         except ValueError as e:
             messages.error(request, f"Error: {str(e)}")
