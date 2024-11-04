@@ -4,6 +4,7 @@ from checkout.models import Order
 from checkout.views import check_and_update_payment_status
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .decorators import membership_required
 
 
 def membership(request):
@@ -19,6 +20,7 @@ def membership(request):
 
 
 @login_required
+@membership_required
 def manage(request):
     user_order = None
     subscription_id = None
@@ -37,6 +39,7 @@ def manage(request):
 
 
 @login_required
+@membership_required
 def change(request):
     user_order = None
 
