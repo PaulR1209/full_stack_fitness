@@ -72,17 +72,24 @@ class CheckoutSuccess(View):
             if line_items.data:
                 price_id = line_items.data[0]["price"]["id"]
                 subscription_id = checkout_session.subscription
+                customer_id = checkout_session.customer
                 customer = stripe.Customer.retrieve(checkout_session.customer)
                 membership_instance = Membership.objects.get(stripe_price_id=price_id)
                 price = Decimal(line_items.data[0]["price"]["unit_amount"] / 100)
 
                 session_email = checkout_session.customer_details.email
                 if session_email != request.user.email:
-                    messages.error(request, "This session does not belong to your account.")
+                    messages.error(
+                        request, "This session does not belong to your account."
+                    )
                     return redirect("membership")
 
-                if Order.objects.filter(user=request.user, subscription_id=subscription_id).exists():
-                    messages.warning(request, "You have already purchased this membership.")
+                if Order.objects.filter(
+                    user=request.user, subscription_id=subscription_id
+                ).exists():
+                    messages.warning(
+                        request, "You have already purchased this membership."
+                    )
                     return redirect("membership")
 
                 existing_orders = Order.objects.filter(user=request.user)
@@ -103,6 +110,7 @@ class CheckoutSuccess(View):
                     subscription_id=subscription_id,
                     stripe_price_id=price_id,
                     session_id=session_id,
+                    customer_id=customer_id,
                     membership_price=price,
                 )
 
@@ -338,3 +346,35 @@ def check_and_update_payment_status(request, user, subscription_id):
         return "Order not found."
     except Exception as e:
         return f"Error updating payment status: {str(e)}"
+
+
+class UpdatePaymentMethod(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            user_order = Order.objects.filter(
+                user=request.user, is_cancelled=False
+            ).last()
+            if not user_order:
+                messages.error(request, "No active membership found.")
+                return redirect("manage")
+
+            customer_id = user_order.customer_id
+
+            session = stripe.checkout.Session.create(
+                payment_method_types=["card"],
+                customer=customer_id,
+                mode="setup",
+                success_url=request.build_absolute_uri("/checkout/payment-update-success/"),
+                cancel_url=request.build_absolute_uri("/cancel/"),
+            )
+
+            return redirect(session.url)
+        except Exception as e:
+            messages.error(request, f"Error updating payment method: {str(e)}")
+            return redirect("manage")
+
+
+class PaymentUpdateSuccess(View):
+    def get(self, request, *args, **kwargs):
+        messages.success(request, "Your payment method has been successfully updated!")
+        return render(request, "checkout/update_payment_success.html")

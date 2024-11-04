@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid form-container sign-in-container">
+    <div class="row">
+        <div class="auth-container d-flex flex-column align-items-center">
+            <h2 class="form-title">Update Payment Successful!</h2>
+            <p class="mb-4">Your payment details have been updated. Please click below to see your membership details.
+            </p>
+            <a href="{% url 'membership' %}" class="btn btn-primary mb-3">Your Membership</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -29,6 +29,7 @@ class Order(models.Model):
     is_paid = models.BooleanField(default=False)
     cancellation_date = models.DateTimeField(null=True, blank=True)
     is_cancelled = models.BooleanField(default=False)
+    customer_id = models.CharField(max_length=100, null=True, blank=True)
     subscription_id = models.CharField(max_length=100, null=True, blank=True)
     stripe_price_id = models.CharField(max_length=100, null=True, blank=True)
     session_id = models.CharField(max_length=100, null=True, blank=True)
