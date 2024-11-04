@@ -17,8 +17,6 @@
 
             {% elif user_order.is_cancelled %}
             <p>Expiry Date: {{ user_order.expiry_date|date:"d/m/Y" }}</p>
-            <p>Your membership has been cancelled but is still active until {{ user_order.expiry_date|date:"d/m/Y" }}.
-            </p>
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-success m-3" data-bs-toggle="modal"
                     data-bs-target="#reactivateMembershipModal">

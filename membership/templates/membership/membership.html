@@ -49,7 +49,7 @@
                     {% else %}
                     Full access including personal training sessions.
                     {% endif %}</p>
-                <p> £{% if user_order.membership.membership_type == 'Bronze' %}
+                <p class="fw-bold"> £{% if user_order.membership.membership_type == 'Bronze' %}
                     25
                     {% elif user_order.membership.membership_type == 'Silver' %}
                     35
@@ -71,7 +71,7 @@
                 alt="Bronze Membership Icon" loading="lazy">
             <h3>Bronze Membership</h3>
             <p>Basic access to the gym and standard facilities.</p>
-            <p>£25/month</p>
+            <p class="fw-bold">£25/month</p>
             {% if user.is_authenticated %}
             <form action="{% url 'checkout' %}" method="POST">
                 {% csrf_token %}
@@ -89,7 +89,7 @@
                 alt="Silver Membership Icon" loading="lazy">
             <h3>Silver Membership</h3>
             <p>Access to all facilities plus group classes.</p>
-            <p>£35/month</p>
+            <p class="fw-bold">£35/month</p>
             {% if user.is_authenticated %}
             <form action="{% url 'checkout' %}" method="POST">
                 {% csrf_token %}
@@ -107,7 +107,7 @@
                 alt="Gold Membership Icon" loading="lazy">
             <h3>Gold Membership</h3>
             <p>Full access including personal training sessions.</p>
-            <p>£50/month</p>
+            <p class="fw-bold">£50/month</p>
             {% if user.is_authenticated %}
             <form action="{% url 'checkout' %}" method="POST">
                 {% csrf_token %}

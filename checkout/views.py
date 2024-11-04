@@ -158,19 +158,11 @@ class CancelMembership(View):
                 )
 
                 user_order.cancellation_date = user_order.next_renewal
+                user_order.expiry_date = user_order.next_renewal
                 user_order.next_renewal = None
                 user_order.is_cancelled = True
                 user_order.save()
 
-                cancellation_date = (
-                    user_order.cancellation_date.strftime("%d %B %Y")
-                    if user_order.cancellation_date
-                    else "unknown"
-                )
-                messages.success(
-                    request,
-                    f"Membership cancelled successfully. Your membership will expire on {cancellation_date}.",
-                )
             else:
                 messages.error(request, "No active membership found.")
         except Order.DoesNotExist:
@@ -199,6 +191,7 @@ class ReactivateMembership(View):
 
                 user_order.next_renewal = user_order.cancellation_date
                 user_order.cancellation_date = None
+                user_order.expiry_date = None
                 user_order.is_cancelled = False
                 user_order.save()
 
@@ -262,6 +255,7 @@ class ChangeMembership(View):
 
                         user_order.membership = new_membership
                         user_order.pending_membership = None
+                        user_order.previous_membership_price = current_price_amount
                         user_order.stripe_price_id = new_price_id
                         user_order.membership_price = new_price_amount
                         user_order.has_changed = True

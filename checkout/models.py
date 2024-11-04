@@ -37,6 +37,9 @@ class Order(models.Model):
     pending_membership_price = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True
     )
+    previous_membership_price = models.DecimalField(
+        max_digits=6, decimal_places=2, default=0
+    )
     proration_amount = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     total_next_payment = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
@@ -57,6 +60,8 @@ class Order(models.Model):
                 self.pending_membership = None
                 self.pending_membership_price = None
 
+            self.proration_amount = 0
+            self.previous_membership_price = 0
             self.has_changed = False
         self.next_renewal = self.last_renewed + relativedelta(months=1)
 
@@ -68,7 +73,9 @@ class Order(models.Model):
 
     def calculate_proration(self):
         """Calculate the proration amount."""
-        self.proration_amount = (self.membership_price / 30) * self.remaining_days()
+        if self.previous_membership_price:
+            price_difference = self.membership_price - self.previous_membership_price
+            self.proration_amount = price_difference * self.remaining_days() / 30
 
     def calculate_total_next_payment(self):
         """Calculate the total next payment."""
