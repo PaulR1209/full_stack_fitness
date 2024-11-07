@@ -8,8 +8,8 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon"
         href="https://res.cloudinary.com/dbkejesw4/image/upload/v1730984786/weightlifting_jlajri.ico">
@@ -99,9 +99,9 @@
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
-            <div class="alert {{ message.tags }}" role="alert">
+            <li class="alert {{ message.tags }}" role="alert">
                 {{ message }}
-            </div>
+            </li>
             {% endfor %}
         </ul>
         {% endif %}

@@ -8,20 +8,23 @@ from .decorators import membership_required
 
 
 def membership(request):
+    """View to display the membership page."""
     memberships = Membership.objects.all()
     user_order = None
     if request.user.is_authenticated:
         user_order = Order.objects.filter(user=request.user).first()
 
-    return render(request, 'membership/membership.html', {
-        'memberships': memberships,
-        'user_order': user_order
-        })
+    return render(
+        request,
+        "membership/membership.html",
+        {"memberships": memberships, "user_order": user_order},
+    )
 
 
 @login_required
 @membership_required
 def manage(request):
+    """View to display the manage membership page."""
     user_order = None
     subscription_id = None
     user = User.objects.filter(username=request.user).first()
@@ -33,19 +36,20 @@ def manage(request):
 
             check_and_update_payment_status(request, user, subscription_id)
 
-    return render(request, 'membership/manage.html' , {
-        'user_order': user_order
-        })
+    return render(
+        request, "membership/manage.html", {"user_order": user_order}
+        )
 
 
 @login_required
 @membership_required
 def change(request):
+    """View to display the change membership page."""
     user_order = None
 
     if request.user.is_authenticated:
         user_order = Order.objects.filter(user=request.user).first()
 
-    return render(request, 'membership/change.html' , {
-        'user_order': user_order
-        })
+    return render(
+        request, "membership/change.html", {"user_order": user_order}
+        )

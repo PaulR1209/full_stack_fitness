@@ -55,79 +55,59 @@ def review_create(request):
         # Create a ReviewForm with the posted data
         form = ReviewForm(request.POST)
         if form.is_valid():
-            review = form.save(
-                commit=False
-            )
-            review.user = (
-                request.user
-            )
+            review = form.save(commit=False)
+            review.user = request.user
             review.save()
-            messages.success(
-                request, "Thank you for your review!"
-            )
+            messages.success(request, "Thank you for your review!")
             return redirect("reviews")
     else:
         form = ReviewForm()  # Create an empty form
-    return render(
-        request, "reviews/review_form.html", {"form": form}
-    )
+    return render(request, "reviews/review_form.html", {"form": form})
 
 
 @login_required
 def review_edit(request, pk):
     """Edit an existing review."""
     # Retrieve the review by primary key or return a 404 if not found
-    review = get_object_or_404(
-        Review, pk=pk
-    )
+    review = get_object_or_404(Review, pk=pk)
 
     # Check if the logged-in user is the owner of the review
     if review.user != request.user:
         messages.error(
             request, "You don't have permission to edit this review."
-        )
+            )
         return redirect("reviews")
 
     if request.method == "POST":
-        # Create a ReviewForm with the posted data and the existing review instance
+        # Create a ReviewForm with the posted data and the existing review
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
-            messages.success(
-                request, "Review updated successfully."
-            )
+            messages.success(request, "Review updated successfully.")
             return redirect("reviews")
     else:
         form = ReviewForm(
             instance=review
-        ) # Create a form with the existing review instance
-    return render(
-        request, "reviews/review_form.html", {"form": form}
-    )
+        )  # Create a form with the existing review instance
+    return render(request, "reviews/review_form.html", {"form": form})
 
 
 @login_required
 def review_delete(request, pk):
     """Delete an existing review."""
     # Retrieve the review by primary key or return a 404 if not found
-    review = get_object_or_404(
-        Review, pk=pk
-    )
+    review = get_object_or_404(Review, pk=pk)
 
     # Check if the logged-in user is the owner of the review
     if review.user != request.user:
         messages.error(
             request, "You don't have permission to delete this review."
-        )
+            )
         return redirect("reviews")
-    
+
     # Display a confirmation page for deleting the review
     if request.method == "POST":
         review.delete()
-        messages.success(
-            request, "Review deleted successfully."
-        )
+        messages.success(request, "Review deleted successfully.")
         return redirect("reviews")
-    return render(
-        request, "reviews/review_delete.html", {"review": review}
-    )
+    return render(request, "reviews/review_delete.html", {"review": review})

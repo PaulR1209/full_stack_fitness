@@ -9,7 +9,9 @@ from django.utils import timezone
 class Order(models.Model):
     """Model to store order information."""
 
-    order_number = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    order_number = models.UUIDField(
+        default=uuid.uuid4, editable=False, unique=True
+        )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100, default="")
     email = models.EmailField(null=True, blank=True)
@@ -33,7 +35,9 @@ class Order(models.Model):
     subscription_id = models.CharField(max_length=100, null=True, blank=True)
     stripe_price_id = models.CharField(max_length=100, null=True, blank=True)
     session_id = models.CharField(max_length=100, null=True, blank=True)
-    membership_price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    membership_price = models.DecimalField(
+        max_digits=6, decimal_places=2, default=0
+        )
     has_changed = models.BooleanField(default=False)
     pending_membership_price = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True
@@ -41,8 +45,12 @@ class Order(models.Model):
     previous_membership_price = models.DecimalField(
         max_digits=6, decimal_places=2, default=0
     )
-    proration_amount = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-    total_next_payment = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    proration_amount = models.DecimalField(
+        max_digits=6, decimal_places=2, default=0
+        )
+    total_next_payment = models.DecimalField(
+        max_digits=6, decimal_places=2, default=0
+        )
 
     def save(self, *args, **kwargs):
         """Override the save method to calculate the next renewal date."""
@@ -75,8 +83,12 @@ class Order(models.Model):
     def calculate_proration(self):
         """Calculate the proration amount."""
         if self.previous_membership_price:
-            price_difference = self.membership_price - self.previous_membership_price
-            self.proration_amount = price_difference * self.remaining_days() / 30
+            price_difference = (
+                self.membership_price - self.previous_membership_price
+                )
+            self.proration_amount = (
+                price_difference * self.remaining_days() / 30
+                )
 
     def calculate_total_next_payment(self):
         """Calculate the total next payment."""
@@ -86,7 +98,9 @@ class Order(models.Model):
             else self.membership_price
         )
 
-        self.total_next_payment = effective_membership_price + self.proration_amount
+        self.total_next_payment = (
+            effective_membership_price + self.proration_amount
+            )
 
     def __str__(self):
         return f"Order {self.order_number} - {self.membership.membership_type}"
