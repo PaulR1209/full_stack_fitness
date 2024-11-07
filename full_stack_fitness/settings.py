@@ -82,6 +82,8 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
+X_FRAME_OPTIONS = "SAMEORIGIN"
+
 ROOT_URLCONF = "full_stack_fitness.urls"
 
 TEMPLATES = [
