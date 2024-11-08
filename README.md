@@ -88,3 +88,47 @@ This project uses a relational database to store information about users, orders
     - Each **order** is for one specific **membership**, but a **membership** can be part of many **orders**.
 3.  **User** ↔ **Review (One to Many)**:
     - One **user** can write many **reviews**.
+
+# Deployment
+
+## Local Deployment
+
+### Step 1: Creating a new Repository
+- I navigated to the [Code Institute GitHub Template](https://github.com/Code-Institute-Org/ci-full-template) and clicked on **Use this template** and then clicked **Create a new repository**.
+- I then chose my repository name and clicked **Create repository**
+- Then I opened [GitPod](https://codeinstitute-ide.net/workspaces) and clicked **New Workspace**, selected my repository, and clicked **Continue**.
+
+### Step 2: Installing Dependencies
+- Once my IDE loaded, I installed the necessary project dependencies by installing requirments.txt
+
+### Step 3: Setting Up Environment Variables
+- I created a .env file in the root directory of my project
+- I added my secret keys to this file
+
+### Step 4: Database Setup and Migrations
+- I then set up my database. I used [PostreSQL](https://dbs.ci-dbs.net/)
+- Then I updated the database settings in `settings.py`
+- And then applied database migrations using `python manage.py migrate`
+
+### Step 5: Creating a Superuser
+- I created a Superuser by writing `python manage.py createsuperuser` in the terminal and following the steps provided in the terminal.
+
+### Step 6: Running the development server
+- I finally started the application by writing `python manage.py runserver` in the terminal then opened in the browswer using `localhost:8000`
+
+## Heroku Deployment
+
+### Step 1: Creating a Heroku app
+- I logged into Heroku and created a new app using the setup prompts
+
+### Step 2: Coneecting to GitHub
+- Once I created my app in heroku, I connected it with GitHub in the **Deploy** section of Heroku
+
+### Step 3: Setting Environment Variables:
+- I then set all my environment variables in the **Config Vars** section in **Settings**
+
+### Step 4: Deploying Branch
+- In the **Deploy** section of Heroku, I clicked the **Deploy Branch** button, to deploy from my connected GitHub branch.
+
+### Launching the App
+- Once deployed, I clicked on **Open App** to view my live app.
