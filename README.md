@@ -104,20 +104,50 @@ This project uses a relational database to store information about users, orders
     <tr>
       <td>1</td>
       <td>Access to reviews and membership purchases as guest</td>
-      <td>When clicking attempting to add a review, purchase a membership, or access any URLs realted to either, the user will be directed to the sign in or sign up page.</td>
-      <td>✅ Pass</td>
+      <td>When attempting to add a review, purchase a membership, or access any URLs realted to either, the user will be directed to the sign in or sign up page.</td>
+      <td>Pass</td>
     </tr>
   <tr>
       <td>2</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>Leave a Review</td>
+      <td>Users can leave a review, with a title, star rating, and comment. Once the review has been submitted, it will show on the reviews page.</td>
+      <td>Pass</td>
     </tr>
   <tr>
       <td>3</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>Edit or Delete their Reviews</td>
+      <td>Users can edit and delete only their reviews, and will not have the option or access to edit and delete others reviews.</td>
+      <td>Pass</td>
+    </tr>
+  <tr>
+      <td>4</td>
+      <td>Purchasing a Membership</td>
+      <td>Users can choose a membership, and be directed to the stripe checkout page. If the payment is successful, you will be redirected to a success page, and your order will be added to the database.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Viewing Membership details</td>
+      <td>Users, when they have purchased a membership, can view their membership, and details, such as start date, last renewel date, and next renewel date. They can see their expiry date if canceled.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Updating Membership details or payment methods</td>
+      <td>Users can change and cancel their membership, and update their payment method. If done successfully, this will update the database and changes will be shown on the front end. The user will also get message pop ups when any changes are made.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Accessing other users memberships</td>
+      <td>Users and guests will not have any access to other users membership details. Any attempt to access will be blocked.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Failed Payment Notification</td>
+      <td>User will be notified by a pop up message if a payment has failed, or a membership has been canceled because of a failed payment.</td>
+      <td>Pass</td>
     </tr>
   </tbody>
 </table>
