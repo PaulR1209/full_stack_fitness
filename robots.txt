@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /checkout/
+Sitemap: https://full-stack-fitness-a73d59e5c070.herokuapp.com/sitemap.xml
