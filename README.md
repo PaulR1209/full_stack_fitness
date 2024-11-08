@@ -89,6 +89,39 @@ This project uses a relational database to store information about users, orders
 3.  **User** ↔ **Review (One to Many)**:
     - One **user** can write many **reviews**.
 
+# Testing
+
+<table>
+  <thead>
+    <tr>
+      <th>Test</th>
+      <th>Test Description</th>
+      <th>Expected Outcome</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Access to reviews and membership purchases as guest</td>
+      <td>When clicking attempting to add a review, purchase a membership, or access any URLs realted to either, the user will be directed to the sign in or sign up page.</td>
+      <td>✅ Pass</td>
+    </tr>
+  <tr>
+      <td>2</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <tr>
+      <td>3</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
 # Deployment
 
 ## Local Deployment
