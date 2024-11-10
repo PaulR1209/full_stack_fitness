@@ -290,11 +290,11 @@ This section will be updated if any bugs are identified in future testing or by 
 
 ### AllAuth Issues
 
-![Validation Errors AllAuth](/readme/images/error-signup.png)
-
 **Description:** There are a few errors related to the Allauth library, which are not under the direct control of this project. These errors are caused by Allauth's internal workings and cannot be fixed or modified without altering the Allauth library itself.
 
 **Resolution:** These issues are acknowledged, but since they stem from an external package (Allauth), they are not expected to be resolved within this project. They should not affect the core functionality of the application.
+
+![Validation Errors AllAuth](/readme/images/error-signup.png)
 
 # Deployment
 
