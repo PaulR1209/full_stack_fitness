@@ -49,7 +49,7 @@ As the audience grows, Facebook Ads may be considered to reach a wider, targeted
 
 These stories demonstrate how the application meets real needs by simplifying membership interactions, building community through reviews, and providing self-service management tools for users. This project aims to create a convenient, accessible platform for all users interested in engaging with their gym online.
 
-# UX Design and Features
+## UX Design and Features
 
 The design for this website was developed iteratively, based on my initial vision of the user experience. I didn’t create formal wireframes or mockups but instead focused on a user-centered design process where I built out each page and feature, keeping the user journey in mind. I aimed to create a smooth flow, starting from the homepage and leading users through the membership selection, signup, and payment processes. The design evolved as I implemented features and tested the user interactions.
 
@@ -108,8 +108,6 @@ The design for this website was developed iteratively, based on my initial visio
 ![Django messages screenshot](/readme/images/manage-cancelled.png)
 
 **Explanation:** Whenever a user makes changes to their membership, updates their payment method, or if a payment fails, a Django message appears. These pop-up messages notify the user of successful changes or alert them to important issues, such as membership expiration or payment failure. This ensures users are always informed about the status of their account.
-
-**Explanation:** I have created a dedicated Facebook Business Page for this project, which serves as the online face of the gym. The page is set up to provide information about the gym, its services, and updates on membership options. The goal of this page is to serve as a marketing tool for the gym, helping to build an online presence and engage with potential customers.
 
 # Agile Development Process
 
@@ -306,3 +304,10 @@ This section will be updated if any bugs are identified in future testing or by 
 
 ### Launching the App
 - Once deployed, I clicked on **Open App** to view my live app.
+
+## Credits
+
+- Pexels for all of my images
+- AllAuth for my authentication
+- Code Institute course material
+- Bootstrap Documentation for my modal boxes
