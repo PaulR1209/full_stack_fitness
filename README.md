@@ -2,16 +2,40 @@
 
 [Live Link](https://full-stack-fitness-a73d59e5c070.herokuapp.com/)
 
-Full Stack Fitness is a gym website that provides detailed information about our facilities, location, and hours to help users learn more about our offerings. Members can create an account to purchase and manage memberships—including canceling, upgrading, or downgrading—all through secure Stripe integration. The website also allows members to leave reviews, fostering a community and sharing experiences.
-
-This gym website was developed to provide a seamless digital experience for both current and potential gym members. Its goal is to simplify membership management, enable feedback through reviews, and support users in making informed membership choices. By offering features that allow users to subscribe, manage, and review memberships, this project directly addresses the needs of gym members who prefer to handle their interactions with the gym online.
+Full Stack Fitness is a gym website that provides a seamless, fully integrated experience for both potential and current gym members. It simplifies the decision-making process for new users by offering detailed information on memberships, facilities, and pricing, and provides an easy-to-use interface for current members to manage their subscriptions, renewals, cancellations, and upgrades. The platform also fosters community engagement by allowing members to leave reviews, sharing their experiences with others. Ultimately, the website addresses the needs of users who prefer managing their gym interactions online with ease and security.
 
 
 ![Am I responsive screenshot](/readme/images/am-i-responsive.png)
 
 ## Target Audience
 
-The taget audience for this website is anyone in the local area who is interested in joining a gym, and anyone who wants to learn more about what our gym offers. Also for people who are already members, who want to track and manage their membership.
+The taget audience for this website includes:
+
+1. **Local Individuals Interested in Joining a Gym**
+
+    This group includes people in the local area who are considering joining a gym. They may be looking for a convenient way to explore available membership options, learn about the gym’s facilities, services, and pricing, and make an informed decision about joining.
+
+2. **Potential Members Seeking Information**
+
+    Individuals who want to learn more about what the gym offers, such as types of memberships and facilities. These people may still be in the decision-making process and need easy access to information to help them decide.
+
+3. **Existing Members**
+
+    Current gym members who want to track and manage their membership details, such as renewal dates, payment status, or membership type. They may also want to upgrade, downgrade, or cancel their membership.
+
+## Marketing Strategy
+
+The primary marketing strategy for this website revolves around building and engaging a community through social media. Currently, the following approach is being utilized:
+
+### Facebook Page
+
+![Facebook page](/readme/images/facebook.png)
+
+The Facebook page serves as the core platform for connecting with potential users and engaging with current members. It will be regularly updated with valuable content, updates about our gym, and interactive posts designed to increase engagement.
+
+The Facebook page helps build brand awareness and drives traffic to the website by encouraging followers to explore more through the content shared.
+
+As the audience grows, Facebook Ads may be considered to reach a wider, targeted audience.
 
 ## User Stories
 
@@ -85,7 +109,7 @@ The design for this website was developed iteratively, based on my initial visio
 
 **Explanation:** Whenever a user makes changes to their membership, updates their payment method, or if a payment fails, a Django message appears. These pop-up messages notify the user of successful changes or alert them to important issues, such as membership expiration or payment failure. This ensures users are always informed about the status of their account.
 
-![Facebook page](/readme/images/facebook.png)
+**Explanation:** I have created a dedicated Facebook Business Page for this project, which serves as the online face of the gym. The page is set up to provide information about the gym, its services, and updates on membership options. The goal of this page is to serve as a marketing tool for the gym, helping to build an online presence and engage with potential customers.
 
 # Agile Development Process
 
