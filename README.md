@@ -25,7 +25,7 @@ The taget audience for this website includes:
 
 ## Marketing Strategy
 
-The primary marketing strategy for this website revolves around building and engaging a community through social media. Currently, the following approach is being utilized:
+The primary marketing strategy for this website revolves around building and engaging a community through social media and email marketing. The current approach includes:
 
 ### Facebook Page
 
@@ -36,6 +36,17 @@ The Facebook page serves as the core platform for connecting with potential user
 The Facebook page helps build brand awareness and drives traffic to the website by encouraging followers to explore more through the content shared.
 
 As the audience grows, Facebook Ads may be considered to reach a wider, targeted audience.
+
+### Newsletter
+
+![Newsletter screenshot](/readme/images/newsletter.png)
+
+The newsletter allows the gym to engage with members and potential customers directly. By signing up for the newsletter, subscribers receive the latest updates, exclusive promotions, and helpful fitness tips right in their inbox.
+
+- **Benefits:**
+  - Keeps the community informed and connected with gym updates.
+  - Allows for targeted, personal engagement.
+  - Encourages repeat visits to the website through links to new content and promotions.
 
 ## User Stories
 
