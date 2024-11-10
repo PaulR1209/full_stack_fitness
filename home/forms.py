@@ -20,7 +20,9 @@ class NewsletterSignupForm(forms.ModelForm):
         self.helper.add_input(Submit("submit", "Sign up"))
 
     def clean_email(self):
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data.get("email")
         if NewsletterSignup.objects.filter(email=email).exists():
-            raise forms.ValidationError("This email is already signed up for the newsletter.")
+            raise forms.ValidationError(
+                "This email is already signed up for the newsletter."
+            )
         return email

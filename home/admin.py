@@ -9,4 +9,5 @@ class NewsletterSignupAdmin(admin.ModelAdmin):
     search_fields = ("name", "email")
     list_filter = ("signup_date",)
 
+
 admin.site.register(NewsletterSignup, NewsletterSignupAdmin)

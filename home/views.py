@@ -12,7 +12,9 @@ def index(request):
             form.save()
             messages.success(request, "Thank you for signing up!")
         else:
-            messages.error(request, "This email is already signed up for the newsletter.")
+            messages.error(
+                request, "This email is already signed up for the newsletter."
+            )
     else:
         form = NewsletterSignupForm()
 
@@ -21,4 +23,3 @@ def index(request):
 
 def about(request):
     return render(request, "home/about.html")
-

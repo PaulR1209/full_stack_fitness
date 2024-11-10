@@ -272,6 +272,30 @@ This project uses a relational database to store information about users, orders
 
 This section will be updated if any bugs are identified in future testing or by users
 
+## Validation
+
+### JavaScript Type Attribute Warning
+
+**Description:** A warning related to the type attribute in <script> tags (e.g., type="text/javascript"). This attribute is unnecessary in modern HTML5 as it is defaulted to JavaScript. This warning is not caused by any code within this project but might be coming from external resources or libraries included in the project.
+
+**Resolution:** Since this is not related to the project’s code, no changes will be made within this project to address it.
+
+### Charset Attribute Warning
+
+**Description:** This error occurs when the <meta charset="utf-8"> tag appears after the first 1024 bytes in the HTML document. Like the previous warning, this is not a result of any code written in this project and may stem from external libraries or resources.
+
+**Resolution:** Since this issue is not within the project's code, it will not be addressed here. The error is purely informational and doesn't impact functionality.
+
+![Validation Errors](/readme/images/validation.png)
+
+### AllAuth Issues
+
+![Validation Errors AllAuth](/readme/images/error-signup.png)
+
+**Description:** There are a few errors related to the Allauth library, which are not under the direct control of this project. These errors are caused by Allauth's internal workings and cannot be fixed or modified without altering the Allauth library itself.
+
+**Resolution:** These issues are acknowledged, but since they stem from an external package (Allauth), they are not expected to be resolved within this project. They should not affect the core functionality of the application.
+
 # Deployment
 
 ## Local Deployment
