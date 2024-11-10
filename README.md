@@ -4,19 +4,98 @@
 
 Full Stack Fitness is a gym website that provides detailed information about our facilities, location, and hours to help users learn more about our offerings. Members can create an account to purchase and manage memberships—including canceling, upgrading, or downgrading—all through secure Stripe integration. The website also allows members to leave reviews, fostering a community and sharing experiences.
 
+This gym website was developed to provide a seamless digital experience for both current and potential gym members. Its goal is to simplify membership management, enable feedback through reviews, and support users in making informed membership choices. By offering features that allow users to subscribe, manage, and review memberships, this project directly addresses the needs of gym members who prefer to handle their interactions with the gym online.
+
+
 ![Am I responsive screenshot](/readme/images/am-i-responsive.png)
 
-Full Stack Fitness is also an e-commerce platform, offering three membership tiers tailored to suit different fitness needs and budgets:
- 
-1. Bronze at £25 per month
-2. Silver at £35 per month
-3. Gold at £50 per month
+## Target Audience
 
-Each membership unlocks access to a variety of facilities and services, with easy management options for members to adjust their plan as needed. To reach more fitness enthusiasts and engage with our community, we also maintain an active presence on our Facebook page, where we share updates, promotions, and gym news.
+The taget audience for this website is anyone in the local area who is interested in joining a gym, and anyone who wants to learn more about what our gym offers. Also for people who are already members, who want to track and manage their membership.
+
+## User Stories
+
+1. As a **site user** I can **view the home page** so that **I can learn more about the gym**
+2. As a **site user** I can **view the about us page** so that **I can learn more about the gyms mission and services**
+3. As a **site user** I can **read and create reviews and ratings** so that **I can read other peoples experiences of the gym**
+4. As a **site user** I can **view the different tiers of membership** so that **I can choose which membership to purchase**
+5. As a **site user** I can **purchase a membership** so that **I can access gym services**
+6. As a **site user** I can **view my membership details** so that **I know what membership I have and when it runs out**
+7. As a **site user** I can **upgrade and cancel my membership** so that **I can change my plan or cancel based on my needs**
+
+These stories demonstrate how the application meets real needs by simplifying membership interactions, building community through reviews, and providing self-service management tools for users. This project aims to create a convenient, accessible platform for all users interested in engaging with their gym online.
+
+# UX Design and Features
+
+### Homepage
+
+![Hero Image Screenshot](/readme/images/hero-image.png)
+
+**Explanation:** The homepage features a prominent call-to-action (CTA) button to explore memberships. This CTA is strategically placed within the hero image to immediately engage visitors and encourage them to either sign up or learn more about membership options. The goal of this section is to convert visitors into members by clearly guiding them towards the next step in their journey.
+
+### Membership Page
+
+![Membership Page Screenshot](/readme/images/memberships-auth.png)
+
+**Explanation:** Upon clicking the CTA, users are presented with the membership options in a clear, color-coded layout featuring bronze, silver, and gold tiers. This design makes it easy for users to differentiate between available membership options. For new users who are not logged in, another CTA prompting them to sign up appears underneath the membership tiers. This ensures users can only purchase a membership after signing up.
+
+### Login/Sign Up Page
+
+![Sign Up Page Screenshot](/readme/images/signup.png)
+
+![Membership page screenshot for logged in users](/readme/images/memberships.png)
+
+**Explanation:** When users click the CTA to sign up, they are redirected to this page, where they can create an account. Authentication is handled via AllAuth, which simplifies the process for users and administrators. Once signed up, users are redirected back to the membership page, where they can now purchase a membership.
+
+### Purchasing a Membership
+
+![Checkout page screenshot](/readme/images/stripe-payment.png)
+
+![Checkout success](/readme/images/payment-success.png)
+
+**Explanation:** After selecting a membership, the user is directed to the Stripe checkout page to complete the purchase. The Stripe API handles payment processing securely. Once payment is successful, the user is redirected to a success page, which includes a link back to the membership page, confirming the transaction and membership.
+
+### Membership Management
+
+![Manage membership page](/readme/images/manage.png)
+
+**Explanation:** Once a user has purchased a membership, the membership page transforms into a management interface. Here, users can update or cancel their membership, or change their payment method. This feature offers flexibility and control over their membership, making it easier for users to manage their subscriptions.
+
+### Reviews Page
+
+![Reviews page screenshot](/readme/images/reviews.png)
+
+**Explanation:** The Reviews page allows users who are logged in to leave a review for the gym. Each review consists of a title, star rating, and a comment, providing valuable feedback for both the gym and other potential customers. Reviews are visible to all visitors, but only logged-in users can leave, edit, or delete their own reviews. This functionality helps build trust and community within the website, as users can see others' experiences while sharing their own.
+
+**Sorting Functionality:** Users can sort reviews by star rating and by the newest or oldest, which makes it easy to find the most relevant or recent feedback. This sorting mechanism enhances the user experience by allowing them to navigate the reviews efficiently.
+
+## Pop up Notifications
+
+### Confirmation Messages
+
+![Modal Box Screenshot](/readme/images/upgrade-modal.png)
+
+**Explanation:** Before making any changes to a user's membership (e.g., upgrading or downgrading), a modal box appears to confirm their action. The modal includes relevant information regarding the changes, providing users with clarity and ensuring they understand what they are about to do. This modal box is built using Bootstrap's modal component.
+
+### Django Messages
+
+![Django messages screenshot](/readme/images/manage-cancelled.png)
+
+**Explanation:** Whenever a user makes changes to their membership, updates their payment method, or if a payment fails, a Django message appears. These pop-up messages notify the user of successful changes or alert them to important issues, such as membership expiration or payment failure. This ensures users are always informed about the status of their account.
 
 ![Facebook page](/readme/images/facebook.png)
 
-# Database Scheme
+# Agile Development Process
+
+For this project, I used Agile methodologies to ensure continuous improvement and effective project management. This included working in short, focused sprints to develop and test features iteratively.
+
+- **Project Board**: I created a GitHub Project Kanban board with columns for "Backlog," "In Progress," and "Done" to track the status of each task.
+- **User Stories**: Each user story was broken down into individual tasks, which were then created as issues on GitHub and moved across the project board as progress was made.
+- **Continuous Feedback**: The project was reviewed regularly to ensure it aligned with user expectations and to implement improvements quickly.
+
+See my [Project Board](https://github.com/users/PaulR1209/projects/4/views/1) here.
+
+# Database Schema
 
 This project uses a relational database to store information about users, orders, memberships, and reviews. Below is an overview of my models and their relationships:
 
@@ -151,6 +230,12 @@ This project uses a relational database to store information about users, orders
     </tr>
   </tbody>
 </table>
+
+## Known Issues and Bugs
+
+- **No known issues or bugs at this time**
+
+This section will be updated if any bugs are identified in future testing or by users
 
 # Deployment
 
