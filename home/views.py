@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .forms import NewsletterSignupForm
 from django.contrib import messages
+from django.contrib.auth.models import User
+from .decorators import admin_required
 
 # Create your views here.
 
@@ -23,3 +25,11 @@ def index(request):
 
 def about(request):
     return render(request, "home/about.html")
+
+
+@admin_required
+def admin_dashboard(request):
+    
+    all_users = User.objects.all()
+
+    return render(request, "home/admin_dashboard.html", {"all_users": all_users})
