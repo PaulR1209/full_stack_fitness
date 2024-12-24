@@ -4,7 +4,7 @@ from checkout.models import Order
 from checkout.views import check_and_update_payment_status
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .decorators import membership_required
+from .decorators import membership_required, admin_required
 
 
 def membership(request):
@@ -36,9 +36,7 @@ def manage(request):
 
             check_and_update_payment_status(request, user, subscription_id)
 
-    return render(
-        request, "membership/manage.html", {"user_order": user_order}
-        )
+    return render(request, "membership/manage.html", {"user_order": user_order})
 
 
 @login_required
@@ -50,6 +48,4 @@ def change(request):
     if request.user.is_authenticated:
         user_order = Order.objects.filter(user=request.user).first()
 
-    return render(
-        request, "membership/change.html", {"user_order": user_order}
-        )
+    return render(request, "membership/change.html", {"user_order": user_order})
