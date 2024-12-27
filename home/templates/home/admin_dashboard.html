@@ -53,7 +53,32 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                This is the order details for {{ user.username }}.
+
+                {% if user_order %}
+
+                {% for order in user_order %}
+                {% if order.user.id == user.id %}
+                <p><strong>Membership Type:</strong> {{ order.membership.membership_type }}</p>
+                <p><strong>Price:</strong> £{{ order.membership.price }}</p>
+                <p><strong>Start Date:</strong> {{ order.created_at|date:"d/m/Y" }}</p>
+
+                {% if not order.expiry_date %}
+                <p><strong>Renewal Date:</strong> {{ order.next_renewal|date:"d/m/Y" }}</p>
+                {% endif %}
+
+                {% if order.expiry_date %}
+                <p><strong>Expiry Date:</strong> {{ order.expiry_date|date:"d/m/Y" }}</p>
+                {% endif %}
+
+                {% if order.membership.has_changed %}
+                <p><strong>Upgraded Membership:</strong> {{ order.membership.pending_membership }}</p>
+                <p><strong>Next Bill:</strong> £{{ order.membership.total_next_payment }}</p>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <p>No order details available for this user.</p>
+                {% endif %}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
