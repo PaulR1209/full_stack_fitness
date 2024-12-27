@@ -53,32 +53,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
-                {% if user_order %}
-
-                {% for order in user_order %}
-                {% if order.user.id == user.id %}
-                <p><strong>Membership Type:</strong> {{ order.membership.membership_type }}</p>
-                <p><strong>Price:</strong> £{{ order.membership.price }}</p>
-                <p><strong>Start Date:</strong> {{ order.created_at|date:"d/m/Y" }}</p>
-
+                {% for order in user.orders %}
+                <p>Membership: {{ order.membership }}</p>
+                <p>Start Date: {{ order.created_at|date:"d/m/Y" }}</p>
                 {% if not order.expiry_date %}
-                <p><strong>Renewal Date:</strong> {{ order.next_renewal|date:"d/m/Y" }}</p>
-                {% endif %}
-
-                {% if order.expiry_date %}
-                <p><strong>Expiry Date:</strong> {{ order.expiry_date|date:"d/m/Y" }}</p>
-                {% endif %}
-
-                {% if order.membership.has_changed %}
-                <p><strong>Upgraded Membership:</strong> {{ order.membership.pending_membership }}</p>
-                <p><strong>Next Bill:</strong> £{{ order.membership.total_next_payment }}</p>
-                {% endif %}
-                {% endif %}
-                {% endfor %}
+                <p>Renewal Date: {{ order.next_renewal|date:"d/m/Y" }}</p>
                 {% else %}
-                <p>No order details available for this user.</p>
+                <p>Expiry Date: {{ order.expiry_date|date:"d/m/Y" }}</p>
                 {% endif %}
+                {% if order.pending_membership %}
+                <p>Pending Membership: {{ order.pending_membership }}</p>
+                {% endif %}
+                <p>Next Bill Total: £{{ order.total_next_payment }}</p>
+                {% empty %}
+                <p>No orders found for this user.</p>
+                {% endfor %}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

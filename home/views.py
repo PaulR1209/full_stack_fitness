@@ -32,10 +32,12 @@ def about(request):
 def admin_dashboard(request):
 
     all_users = User.objects.all()
-    user_order = Order.objects.all()
+
+    for user in all_users:
+        user.orders = Order.objects.filter(user=user)
 
     return render(
         request,
         "home/admin_dashboard.html",
-        {"all_users": all_users, "user_order": user_order},
+        {"all_users": all_users},
     )
