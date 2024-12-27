@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .forms import NewsletterSignupForm
 from django.contrib import messages
 from django.contrib.auth.models import User
+from checkout.models import Order
 from .decorators import admin_required
 
 # Create your views here.
@@ -29,7 +30,12 @@ def about(request):
 
 @admin_required
 def admin_dashboard(request):
-    
-    all_users = User.objects.all()
 
-    return render(request, "home/admin_dashboard.html", {"all_users": all_users})
+    all_users = User.objects.all()
+    user_order = Order.objects.all()
+
+    return render(
+        request,
+        "home/admin_dashboard.html",
+        {"all_users": all_users, "user_order": user_order},
+    )
