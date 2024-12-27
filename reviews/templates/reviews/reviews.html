@@ -74,7 +74,7 @@
                 </div>
             </div>
             <!-- Edit/Delete Buttons -->
-            {% if user.is_authenticated and review.user == user %}
+            {% if user.is_authenticated and review.user == user or user.is_staff %}
             <a href="{% url 'review_edit' review.pk %}" class="btn btn-primary">Edit</a>
             <form method="POST" action="{% url 'review_delete' review.pk %}" style="display:inline;">
                 {% csrf_token %}
