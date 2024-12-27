@@ -24,12 +24,16 @@
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
                         <td>
-                            <a class="btn btn-primary">Manage</a>
+                            <!-- Use unique ID for each modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#userOrderModal{{ user.id }}">
+                                Manage
+                            </button>
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="4">No users found.</td>
+                        <td colspan="3">No users found.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -37,4 +41,25 @@
         </div>
     </div>
 </div>
+
+<!-- User Order Modal -->
+{% for user in all_users %}
+<div class="modal fade" id="userOrderModal{{ user.id }}" tabindex="-1"
+    aria-labelledby="userOrderModalLabel{{ user.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userOrderModalLabel{{ user.id }}">Order Details for {{ user.username }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                This is the order details for {{ user.username }}.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}
