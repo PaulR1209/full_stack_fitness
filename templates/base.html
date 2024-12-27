@@ -11,8 +11,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-        content="Explore our gym membership plans at Full Stack Fitness
+    <meta name="description" content="Explore our gym membership plans at Full Stack Fitness
         to access top-of-the-line equipment and expert trainers.
         Find the perfect plan to achieve your fitness goals today!">
     <link rel="icon" href="https://res.cloudinary.com/dbkejesw4/image/upload/v1730984786/weightlifting_jlajri.ico">
@@ -71,6 +70,12 @@
                             <a class="nav-link {% if request.path == '/reviews/' %}active{% endif %}"
                                 href="{% url 'reviews' %}">Reviews</a>
                         </li>
+                        {% if user.is_authenticated and user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/admin_dashboard' %}active{% endif %}"
+                                href="{% url 'admin_dashboard' %}">Admin</a>
+                        </li>
+                        {% endif %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle {% if request.path == '/membership/' %}active{% endif %}"
                                 href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
