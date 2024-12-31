@@ -21,7 +21,7 @@ def send_confirmation_email(sender, instance, created, **kwargs):
             <p><strong>Renewal Date:</strong> {renewal_date}</p>
             <p><strong>Price:</strong> £{instance.total_next_payment}</p>
         """
-    if not created and instance.has_changed:
+    else:
         subject = "Your Membership Details Have Been Updated"
 
         start_date = instance.created_at.strftime("%B %d, %Y")
