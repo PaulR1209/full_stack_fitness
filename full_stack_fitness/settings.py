@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     "home",
     "reviews",
     "membership",
-    "checkout",
+    "checkout.apps.CheckoutConfig",
     "cloudinary",
     "cloudinary_storage",
     "crispy_forms",
