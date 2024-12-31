@@ -54,10 +54,14 @@ class Order(models.Model):
 
     def save(self, *args, **kwargs):
         """Override the save method to calculate the next renewal date."""
-        self.calculate_next_renewal()
-        self.calculate_total_next_payment()
-        self.calculate_proration()
-        super().save(*args, **kwargs)
+        if self.has_changed:
+            recalculate = True
+            self.calculate_next_renewal()
+            self.calculate_total_next_payment()
+            self.calculate_proration()
+
+        if recalculate:
+            super().save(*args, **kwargs)
 
     def calculate_next_renewal(self):
         """Calculate the next renewal date."""
