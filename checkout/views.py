@@ -13,6 +13,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class Checkout(View):
     """View to handle the checkout process for memberships."""
+
     def post(self, request, *args, **kwargs):
         # Map membership types to Stripe price IDs
         membership_price_map = {
@@ -41,7 +42,7 @@ class Checkout(View):
                     f"https://full-stack-fitness-a73d59e5c070.herokuapp.com/"
                     f"checkout/success/"
                     f"{{CHECKOUT_SESSION_ID}}"
-                    ),
+                ),
                 cancel_url=request.build_absolute_uri("/membership/"),
                 customer_email=request.user.email,
             )
@@ -57,18 +58,15 @@ class Checkout(View):
             )
         except stripe.error.RateLimitError:
             messages.error(
-                request, "We're experiencing high traffic."
-                "Please try again later."
+                request, "We're experiencing high traffic." "Please try again later."
             )
         except stripe.error.InvalidRequestError:
             messages.error(
                 request,
-                "There was an error with your request."
-                "Please check your input.",
+                "There was an error with your request." "Please check your input.",
             )
         except Exception as e:
-            messages.error(request, "An unexpected error occurred."
-                           "Please try again.")
+            messages.error(request, "An unexpected error occurred." "Please try again.")
             print(f"Unexpected error: {e}")
 
         return redirect("error")
@@ -76,6 +74,7 @@ class Checkout(View):
 
 class CheckoutSuccess(View):
     """View to handle the success page after a successful checkout."""
+
     def get(self, request, *args, **kwargs):
         session_id = self.kwargs["session_id"]
         try:
@@ -89,12 +88,8 @@ class CheckoutSuccess(View):
                 subscription_id = checkout_session.subscription
                 customer_id = checkout_session.customer
                 customer = stripe.Customer.retrieve(checkout_session.customer)
-                membership_instance = Membership.objects.get(
-                    stripe_price_id=price_id
-                    )
-                price = Decimal(
-                    line_items.data[0]["price"]["unit_amount"] / 100
-                    )
+                membership_instance = Membership.objects.get(stripe_price_id=price_id)
+                price = Decimal(line_items.data[0]["price"]["unit_amount"] / 100)
 
                 session_email = checkout_session.customer_details.email
                 # Check if the session email matches the user email
@@ -144,8 +139,7 @@ class CheckoutSuccess(View):
         except stripe.error.StripeError as e:
             messages.error(
                 request,
-                "There was a problem processing your payment."
-                "Please try again.",
+                "There was a problem processing your payment." "Please try again.",
             )
             print(f"Stripe error: {str(e)}")
 
@@ -170,14 +164,15 @@ class CheckoutSuccess(View):
 
 class CheckoutError(View):
     """View to handle the error page after an unsuccessful checkout."""
+
     def get(self, request, *args, **kwargs):
         error_message = messages.get_messages(request)
-        return render(
-            request, "checkout/error.html", {"error_message": error_message})
+        return render(request, "checkout/error.html", {"error_message": error_message})
 
 
 class CancelMembership(View):
     """View to handle the cancellation of a membership."""
+
     def post(self, request, *args, **kwargs):
         # Get the user's order
         try:
@@ -214,6 +209,7 @@ class CancelMembership(View):
 
 class ReactivateMembership(View):
     """View to handle the reactivation of a cancelled membership."""
+
     def post(self, request, *args, **kwargs):
         try:
             # Get the user's order
@@ -238,8 +234,7 @@ class ReactivateMembership(View):
                 user_order.is_cancelled = False
                 user_order.save()
 
-                messages.success(
-                    request, "Membership reactivated successfully.")
+                messages.success(request, "Membership reactivated successfully.")
             else:
                 messages.error(request, "No cancelled membership found.")
         except Order.DoesNotExist:
@@ -253,6 +248,7 @@ class ReactivateMembership(View):
 
 class ChangeMembership(View):
     """View to handle the changing of a membership."""
+
     def post(self, request, *args, **kwargs):
         # Get the selected membership type
         selected_membership = request.POST.get("membership_type")
@@ -294,18 +290,13 @@ class ChangeMembership(View):
                     is_upgrade = new_price_amount > current_price_amount
                     is_downgrade = new_price_amount < current_price_amount
 
-                    subscription_item_id = (
-                        subscription["items"]["data"][0]["id"]
-                        )
+                    subscription_item_id = subscription["items"]["data"][0]["id"]
 
                     # Upgrade the subscription on stripe
                     if is_upgrade:
                         stripe.Subscription.modify(
                             subscription_id,
-                            items=[{
-                                "id": subscription_item_id,
-                                "price": new_price_id
-                                }],
+                            items=[{"id": subscription_item_id, "price": new_price_id}],
                             billing_cycle_anchor="unchanged",
                             proration_behavior="create_prorations",
                         )
@@ -313,9 +304,7 @@ class ChangeMembership(View):
                         # Update the database
                         user_order.membership = new_membership
                         user_order.pending_membership = None
-                        user_order.previous_membership_price = (
-                            current_price_amount
-                            )
+                        user_order.previous_membership_price = current_price_amount
                         user_order.stripe_price_id = new_price_id
                         user_order.membership_price = new_price_amount
                         user_order.has_changed = True
@@ -336,10 +325,7 @@ class ChangeMembership(View):
                     elif is_downgrade:
                         stripe.Subscription.modify(
                             subscription_id,
-                            items=[{
-                                "id": subscription_item_id,
-                                "price": new_price_id
-                                }],
+                            items=[{"id": subscription_item_id, "price": new_price_id}],
                             proration_behavior="none",
                             billing_cycle_anchor="unchanged",
                             cancel_at_period_end=False,
@@ -359,9 +345,7 @@ class ChangeMembership(View):
                         )
 
                 else:
-                    messages.info(
-                        request, "You are already on this membership plan."
-                        )
+                    messages.info(request, "You are already on this membership plan.")
             else:
                 messages.error(request, "No active membership found.")
         except Exception as e:
@@ -375,9 +359,7 @@ def check_and_update_payment_status(request, user, subscription_id):
     """Function to check and update the payment status of a subscription."""
     try:
         subscription = stripe.Subscription.retrieve(subscription_id)
-        user_order = Order.objects.get(
-            user=user, subscription_id=subscription_id
-            )
+        user_order = Order.objects.get(user=user, subscription_id=subscription_id)
         today = timezone.now()
 
         if subscription["cancel_at_period_end"]:
@@ -420,6 +402,7 @@ def check_and_update_payment_status(request, user, subscription_id):
 
 class UpdatePaymentMethod(View):
     """View to handle the updating of a payment method."""
+
     def post(self, request, *args, **kwargs):
         try:
             user_order = Order.objects.filter(
@@ -437,7 +420,7 @@ class UpdatePaymentMethod(View):
                 mode="setup",
                 success_url=request.build_absolute_uri(
                     "/checkout/payment-update-success/"
-                    ),
+                ),
                 cancel_url=request.build_absolute_uri("/cancel/"),
             )
 
@@ -449,8 +432,7 @@ class UpdatePaymentMethod(View):
 
 class PaymentUpdateSuccess(View):
     """View to handle the success page after a successful payment update."""
+
     def get(self, request, *args, **kwargs):
-        messages.success(
-            request, "Your payment method has been successfully updated!"
-            )
+        messages.success(request, "Your payment method has been successfully updated!")
         return render(request, "checkout/update_payment_success.html")
