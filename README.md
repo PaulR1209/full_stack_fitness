@@ -62,7 +62,13 @@ These stories demonstrate how the application meets real needs by simplifying me
 
 ## UX Design and Features
 
-The design for this website was developed iteratively, based on my initial vision of the user experience. I didn’t create formal wireframes or mockups but instead focused on a user-centered design process where I built out each page and feature, keeping the user journey in mind. I aimed to create a smooth flow, starting from the homepage and leading users through the membership selection, signup, and payment processes. The design evolved as I implemented features and tested the user interactions.
+### Wireframes
+
+![Home Wireframe Screenshot](/readme/images/home-wireframe.png)
+
+![Reviews Wireframe Screenshot](/readme/images/reviews-wireframe.png)
+
+![Membership Wireframe Screenshot](/readme/images/membership-wireframe.png)
 
 ### Homepage
 
