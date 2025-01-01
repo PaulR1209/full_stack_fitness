@@ -9,7 +9,9 @@ def admin_required(view_func):
 
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_staff:
-            messages.warning(request, "You need admin access to perform this action.")
+            messages.warning(
+                request, "You need admin access to perform this action."
+                )
             return redirect("index")
         return view_func(request, *args, **kwargs)
 

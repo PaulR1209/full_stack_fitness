@@ -15,7 +15,8 @@ def send_confirmation_email(sender, instance, created, **kwargs):
 
         body = f"""
             <h1>Welcome, {instance.user}!</h1>
-            <p>Thank you for signing up for Fullstack Fitness! Your membership is now active.</p>
+            <p>Thank you for signing up for Fullstack Fitness!
+              Your membership is now active.</p>
             <p><strong>Membership Type:</strong> {instance.membership}</p>
             <p><strong>Start Date:</strong> {start_date}</p>
             <p><strong>Renewal Date:</strong> {renewal_date}</p>
