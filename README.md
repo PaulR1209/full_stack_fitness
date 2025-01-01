@@ -237,51 +237,183 @@ This project uses a relational database to store information about users, orders
   <tbody>
     <tr>
       <td>1</td>
-      <td>Access to reviews and membership purchases as guest</td>
-      <td>When attempting to add a review, purchase a membership, or access any URLs realted to either, the user will be directed to the sign in or sign up page.</td>
+      <td>Verify that all navigation bar links function correctly when clicked.</td>
+      <td>Each navigation bar link should redirect the user to the corresponding page.</td>
       <td>Pass</td>
     </tr>
   <tr>
       <td>2</td>
-      <td>Leave a Review</td>
-      <td>Users can leave a review, with a title, star rating, and comment. Once the review has been submitted, it will show on the reviews page.</td>
+      <td>Verify that all footer links open the correct pages in a new browser tab.</td>
+      <td>Each footer link should open the relevant page in a new tab without affecting the current page.</td>
       <td>Pass</td>
     </tr>
   <tr>
       <td>3</td>
-      <td>Edit or Delete their Reviews</td>
-      <td>Users can edit and delete only their reviews, and will not have the option or access to edit and delete others reviews.</td>
+      <td>Verify that all navigation buttons on the home page redirect to their respective pages.</td>
+      <td>"Join Now" buttons should redirect to the memberships page. "Learn More" button should redirect to the about page. "Read All Reviews" button should redirect to the reviews page. </td>
       <td>Pass</td>
     </tr>
   <tr>
       <td>4</td>
-      <td>Purchasing a Membership</td>
-      <td>Users can choose a membership, and be directed to the stripe checkout page. If the payment is successful, you will be redirected to a success page, and your order will be added to the database.</td>
+      <td>Verify that clicking the "Newsletter Signup" button opens the newsletter signup modal.</td>
+      <td>Clicking the "Newsletter Signup" button should display the modal with fields to enter name and email address.</td>
       <td>Pass</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>Viewing Membership details</td>
-      <td>Users, when they have purchased a membership, can view their membership, and details, such as start date, last renewel date, and next renewel date. They can see their expiry date if canceled.</td>
+      <td>Verify that entering a unique email address in the newsletter signup form successfully signs up the user.</td>
+      <td>Submitting the form with a unique email address should close the modal and display a success message.</td>
       <td>Pass</td>
     </tr>
     <tr>
       <td>6</td>
-      <td>Updating Membership details or payment methods</td>
-      <td>Users can change and cancel their membership, and update their payment method. If done successfully, this will update the database and changes will be shown on the front end. The user will also get message pop ups when any changes are made.</td>
+      <td>Verify that entering an email address already signed up for the newsletter prevents duplicate signup and displays an error message.</td>
+      <td>Submitting the form with an already-signed-up email address should display an error message indicating the email is already registered.</td>
       <td>Pass</td>
     </tr>
     <tr>
       <td>7</td>
-      <td>Accessing other users memberships</td>
-      <td>Users and guests will not have any access to other users membership details. Any attempt to access will be blocked.</td>
+      <td>Verify that the "Join Now" button on the About page redirects to the Memberships page.</td>
+      <td>The "Join Now" button should navigate the user to the Memberships page upon being clicked.</td>
       <td>Pass</td>
     </tr>
     <tr>
       <td>8</td>
-      <td>Failed Payment Notification</td>
-      <td>User will be notified by a pop up message if a payment has failed, or a membership has been canceled because of a failed payment.</td>
+      <td>Verify that clicking the "Add Review" button as a guest user redirects to the Sign Up page.</td>
+      <td>The "Add Review" button should navigate the user to the Sign Up page if they are not signed in.</td>
       <td>Pass</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Verify that a signed-in user can add a review by filling in all required fields and clicking "Save."</td>
+      <td>The review should be successfully added to the Reviews page, a success message should display, and the user should be redirected back to the Reviews page.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Verify that attempting to add a review with incomplete fields shows a prompt to fill in the required fields and prevents submission.</td>
+      <td>The form should not save the review, and an error message should prompt the user to complete the required fields.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Verify that a logged-in user can edit their own review using the "Edit Review" button.</td>
+      <td>An edit form should appear, allowing the user to modify their review. After clicking "Save," the review should update, display a success message, and redirect back to the Reviews page.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Verify that a logged-in user can delete their own review using the "Delete" button and confirming the action.</td>
+      <td>Clicking "Delete" should prompt a confirmation. Selecting "Confirm" should delete the review, display a success message, and remove the review from the Reviews page. Selecting "Cancel" should return the user to the Reviews page without deleting the review.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Verify that users cannot edit or delete other users’ reviews.</td>
+      <td>The "Edit" and "Delete" buttons should not appear under other users’ reviews. Copying and pasting a link to another user’s review should deny access and display a permission error message.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Verify that the filter by star rating functionality displays reviews matching the selected star rating.</td>
+      <td>After selecting a specific star rating filter, the page should display only reviews with the chosen star rating.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Verify that reviews can be sorted by newest, oldest, highest rating, and lowest rating.</td>
+      <td>After selecting a sorting option, the reviews should rearrange accordingly (e.g., newest to oldest or highest to lowest rating).</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Verify that when not signed in, the "Sign Up" and "Sign In" links navigate to their respective pages, and the membership cards display the message "You must log in to purchase this membership."</td>
+      <td>"Sign Up" should navigate to the sign-up page, "Sign In" should navigate to the sign-in page, and the message should display correctly on the membership cards.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Verify that when signed in, the "Sign Up" and "Sign In" links disappear, and the "Buy Now" buttons appear on each membership card.</td>
+      <td>The "Sign Up" and "Sign In" links should no longer appear, and the "Buy Now" buttons should replace them on each membership card.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Verify that clicking the "Buy Now" button on any membership card navigates the user to the Stripe checkout page for payment.</td>
+      <td>Each "Buy Now" button should redirect the user to the Stripe checkout page for the corresponding membership.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Verify that after a successful membership purchase, the membership page displays only the user’s purchased membership with a "Manage" button.</td>
+      <td>The page should update to show only the purchased membership and provide a "Manage" button for further actions.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Verify that the "Manage" button directs users with an active membership to the Manage Membership page.</td>
+      <td>Clicking "Manage" should take the user to the Manage Membership page if they have an active membership.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Verify that clicking "Change Membership" opens a modal box with the appropriate confirmation message depending on whether the user is upgrading or downgrading.</td>
+      <td>The modal box should display an upgrade message if upgrading or a downgrade message if downgrading. Appropriate logic should apply (immediate for upgrades, renewal for downgrades).</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Verify that after changing a membership, the "Change Membership" button disappears, and a message states that changes can only occur once per billing cycle.</td>
+      <td>The "Change Membership" button should be removed, and the appropriate restriction message should appear after a change.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Verify that clicking "Cancel Membership" opens a modal box for confirmation, and upon confirming, marks the membership as canceled, showing an option to reactivate.</td>
+      <td>After cancellation, the membership should be marked as canceled, and a "Reactivate" option should appear.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Verify that clicking "Reactivate" opens a modal box for confirmation, and upon confirming, removes the cancellation status of the membership.</td>
+      <td>The membership should no longer be marked as canceled after confirming reactivation.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>Verify that clicking "Update Payment Details" redirects to the Stripe API, and after entering payment details, displays a success message with a link to return to the Membership page.</td>
+      <td>Users should be directed to Stripe, and upon successful entry of payment details, see a success message and link to return.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Verify that the "Admin" navigation link is visible in the navigation bar only when an admin user is signed in.</td>
+      <td>The "Admin" navigation link should only appear in the navigation bar for users with admin permissions. It should not appear for non-admin users or when no user is signed in.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>Verify that clicking the "Admin" navigation link as an admin user successfully navigates to the admin page.</td>
+      <td>The "Admin" navigation link should direct the admin user to the admin page without any errors.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>Verify that in the admin page, clicking "View Details" for a user opens a modal box showing their membership details. If the user does not have a membership, a message should display saying they do not have one.</td>
+      <td>Clicking "View Details" should open a modal box displaying the selected user's membership details or a message stating that they do not have a membership.</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td>Verify that an admin user has the option to edit any review, regardless of the review's author. Confirm that edited reviews are saved correctly and changes are reflected on the reviews page.</td>
+      <td>Admin users should have the ability to edit any review. Edited reviews should save successfully and display the updated content on the reviews page.</td>
+      <td>Pass</td>
+      <tr>
+      <td>30</td>
+      <td>Verify that an admin user has the option to delete any review, regardless of the review's author. Confirm that the review is removed from the reviews page after deletion.</td>
+      <td>Admin users should have the ability to delete any review. Deleted reviews should no longer appear on the reviews page.</td>
+      <td>Pass</td>
+    </tr>
     </tr>
   </tbody>
 </table>
