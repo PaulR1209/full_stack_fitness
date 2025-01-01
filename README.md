@@ -50,15 +50,77 @@ The newsletter allows the gym to engage with members and potential customers dir
 
 ## User Stories
 
-1. As a **site user** I can **view the home page** so that **I can learn more about the gym**
-2. As a **site user** I can **view the about us page** so that **I can learn more about the gyms mission and services**
-3. As a **site user** I can **read and create reviews and ratings** so that **I can read other peoples experiences of the gym**
-4. As a **site user** I can **view the different tiers of membership** so that **I can choose which membership to purchase**
-5. As a **site user** I can **purchase a membership** so that **I can access gym services**
-6. As a **site user** I can **view my membership details** so that **I know what membership I have and when it runs out**
-7. As a **site user** I can **upgrade and cancel my membership** so that **I can change my plan or cancel based on my needs**
+### 1. Home Page
+As a site user, I want to view the home page so that I can understand what the gym offers and navigate easily to other sections of the site.
 
-These stories demonstrate how the application meets real needs by simplifying membership interactions, building community through reviews, and providing self-service management tools for users. This project aims to create a convenient, accessible platform for all users interested in engaging with their gym online.
+- **Acceptance Criteria**
+  - The home page displays gym services, features, and call-to-action buttons like "Join Now" or "Learn More."
+  - The page loads correctly on all devices and screen sizes.
+
+### 2. About Page
+As a site user, I want to view the "About Us" page so that I can understand the gym’s mission, values, and available services.
+
+- **Acceptance Criteria**
+  - The "About Us" page provides clear information on the gym's mission, history, and services.
+  - The page is accessible via a top navigation link and loads correctly on all devices.
+
+### 3. Reviews and Ratings
+
+As a site user, I want to read and leave reviews with ratings so that I can share my experiences and see others' feedback on the gym.
+
+- **Acceptance Criteria**
+  - Users can view reviews with star ratings on the reviews page.
+  - Only signed-in users can leave reviews and ratings.
+  - Reviews can be filtered by star rating and sorted by the newest or oldest.
+  - Error messages display if required fields in the review form are left empty.
+
+### 4. Membership Tiers
+As a site user, I want to view the different membership tiers so that I can compare them and decide which one best suits my needs.
+
+- **Acceptance Criteria**
+  - The membership page clearly displays the benefits and prices of each membership tier.
+  - Users can compare membership features side-by-side.
+
+### 5. Purchasing Membership
+As a site user, I want to be able to purchase a membership so that I can access the gym’s services online.
+
+- **Acceptance Criteria**
+  - Users can purchase a membership via a "Buy Now" button that redirects to Stripe checkout.
+  - Payment is securely processed through Stripe, and users receive a confirmation email after payment.
+  - A success message is shown upon completion of the payment.
+
+### 6. Viewing Membership Details
+As a signed-in user, I want to view my membership details so that I can track my membership plan, renewal dates, and status.
+
+- **Acceptance Criteria**
+  - Once logged in, the user can access a page displaying membership details, including membership type, renewal date, and billing cycle.
+  - If no membership is active, the page will inform the user.
+
+### 7. Membership Management (Upgrade/Cancel)
+As a signed-in user with an active membership, I want to be able to upgrade, downgrade, or cancel my membership so that I can manage my plan according to my preferences.
+
+- **Acceptance Criteria**
+  - Users can upgrade or downgrade their membership via a "Manage Membership" page.
+  - A confirmation modal appears when users try to change or cancel their membership.
+  - Downgrades take effect at the next billing cycle, and upgrades take effect immediately with a prorated charge.
+  - After upgrading or downgrading, users can only change membership once per billing cycle.
+  - Cancelled memberships stop renewing, but users can reactivate them before the renewal date.
+
+### 8. Admin Permissions (Review Moderation and User Management)
+As an admin, I want to access a user management page where I can view all users and manage reviews so that I can moderate the platform and ensure quality content.
+
+- **Acceptance Criteria**
+  - Admin users can access a list of all registered users.
+  - Admins can view details of a user’s memberships, and if the user has no membership, a message will display.
+  - Admins can edit or delete any review submitted by users.
+  - Admins can moderate reviews and ensure they comply with community guidelines.
+
+### How These Stories Meet Real Needs:
+
+- **Membership Interactions**: Users can easily sign up, view, manage, and change memberships, making the gym services more accessible and user-friendly.
+- **Community Building**: Reviews and ratings help create a space for users to share experiences, increasing trust and fostering engagement.
+- **Self-service Tools**: Allowing users to manage their memberships and handle payments autonomously simplifies the user experience and reduces administrative load.
+- **Admin Management**: Admins have the necessary permissions to ensure reviews are moderated and user data is appropriately managed.
 
 ## UX Design and Features
 
