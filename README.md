@@ -64,6 +64,8 @@ These stories demonstrate how the application meets real needs by simplifying me
 
 ### Wireframes
 
+These wireframes, created using Balsamiq, represent the rough layout and structure of the website. They offer a simple, visual guide to the design and functionality of key pages, helping to plan the user experience and interface before final implementation.
+
 ![Home Wireframe Screenshot](/readme/images/home-wireframe.png)
 
 ![Reviews Wireframe Screenshot](/readme/images/reviews-wireframe.png)
@@ -81,6 +83,12 @@ These stories demonstrate how the application meets real needs by simplifying me
 ![Membership Page Screenshot](/readme/images/memberships-auth.png)
 
 **Explanation:** Upon clicking the CTA, users are presented with the membership options in a clear, color-coded layout featuring bronze, silver, and gold tiers. This design makes it easy for users to differentiate between available membership options. For new users who are not logged in, another CTA prompting them to sign up appears underneath the membership tiers. This ensures users can only purchase a membership after signing up.
+
+### Admin Dashboard
+
+![Admin Dashboard Screenshot](/readme/images/admin-dashboard.png)
+
+**Explanation** The Admin Dashboard is a page accessible only to users with admin credentials. It provides an overview of all users, with the ability to view detailed information about each user's orders by clicking the "View Details" button. While the page is currently in progress, there are plans to enhance it by adding a search filter for more efficient user lookup. Future updates will also include the ability for admins to edit and create orders on behalf of users, improving overall functionality and control.
 
 ### Login/Sign Up Page
 
@@ -111,6 +119,12 @@ These stories demonstrate how the application meets real needs by simplifying me
 **Explanation:** The Reviews page allows users who are logged in to leave a review for the gym. Each review consists of a title, star rating, and a comment, providing valuable feedback for both the gym and other potential customers. Reviews are visible to all visitors, but only logged-in users can leave, edit, or delete their own reviews. This functionality helps build trust and community within the website, as users can see others' experiences while sharing their own.
 
 **Sorting Functionality:** Users can sort reviews by star rating and by the newest or oldest, which makes it easy to find the most relevant or recent feedback. This sorting mechanism enhances the user experience by allowing them to navigate the reviews efficiently.
+
+### Reviews Page for Admin
+
+![Reviews page admin screenshot](/readme/images/admin-review.png)
+
+**Explanation** The Admin Reviews Page allows admins to view all user-submitted reviews. Admins have the ability to edit or delete reviews as needed, providing moderation tools to ensure content remains appropriate and in line with community guidelines.
 
 ## Pop up Notifications
 
