@@ -72,7 +72,7 @@ def review_edit(request, pk):
     review = get_object_or_404(Review, pk=pk)
 
     # Check if the logged-in user is the owner of the review
-    if review.user != request.user:
+    if review.user != request.user and not request.user.is_staff:
         messages.error(
             request, "You don't have permission to edit this review."
             )
@@ -99,7 +99,7 @@ def review_delete(request, pk):
     review = get_object_or_404(Review, pk=pk)
 
     # Check if the logged-in user is the owner of the review
-    if review.user != request.user:
+    if review.user != request.user and not request.user.is_staff:
         messages.error(
             request, "You don't have permission to delete this review."
             )
