@@ -452,45 +452,48 @@ This section will be updated if any bugs are identified in future testing or by 
 
 ## Local Deployment
 
-### Step 1: Creating a new Repository
-- I navigated to the [Code Institute GitHub Template](https://github.com/Code-Institute-Org/ci-full-template) and clicked on **Use this template** and then clicked **Create a new repository**.
-- I then chose my repository name and clicked **Create repository**
-- Then I opened [GitPod](https://codeinstitute-ide.net/workspaces) and clicked **New Workspace**, selected my repository, and clicked **Continue**.
+### Step 1: Create a new Repository
+- Go to the Code Institute GitHub Template and click Use this template to create a new repository.
+- Open your IDE (e.g., GitPod), click New Workspace, and select your newly created repository.
 
-### Step 2: Installing Dependencies
-- Once my IDE loaded, I installed the necessary project dependencies by installing requirments.txt
+### Step 2: Install Dependencies
+- Open the terminal in your IDE and run: `pip install -r requirements.txt`
+- This installs all the required packages for the project.
 
-### Step 3: Setting Up Environment Variables
-- I created a .env file in the root directory of my project
-- I added my secret keys to this file
+### Step 3: Set Up Environment Variables
+- Create a .env file in the root directory.
+- Add your environment variables (e.g., SECRET_KEY, DATABASE_URL, etc.) to the .env file.
 
-### Step 4: Database Setup and Migrations
-- I then set up my database. I used [PostreSQL](https://dbs.ci-dbs.net/)
-- Then I updated the database settings in `settings.py`
-- And then applied database migrations using `python manage.py migrate`
+### Step 4: Set Up Database
+- Set up PostgreSQL (or another database) and create a new database.
+- Update the DATABASE_URL in the .env file with your database connection string.
+- Run migrations: `python manage.py migrate`
 
-### Step 5: Creating a Superuser
-- I created a Superuser by writing `python manage.py createsuperuser` in the terminal and following the steps provided in the terminal.
+### Step 5: Create a Superuser
+- In the terminal, run: `python manage.py createsuperuser`
+- Follow the prompts to set up the superuser.
 
-### Step 6: Running the development server
-- I finally started the application by writing `python manage.py runserver` in the terminal then opened in the browswer using `localhost:8000`
+### Step 6: Run the server
+- Start the local development server by running: `python manage.py runserver`
+- Open your browser and go to http://localhost:8000 to view the app.
 
 ## Heroku Deployment
 
-### Step 1: Creating a Heroku app
-- I logged into Heroku and created a new app using the setup prompts
+### Step 1: Create a Heroku app
+- Log into Heroku and create a new app.
+- Choose an app name and region, then click Create App.
 
-### Step 2: Coneecting to GitHub
-- Once I created my app in heroku, I connected it with GitHub in the **Deploy** section of Heroku
+### Step 2: Connect to GitHub
+- In the Heroku app dashboard, go to the Deploy tab and connect your GitHub repository.
 
-### Step 3: Setting Environment Variables:
-- I then set all my environment variables in the **Config Vars** section in **Settings**
+### Step 3: Set Environment Variables:
+- In the Settings tab, scroll to Config Vars and add the same environment variables you added locally (e.g., SECRET_KEY, DATABASE_URL).
 
-### Step 4: Deploying Branch
-- In the **Deploy** section of Heroku, I clicked the **Deploy Branch** button, to deploy from my connected GitHub branch.
+### Step 4: Deploy the App
+- In the Deploy tab, click Deploy Branch to deploy from your GitHub repository.
 
-### Launching the App
-- Once deployed, I clicked on **Open App** to view my live app.
+### Launch the App
+- After deployment, click Open App to view your live application.
 
 ## Credits
 
@@ -498,3 +501,4 @@ This section will be updated if any bugs are identified in future testing or by 
 - AllAuth for my authentication
 - Code Institute course material
 - Bootstrap Documentation for my modal boxes
+- Balsamiq for my wireframes
