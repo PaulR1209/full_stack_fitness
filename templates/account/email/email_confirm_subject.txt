@@ -1,4 +1,4 @@
 {% load i18n %}
 {% autoescape off %}
-{% blocktrans %}Email Confirmation{% endblocktrans %}
+{% blocktrans %}Confirm Your Email Address - Full Stack Fitness{% endblocktrans %}
 {% endautoescape %}
